@@ -1,8 +1,8 @@
 {
-  "versionCode": 2,
-  "versionName": "1.1",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/image-bed@main/cinemark/CineMark-release.apk",
-  "apkUrlAlt": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk",
-  "notes": "1. 全屏重构：新增「铺满」按钮（裁切黑边真正填满屏幕）\n2. 全屏左上角返回、截图/录GIF 按钮全屏常显\n3. 封面加载改为原生下载，豆瓣热门/剧情/喜剧/动作/动画/科幻 封面正常显示\n4. 关于页内容垂直居中，新增「了解更多」公众号二维码\n5. 修复 OTA 检查：多仓库地址候选 + 失败明确提示",
+  "versionCode": 3,
+  "versionName": "1.2",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-release.apk",
+  "notes": "1. 关于页 POWERED BY 两行排版 + 横板 TUGO 透明 logo\n2. 顶部品牌区间距加大（远离弹窗上边框）\n3. 检查更新可正常发现并安装新版本",
   "force": false
 }
