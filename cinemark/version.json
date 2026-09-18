@@ -1,8 +1,8 @@
 {
-  "versionCode": 5,
-  "versionName": "1.4",
+  "versionCode": 6,
+  "versionName": "1.5",
   "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk",
   "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-release.apk",
-  "notes": "1. 修复点击全屏无响应（恢复原生全屏路径）\n2. 恢复全屏三区手势：左半竖滑音量 / 横滑±120秒进度 / 右半竖滑亮度\n3. 头部全屏按钮优先走视频原生全屏（手势齐全+自动横屏）",
+  "notes": "1. 全屏恢复截图与录制动图（改回网页全屏，视频留在 DOM，canvas 可抓帧）\n2. 全屏三区手势改为网页层实现：左半竖滑音量 / 横滑±120秒进度 / 右半竖滑亮度\n3. 全屏按钮竖屏可见；全屏时截图/录GIF/退出按钮全部显示",
   "force": false
 }
