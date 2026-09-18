@@ -1,8 +1,8 @@
 {
-  "versionCode": 7,
-  "versionName": "1.6",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.6.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.6.apk",
-  "notes": "1. 修复检查更新无响应：清理 404 死地址候选、请求加时间戳破 CDN 缓存、缩短超时\n2. APK 改用带版本号文件名，彻底避开 jsDelivr 缓存旧包\n3. 全屏截图/录GIF + 三区手势（1.5 内容）",
+  "versionCode": 8,
+  "versionName": "1.7",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.7.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.7.apk",
+  "notes": "1. 全屏时截图/录GIF/退出全屏按钮可正常点击（修复三区手势层把轻触抖动当拖动、preventDefault 吞掉点击的 bug，之前只能退出全屏才能用）\n2. 启用「铺满全屏（裁切黑边）」按钮，一键去掉播放黑边\n3. 播放器背景由纯黑改为深空灰 #0b0b0e，并加加载转圈动画，缓冲时不再一片死黑",
   "force": false
 }
