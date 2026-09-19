@@ -1,8 +1,8 @@
 {
-  "versionCode": 9,
-  "versionName": "1.8",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.8.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.8.apk",
-  "notes": "1. 视频原生控制栏的全屏按钮 ⛶ 修复：点击无反应/一点就废截图，现统一进入网页全屏（横屏+三区手势+截图录GIF 全可用）\n2. 全屏沉浸模式：顶部标题和按钮 3 秒后自动隐藏，点屏幕唤出/再点隐藏，看片不被遮挡\n3. 全屏进出更顺滑，退出全屏头部自动恢复",
+  "versionCode": 10,
+  "versionName": "1.9",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.9.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.9.apk",
+  "notes": "1. 根治「播放器全屏按键点不动/没实际功用」：弃用不可靠的原生控制栏（controls=false），改为自绘播放控制条——中央播放/暂停 + 底部时间轴进度条拖拽 Seek + 全屏键直连网页全屏，跨机型一致\n2. 自绘控制条与顶部标题栏统一 3 秒自动隐藏，点屏幕唤出/再点隐藏，看片不被遮挡\n3. 全屏头部与自绘控制条由同一显隐管理器接管，三区手势（左竖音量/横滑进度/右竖亮度）与按钮点击互不吞事件",
   "force": false
 }
