@@ -1,8 +1,8 @@
 {
-  "versionCode": 11,
-  "versionName": "1.10",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.10.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.10.apk",
-  "notes": "1. 电影详情页新增「剧照 · 海报」画廊：TMDB 图库自动匹配影片，横向滚动浏览海报与高清剧照，点击可看大图，详情页不再单调\n2. 资源站详情与豆瓣详情两个弹窗都支持；TMDB 自动匹配失败时自动隐藏该区，不影响原有布局\n3. 剧照数据本地缓存 7 天，二次打开秒出图；API 与图片加载均多通道自动降级，弱网也能看",
+  "versionCode": 12,
+  "versionName": "1.11",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.11.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.11.apk",
+  "notes": "1. 网站新增「下载 APP」入口：右下角常驻悬浮按钮 + 关于页「下载安卓 APP」按钮，一键下载最新安装包\n2. 下载链接始终指向最新版 APK（CineMark-release.apk 别名），无需随版本更新手动改地址\n3. 应用内（安卓 WebView）自动隐藏下载按钮，避免「应用里下载自己」的尴尬",
   "force": false
 }
