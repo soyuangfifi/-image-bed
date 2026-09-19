@@ -514,7 +514,7 @@ header{padding:32px 0 0}
       </div>
       <div class="ab-divider" data-page-node-id="8M5cI5asDniYpNFKDcD9K0"></div>
       <div class="ab-title" data-page-node-id="kgTy5Fty0cgy8SwTFW76Jp">影视热榜</div>
-      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.13.0</div>
+      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.14.0</div>
       <div class="ab-tagline" data-page-node-id="GAd20pcE0BPrierIJh0v25">多源聚合 · 豆瓣高分 · 搜索即看</div>
       <a class="abtn ab-dl" id="abDownload" href="https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk" target="_blank" rel="noopener" download style="text-decoration:none;margin-top:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>下载安卓 APP</a>
     </div>
@@ -2762,7 +2762,7 @@ console.log('[CM] Events bound');
 /* ===== 初始化 ===== */
 buildSrc();
 /* APP 内适配：下载入口改「打开网页版」，悬浮下载/扫码二维码隐藏（避免应用里下载自己） */
-var CM_WEB_URL = 'https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/web.html';
+var CM_WEB_URL = 'https://cinemark.app.workbuddy.host/'; // jsDelivr 对 .html 301 到 raw(text/plain) 会显示源码乱码，必须用能 text/html 直出的托管
 if (window.AndroidCM) {
   var _f = document.getElementById('cmDlFab'); if (_f) _f.classList.add('cm-hide');
   var _q = document.getElementById('cmDlQrCard'); if (_q) _q.classList.add('cm-hide');
