@@ -1,8 +1,8 @@
 {
-  "versionCode": 15,
-  "versionName": "1.14",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.14.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.14.apk",
-  "notes": "1. 全屏播放「铺满」三态循环按键：适应（完整画面）→ 裁剪铺满（裁切黑边）→ 拉伸铺满，退出全屏自动恢复适应\n2. 修复 APP 内「打开网页版」乱码：jsDelivr 对 .html 会跳转到 raw 纯文本导致显示源码，现改用可正常渲染的网页托管（cinemark.app.workbuddy.host）\n3. 网页版内容与最新版一致（含扫码下载/电影优先首屏/骨架屏/铺满功能）",
+  "versionCode": 16,
+  "versionName": "1.15",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.15.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.15.apk",
+  "notes": "1. 修复全屏播放上下/四周黑边：全屏时视频层改为 fixed 直接铺满整个视口，头部改为绝对浮层盖在视频上（不再挤占布局，顶部不留黑条）；iframe 源（m3u8）全屏直接铺满整屏\n2. 「铺满」三态循环：适应（完整画面）→ 裁剪铺满（裁切黑边）→ 拉伸铺满，原生层 immersive 已隐藏状态栏/导航栏，点击铺满键即真正满屏",
   "force": false
 }
