@@ -1,8 +1,8 @@
 {
-  "versionCode": 12,
-  "versionName": "1.11",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.11.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.11.apk",
-  "notes": "1. 网站新增「下载 APP」入口：右下角常驻悬浮按钮 + 关于页「下载安卓 APP」按钮，一键下载最新安装包\n2. 下载链接始终指向最新版 APK（CineMark-release.apk 别名），无需随版本更新手动改地址\n3. 应用内（安卓 WebView）自动隐藏下载按钮，避免「应用里下载自己」的尴尬",
+  "versionCode": 13,
+  "versionName": "1.12",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.12.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.12.apk",
+  "notes": "1. 关于页新增「扫码下载」二维码：编码最新版 APK 直链（CineMark-release.apk），手机扫码即可下载\n2. 二维码本地用 qrcode-generator 生成（jsDelivr 加载），失败时自动降级到 qrserver 图片服务，仍失败则提示点按钮下载\n3. 综合推荐首屏提速：电影资源优先加载展示（豆瓣电影→资源站电影→电视剧+夸克 渐进上屏），不再等最慢源全部到齐\n4. 进站默认选中「综合推荐」并加载，首屏未加载完成时显示骨架屏加载动画\n5. APP 内关于页「下载安卓 APP」改为「打开网页版」（跳转 jsDelivr 托管的网页版），APP 内悬浮下载与扫码二维码自动隐藏",
   "force": false
 }
