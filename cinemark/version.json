@@ -1,8 +1,8 @@
 {
-  "versionCode": 13,
-  "versionName": "1.12",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.12.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.12.apk",
-  "notes": "1. 关于页新增「扫码下载」二维码：编码最新版 APK 直链（CineMark-release.apk），手机扫码即可下载\n2. 二维码本地用 qrcode-generator 生成（jsDelivr 加载），失败时自动降级到 qrserver 图片服务，仍失败则提示点按钮下载\n3. 综合推荐首屏提速：电影资源优先加载展示（豆瓣电影→资源站电影→电视剧+夸克 渐进上屏），不再等最慢源全部到齐\n4. 进站默认选中「综合推荐」并加载，首屏未加载完成时显示骨架屏加载动画\n5. APP 内关于页「下载安卓 APP」改为「打开网页版」（跳转 jsDelivr 托管的网页版），APP 内悬浮下载与扫码二维码自动隐藏",
+  "versionCode": 14,
+  "versionName": "1.13",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.13.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.13.apk",
+  "notes": "1. 关于页新增「扫码下载」二维码：编码最新版 APK 直链（CineMark-release.apk），手机扫码即可下载\n2. 二维码本地用 qrcode-generator 生成（jsDelivr 加载），失败时自动降级到 qrserver 图片服务，仍失败则提示点按钮下载\n3. 综合推荐首屏提速：电影资源优先加载展示（豆瓣电影→资源站电影→电视剧+夸克 渐进上屏），不再等最慢源全部到齐\n4. 进站默认选中「综合推荐」并加载，首屏未加载完成时显示骨架屏加载动画\n5. APP 内关于页「下载安卓 APP」改为「打开网页版」（跳转 jsDelivr 托管的网页版），APP 内悬浮下载与扫码二维码自动隐藏\n6. 全屏播放新增「铺满」三态循环按键：适应（完整画面）→ 裁剪铺满（裁切黑边填满全屏）→ 拉伸铺满（填满全屏），让视频更有沉浸感；退出全屏自动恢复适应模式",
   "force": false
 }
