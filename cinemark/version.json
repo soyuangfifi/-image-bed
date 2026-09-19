@@ -1,8 +1,8 @@
 {
-  "versionCode": 10,
-  "versionName": "1.9",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.9.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.9.apk",
-  "notes": "1. 根治「播放器全屏按键点不动/没实际功用」：弃用不可靠的原生控制栏（controls=false），改为自绘播放控制条——中央播放/暂停 + 底部时间轴进度条拖拽 Seek + 全屏键直连网页全屏，跨机型一致\n2. 自绘控制条与顶部标题栏统一 3 秒自动隐藏，点屏幕唤出/再点隐藏，看片不被遮挡\n3. 全屏头部与自绘控制条由同一显隐管理器接管，三区手势（左竖音量/横滑进度/右竖亮度）与按钮点击互不吞事件",
+  "versionCode": 11,
+  "versionName": "1.10",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.10.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.10.apk",
+  "notes": "1. 电影详情页新增「剧照 · 海报」画廊：TMDB 图库自动匹配影片，横向滚动浏览海报与高清剧照，点击可看大图，详情页不再单调\n2. 资源站详情与豆瓣详情两个弹窗都支持；TMDB 自动匹配失败时自动隐藏该区，不影响原有布局\n3. 剧照数据本地缓存 7 天，二次打开秒出图；API 与图片加载均多通道自动降级，弱网也能看",
   "force": false
 }
