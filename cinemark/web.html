@@ -517,7 +517,7 @@ header{padding:32px 0 0}
       </div>
       <div class="ab-divider" data-page-node-id="8M5cI5asDniYpNFKDcD9K0"></div>
       <div class="ab-title" data-page-node-id="kgTy5Fty0cgy8SwTFW76Jp">影视热榜</div>
-      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.15.0</div>
+      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.16.0</div>
       <div class="ab-tagline" data-page-node-id="GAd20pcE0BPrierIJh0v25">多源聚合 · 豆瓣高分 · 搜索即看</div>
       <a class="abtn ab-dl" id="abDownload" href="https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk" target="_blank" rel="noopener" download style="text-decoration:none;margin-top:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>下载安卓 APP</a>
     </div>
@@ -2823,7 +2823,8 @@ function closeQrLightbox(){
 }
 
 /* ===== OTA 版本检查 ===== */
-var CM_UPDATE_JSON = 'https://cdn.jsdelivr.net/gh/soyuangfifi/image-bed@main/cinemark/version.json';
+/* 注意仓库名必须带横杠 -image-bed（与 CM_DL_URL / 图床一致）；写成 image-bed 会 404，导致检查更新永远失败 */
+var CM_UPDATE_JSON = 'https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/version.json';
 function cmToastLike(msg) {
   try {
     if (typeof gifStat === 'function') { gifStat(msg); return true; }
