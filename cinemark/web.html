@@ -426,9 +426,10 @@ header{padding:32px 0 0}
 
 /* 全屏时保留截图/录GIF 按钮（旧的 .pov.full .ph .ptools{display:none} 就地作废） */
 .pov.full .ph .ptools{display:flex}
-/* 铺满模式：视频裁切填满全屏（object-fit:cover），默认 contain 完整显示 */
-.pov.fillmode .pvid video{object-fit:cover}
-.pov.fillmode .pvid iframe{width:100vw;height:56.25vw;max-height:100vh;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}</style>
+/* 铺满模式：视频内联 object-fit:contain 优先级高于样式表，必须 !important 才能覆盖 */
+.pov.fillmode .pvid video{object-fit:cover !important}
+.pov.fillstretch .pvid video{object-fit:fill !important}
+.pov.fillmode .pvid iframe,.pov.fillstretch .pvid iframe{width:100vw;height:56.25vw;max-height:100vh;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}</style>
 </head>
 <body
 <!-- app logo -->
@@ -513,7 +514,7 @@ header{padding:32px 0 0}
       </div>
       <div class="ab-divider" data-page-node-id="8M5cI5asDniYpNFKDcD9K0"></div>
       <div class="ab-title" data-page-node-id="kgTy5Fty0cgy8SwTFW76Jp">影视热榜</div>
-      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.12.0</div>
+      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.13.0</div>
       <div class="ab-tagline" data-page-node-id="GAd20pcE0BPrierIJh0v25">多源聚合 · 豆瓣高分 · 搜索即看</div>
       <a class="abtn ab-dl" id="abDownload" href="https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk" target="_blank" rel="noopener" download style="text-decoration:none;margin-top:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>下载安卓 APP</a>
     </div>
@@ -562,7 +563,7 @@ header{padding:32px 0 0}
       <button type="button" class="phd ptools" id="btnSnap" title="截图（当前画面保存 PNG）" data-page-node-id="snap01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 012-2h1.5l1-1.5h9l1 1.5H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><circle cx="12" cy="12.5" r="3.2"/></svg></button>
       <button type="button" class="phd ptools" id="btnGif" title="录制 5 秒 GIF 动图" data-page-node-id="gif001"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l5-3v10l-5-3"/></svg></button>
       <span class="pstat" id="gifStat"></span>
-      <button type="button" class="phd" id="btnFill" title="铺满全屏（裁切黑边）">▣</button><button type="button" class="phd" id="btnLandscape" title="横屏观看" data-page-node-id="vP5grMzUkoGcA9J1N5by37">⛶</button>
+      <button type="button" class="phd" id="btnFill" title="适应（完整画面）">⛶</button><button type="button" class="phd" id="btnLandscape" title="横屏观看" data-page-node-id="vP5grMzUkoGcA9J1N5by37">⛶</button>
       <button type="button" class="phd ptools" id="btnFullscreen" title="全屏" data-page-node-id="Pt2jQuycsUuUvc318uiSLU">⛶</button>
     </div>
   </div>
@@ -2548,11 +2549,16 @@ document.getElementById('btnGif').onclick = recGif;
 var __btnFill = document.getElementById('btnFill');
 if (__btnFill) __btnFill.onclick = function() {
   var p = document.getElementById('player');
-  p.classList.toggle('fillmode');
-  var on = p.classList.contains('fillmode');
-  this.textContent = on ? '\u25AD' : '\u25A3';
-  this.title = on ? '恢复适应（完整画面）' : '铺满全屏（裁切黑边）';
-  gifStat(on ? '铺满模式：画面裁切填满全屏' : '适应模式：完整显示画面');
+  var fm = p.classList.contains('fillmode'), fs = p.classList.contains('fillstretch');
+  // 三态循环：适应(contain) -> 裁剪铺满(cover) -> 拉伸铺满(fill) -> 适应
+  p.classList.remove('fillmode', 'fillstretch');
+  var st;
+  if (!fm && !fs) { p.classList.add('fillmode'); st = 'cover'; }
+  else if (fm && !fs) { p.classList.add('fillstretch'); st = 'stretch'; }
+  else { st = 'contain'; }
+  this.textContent = st === 'stretch' ? '\u2922' : (st === 'cover' ? '\u25A3' : '\u26F6');
+  this.title = st === 'stretch' ? '拉伸铺满（填满全屏·不变形裁剪）' : (st === 'cover' ? '裁剪铺满（裁切黑边）' : '适应（完整画面）');
+  gifStat(st === 'contain' ? '适应模式：完整显示画面' : (st === 'cover' ? '铺满模式：画面裁切填满全屏' : '拉伸铺满模式：画面填满全屏'));
 };
 document.getElementById('btnLandscape').onclick = function() {
   var player = document.getElementById('player');
@@ -2593,6 +2599,9 @@ function cmExitFull() {
   var player = document.getElementById('player');
   if (!player || !player.classList.contains('full')) return;
   player.classList.remove('full');
+  player.classList.remove('fillmode', 'fillstretch'); // 退出全屏：恢复适应模式，下次播放从完整画面开始
+  var bf2 = document.getElementById('btnFill');
+  if (bf2) { bf2.textContent = '\u26F6'; bf2.title = '适应（完整画面）'; }
   var sid = document.getElementById('playerSel'); if (sid) sid.style.display = '';
   try {
     if (document.fullscreenElement) document.exitFullscreen().catch(function(){});
