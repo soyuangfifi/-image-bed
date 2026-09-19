@@ -1,8 +1,8 @@
 {
-  "versionCode": 8,
-  "versionName": "1.7",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.7.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.7.apk",
-  "notes": "1. 全屏时截图/录GIF/退出全屏按钮可正常点击（修复三区手势层把轻触抖动当拖动、preventDefault 吞掉点击的 bug，之前只能退出全屏才能用）\n2. 启用「铺满全屏（裁切黑边）」按钮，一键去掉播放黑边\n3. 播放器背景由纯黑改为深空灰 #0b0b0e，并加加载转圈动画，缓冲时不再一片死黑",
+  "versionCode": 9,
+  "versionName": "1.8",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.8.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.8.apk",
+  "notes": "1. 视频原生控制栏的全屏按钮 ⛶ 修复：点击无反应/一点就废截图，现统一进入网页全屏（横屏+三区手势+截图录GIF 全可用）\n2. 全屏沉浸模式：顶部标题和按钮 3 秒后自动隐藏，点屏幕唤出/再点隐藏，看片不被遮挡\n3. 全屏进出更顺滑，退出全屏头部自动恢复",
   "force": false
 }
