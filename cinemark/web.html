@@ -325,6 +325,15 @@ header{padding:48px 0 0;text-align:center}
 .cmcwrap .cms{flex:1;height:3px;-webkit-appearance:none;appearance:none;background:rgba(255,255,255,.35);border-radius:2px;outline:none;margin:0}
 .cmcwrap .cms::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--acc,#f0c850)}
 .cmcwrap .cmf{flex-shrink:0;width:36px;height:36px;border:none;background:none;color:#fff;font-size:19px;line-height:1;padding:0;cursor:pointer}
+/* 控制条内置 截图/录GIF：与进度条同一显隐（全屏点屏幕一起出现，3 秒无操作一起隐藏）。
+   头部 .ph 在真机上偶发不随点击唤出，控制条是用户确认可靠的那条显隐链路，按钮放这里最稳。 */
+.cmcwrap .cmtool{display:none;flex-shrink:0;width:36px;height:36px;border:none;background:none;color:#fff;line-height:1;padding:0;cursor:pointer;align-items:center;justify-content:center}
+.pov.full .cmcwrap .cmtool{display:flex}
+.cmcwrap .cmtool svg{width:17px;height:17px;display:block}
+.cmcwrap .cmtool.rec{color:#ff6b6b}
+/* 截图/GIF 状态提示浮层：不依赖头部可见性，全屏时「录制中/已保存」也能看到 */
+#gifToast{position:absolute;left:50%;bottom:76px;transform:translateX(-50%);padding:8px 16px;border-radius:20px;background:rgba(0,0,0,.74);color:#fff;font-size:13px;font-weight:600;z-index:10001;pointer-events:none;opacity:0;transition:opacity .2s;white-space:nowrap}
+#gifToast.on{opacity:1}
 /* 剧照/海报画廊（详情弹窗）：TMDB images 横向滚动条，点击看大图 */
 .mstills{margin-top:14px}
 .mstills .mst-hd{font-family:'DM Mono';font-size:11px;color:var(--acc);letter-spacing:.2em;margin-bottom:8px}
@@ -517,7 +526,7 @@ header{padding:32px 0 0}
       </div>
       <div class="ab-divider" data-page-node-id="8M5cI5asDniYpNFKDcD9K0"></div>
       <div class="ab-title" data-page-node-id="kgTy5Fty0cgy8SwTFW76Jp">影视热榜</div>
-      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.16.0</div>
+      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.17.0</div>
       <div class="ab-tagline" data-page-node-id="GAd20pcE0BPrierIJh0v25">多源聚合 · 豆瓣高分 · 搜索即看</div>
       <a class="abtn ab-dl" id="abDownload" href="https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk" target="_blank" rel="noopener" download style="text-decoration:none;margin-top:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>下载安卓 APP</a>
     </div>
@@ -2169,6 +2178,9 @@ function attachCmControls(v) {
     '<div class="cmc"><span class="cmt">00:00</span>' +
     '<input type="range" class="cms" min="0" max="1000" value="0" step="1">' +
     '<span class="cmt" data-d>--:--</span>' +
+    /* 控制条内置 截图/录GIF（全屏时与进度条同显隐；iframe 源无控制条，仍走头部按钮） */
+    '<button type="button" class="cmtool" data-cm="snap" title="截图（当前画面保存 PNG）"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 012-2h1.5l1-1.5h9l1 1.5H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><circle cx="12" cy="12.5" r="3.2"/></svg></button>' +
+    '<button type="button" class="cmtool" data-cm="gif" title="录制 5 秒 GIF 动图"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l5-3v10l-5-3"/></svg></button>' +
     '<button type="button" class="cmf" title="全屏">\u26F6</button></div>';
   area.appendChild(wrap);
   var center = wrap.querySelector('.cmcenter');
@@ -2199,6 +2211,11 @@ function attachCmControls(v) {
     var p = document.getElementById('player');
     if (p && p.classList.contains('full')) cmExitFull(); else cmEnterFull();
   });
+  /* 控制条内置 截图/录GIF：点击后保持控制条可见，避免点完立刻淡出 */
+  var cmSnapFs = wrap.querySelector('.cmtool[data-cm="snap"]');
+  var cmGifFs = wrap.querySelector('.cmtool[data-cm="gif"]');
+  if (cmSnapFs) cmSnapFs.addEventListener('click', function(e) { e.stopPropagation(); show(); snapShot(); });
+  if (cmGifFs) cmGifFs.addEventListener('click', function(e) { e.stopPropagation(); show(); recGif(); });
   v.addEventListener('play', function() { setCenter(true); });
   v.addEventListener('pause', function() { setCenter(false); show(); });
   v.addEventListener('ended', function() { setCenter(false); show(); });
@@ -2353,9 +2370,26 @@ function snapShot() {
 
 function gifStat(msg) {
   var el = document.getElementById('gifStat');
-  if (!el) return;
-  el.textContent = msg || '';
-  if (msg) setTimeout(function() { el.textContent = ''; }, 4000);
+  if (el) {
+    el.textContent = msg || '';
+    if (msg) setTimeout(function() { el.textContent = ''; }, 4000);
+  }
+  /* 状态浮层：全屏时头部会隐藏，「录制中/已保存」挂到播放器上，任何状态都可见 */
+  var toast = document.getElementById('gifToast');
+  if (!toast) {
+    var host = document.getElementById('player');
+    if (host) { toast = document.createElement('div'); toast.id = 'gifToast'; host.appendChild(toast); }
+  }
+  if (toast) {
+    if (msg) {
+      toast.textContent = msg;
+      toast.classList.add('on');
+      clearTimeout(toast.__t);
+      toast.__t = setTimeout(function() { toast.classList.remove('on'); }, 2800);
+    } else {
+      toast.classList.remove('on');
+    }
+  }
 }
 
 var 
@@ -2378,14 +2412,25 @@ function recGif() {
   var v = curPlayerVideo();
   if (!v) { gifStat('只能录制视频源，非网页源'); return; }
   var BTN = document.getElementById('btnGif');
+  var BTNFS = document.querySelector('#playerArea .cmtool[data-cm="gif"]'); /* 控制条内置的 GIF 按钮（全屏用） */
   ensureGifLib(function() {
     if (!window.GIF) { gifStat('GIF 库不可用'); return; }
     gifBusy = true;
     BTN.classList.add('rec');
+    if (BTNFS) BTNFS.classList.add('rec');
     var targetW = 480;
     var vw = v.videoWidth || 1280, vh = v.videoHeight || 720;
     var W = targetW, H = Math.round(targetW * vh / vw) || 270;
+    /* 兜底：播放路径 area.innerHTML='' 会把 #gifCanvas 一并清掉（曾导致 cv.width 抛
+       TypeError、录 GIF 点了没反应），不存在时重建一个挂在 playerArea 上 */
     var cv = document.getElementById('gifCanvas');
+    if (!cv) {
+      cv = document.createElement('canvas');
+      cv.id = 'gifCanvas';
+      cv.style.display = 'none';
+      var cvHost = document.getElementById('playerArea') || document.body;
+      cvHost.appendChild(cv);
+    }
     cv.width = W; cv.height = H;
     var ctx = cv.getContext('2d');
         // 录 GIF：优先「直接内联 worker 源码」到 Blob（离线/CDN 被墙都可用）；内联源码不可用时退回本地文件路径。
@@ -2408,13 +2453,23 @@ function recGif() {
       gifStat('录制中 ' + remain + 's');
       if (count * FRAME_MS >= TOTAL_MS) {
         clearInterval(timer);
-        gif.finish(function() {
-          var blob = gif.getBlob();
-          downloadBlob(blob, mediaFileName('GIF') + '.gif');
-          gifStat('已保存 ' + count + ' 帧 GIF');
+        /* gif.js 0.2.0 标准 API 是 render() + on('finished')；旧代码调的 gif.finish() 根本
+           不存在 → 必抛 TypeError：录完无输出、gifBusy 卡死 true、GIF 按钮此后永远没反应 */
+        gif.on('finished', function(blob) {
+          var out = blob || null;
+          if (!out && typeof gif.getBlob === 'function') { try { out = gif.getBlob(); } catch (e2) {} }
+          if (out) downloadBlob(out, mediaFileName('GIF') + '.gif');
+          gifStat(out ? ('已保存 ' + count + ' 帧 GIF') : 'GIF 生成失败');
           gifBusy = false;
           BTN.classList.remove('rec');
+          if (BTNFS) BTNFS.classList.remove('rec');
         });
+        try { gif.render(); } catch (e) {
+          gifStat('GIF 编码失败');
+          gifBusy = false;
+          BTN.classList.remove('rec');
+          if (BTNFS) BTNFS.classList.remove('rec');
+        }
       }
     }, FRAME_MS);
   });
