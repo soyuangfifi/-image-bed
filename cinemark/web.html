@@ -306,11 +306,13 @@ header{padding:48px 0 0;text-align:center}
 .pov.fullscreen .ph{padding:8px 12px}
 .pov.fullscreen .psel{max-width:120px}
 /* 手动全屏：覆盖 .pov 的 fixed 容器为最高层 + 撑满整屏，隐藏选集侧栏，视频区铺满，头部贴顶 */
+/* 手动全屏：视频层直接 fixed 铺满整屏视口，头部改为绝对浮层盖在视频上（不再挤占布局 → 顶部不留黑条） */
 .pov.full{position:fixed;inset:0;z-index:9999;background:#0b0b0e}
 .pov.full .pside{display:none}
-.pov.full .pmain{flex:1 1 auto;display:flex;flex-direction:column;min-height:0;overflow:hidden}
-.pov.full .pvid{flex:1 1 auto;width:100%;height:100%;aspect-ratio:auto;min-height:0}
-.pov.full .ph{padding:0 12px;padding-top:max(var(--safe-top,44px),env(safe-area-inset-top,0px));background:rgba(0,0,0,.6);transition:opacity .25s}
+.pov.full .pmain{position:absolute;inset:0;display:flex;flex-direction:column;min-height:0;overflow:hidden}
+.pov.full .pvid{position:fixed !important;inset:0;z-index:1;flex:none;width:100vw;height:100vh;height:100dvh;aspect-ratio:auto;min-height:0;background:#0b0b0e}
+.pov.full .pvid video,.pov.full .pvid iframe{width:100%;height:100%;border:none;background:#000}
+.pov.full .ph{position:absolute;top:0;left:0;right:0;z-index:10;padding:0 12px;padding-top:max(var(--safe-top,44px),env(safe-area-inset-top,0px));background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,0));border-bottom:none;transition:opacity .25s}
 .pov.full .ph.phhide{opacity:0;pointer-events:none}
 /* 自绘播放控制条：ROM WebView 原生控制栏的全屏键不可靠（controlslist 不生效/点击不触发
    onShowCustomView，实测点击无反应），改 controls=false 全面接管，全屏键直连 cmEnterFull */
@@ -429,7 +431,8 @@ header{padding:32px 0 0}
 /* 铺满模式：视频内联 object-fit:contain 优先级高于样式表，必须 !important 才能覆盖 */
 .pov.fillmode .pvid video{object-fit:cover !important}
 .pov.fillstretch .pvid video{object-fit:fill !important}
-.pov.fillmode .pvid iframe,.pov.fillstretch .pvid iframe{width:100vw;height:56.25vw;max-height:100vh;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)}</style>
+/* iframe 源（m3u8 等）全屏时直接铺满视口（object-fit 对 iframe 无效，故固定铺满整屏即可） */
+.pov.full .pvid iframe{width:100vw !important;height:100vh;height:100dvh !important;position:fixed !important;inset:0;z-index:1;border:none}</style>
 </head>
 <body
 <!-- app logo -->
@@ -514,7 +517,7 @@ header{padding:32px 0 0}
       </div>
       <div class="ab-divider" data-page-node-id="8M5cI5asDniYpNFKDcD9K0"></div>
       <div class="ab-title" data-page-node-id="kgTy5Fty0cgy8SwTFW76Jp">影视热榜</div>
-      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.14.0</div>
+      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.15.0</div>
       <div class="ab-tagline" data-page-node-id="GAd20pcE0BPrierIJh0v25">多源聚合 · 豆瓣高分 · 搜索即看</div>
       <a class="abtn ab-dl" id="abDownload" href="https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk" target="_blank" rel="noopener" download style="text-decoration:none;margin-top:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>下载安卓 APP</a>
     </div>
