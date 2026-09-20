@@ -1,8 +1,8 @@
 {
-  "versionName": "3.3-native",
-  "versionCode": 14,
+  "versionName": "3.4-native",
+  "versionCode": 15,
   "url": "super-sticky-note.apk",
-  "size": 6585665,
-  "sha256": "1682db1bd2d14639f4c94516b8a4c1b40857fdd97737b6c09b51625eff3ea79a",
+  "size": 6585809,
+  "sha256": "943ca6c2ba67e23572d91114ada3644abb1fb0b23be82287704e03d183436283",
   "note": "原生版更新"
 }
