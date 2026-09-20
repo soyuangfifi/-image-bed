@@ -1,6 +1,6 @@
 {
-  "version": "1.26",
-  "notes": "修复补签打卡后当天工资不同步的问题；新增「请假」功能，请假当天不计入工资统计，可随时取消请假恢复工资",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.26.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/goalcrusher/GoalCrusher-1.26.apk"
+  "version": "1.27",
+  "notes": "补签打卡可反复修改：日历详情页新增「修改打卡（可多次）」，弹窗自动预填当前时间，提交即覆盖旧值并同步当天工资；新增「删除当日记录」可清空重填；历史日期留空时间改按默认班次时间填，不再误填当前时间",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.27.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/goalcrusher/GoalCrusher-1.27.apk"
 }
