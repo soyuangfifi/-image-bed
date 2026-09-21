@@ -526,7 +526,7 @@ header{padding:32px 0 0}
       </div>
       <div class="ab-divider" data-page-node-id="8M5cI5asDniYpNFKDcD9K0"></div>
       <div class="ab-title" data-page-node-id="kgTy5Fty0cgy8SwTFW76Jp">影视热榜</div>
-      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.18.0</div>
+      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.19.0</div>
       <div class="ab-tagline" data-page-node-id="GAd20pcE0BPrierIJh0v25">多源聚合 · 豆瓣高分 · 搜索即看</div>
       <a class="abtn ab-dl" id="abDownload" href="https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk" target="_blank" rel="noopener" download style="text-decoration:none;margin-top:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>下载安卓 APP</a>
     </div>
@@ -1206,7 +1206,7 @@ function renderDb(items, hasMore) {
     if (d.date) sub.push(d.date);
     if (d.eps) sub.push(d.eps + '集');
     h += '<div class="dr" onclick="openDB(' + i + ')">';
-    h += '<div class="qrk">' + (G.db + i + 1) + '</div>';
+    h += '<div class="qrk">' + (i + 1) + '</div>';
     h += '<div class="dp">' + pp + '</div>';
     h += '<div class="di"><div class="dit"><span class="dn">' + esc(d.title) + '</span></div>';
     if (sub.length) h += '<div class="ds">' + esc(sub.join(' · ')) + '</div>';
@@ -1468,7 +1468,24 @@ function loadDb(start) {
         }
         return;
       }
-      DI = (G.db === 0) ? items : DI.concat(items);
+      /* 去重：个别代理/缓存可能把 start=N 页返回成第一页，直接拼接会同一部电影出现两行 */
+      var fresh = items;
+      if (G.db > 0) {
+        var seen = {};
+        DI.forEach(function(d) { seen[d.id || (d.title + '|' + d.date)] = 1; });
+        fresh = items.filter(function(d) {
+          var k = d.id || (d.title + '|' + d.date);
+          if (seen[k]) return false;
+          seen[k] = 1;
+          return true;
+        });
+        if (!fresh.length) {
+          if (G.db <= 40) { loadDb(G.db + 20); return; } /* 整页重复（代理返回旧页）→ 自动跳下一页，最多跳两次 */
+          renderDb(DI, false);
+          return;
+        }
+      }
+      DI = (G.db === 0) ? fresh : DI.concat(fresh);
       renderDb(DI, items.length >= 20);
     })
     .catch(function(e) {
