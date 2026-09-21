@@ -1,8 +1,8 @@
 {
-  "versionCode": 19,
-  "versionName": "1.18",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.18.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.18.apk",
-  "notes": "1. 修复 OTA 检查更新在中国网络下偶发 timeout：版本清单改为 gcore/fastly/cdn 多镜像并行竞速 + 用户自有托管源兜底，整体等待锁死 12s、单源超时放宽到 8s/10s，不再串行叠加约 22s\n2. 沿用 1.17：全屏内截图/录 GIF 按钮内置控制条、录 GIF 渲染修复、状态提示浮层",
+  "versionCode": 20,
+  "versionName": "1.19",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.19.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.19.apk",
+  "notes": "1. 修复豆瓣分类榜「加载更多」后排名数字整体错乱（第一页电影变成 21 名起）：排名改为按累计榜单位置连续编号 1,2,3…\n2. 防御性去重：代理缓存返回旧页时自动过滤重复电影并跳页，杜绝同一部电影出现两行",
   "force": false
 }
