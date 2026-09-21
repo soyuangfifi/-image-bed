@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.6-native",
-  "versionCode": 26,
+  "versionName": "3.9.7-native",
+  "versionCode": 27,
   "url": "super-sticky-note.apk",
-  "size": 6709582,
-  "sha256": "057df9c461c34bad742ad3411146d448b6105ee871003390af93eaa7cb63cede",
-  "note": "修复详情评分卡被挤压（改为横向滚动+自适应宽度）；首页搜索/数据源图标改为线性风格；悬浮语音球长按增加外扩声波环动效（双圈错开扩散，匹配聆听/运作状态）"
+  "size": 6709714,
+  "sha256": "62715a836e261d8df59d76df8790ea96fef9926e54fd2e4ece43adfccf529ad2",
+  "note": "修复电影详情页 TMDB/IMDb/烂番茄/Metacritic 评分不显示：修正 OMDb 代理路径（/omdb?i= 替代失效的 /x），国内条目先经 TMDB 按片名补全 imdbId 再回填多平台评分；TMDB 分数补充展示；片名兜底搜索改为直连 OMDb。"
 }
