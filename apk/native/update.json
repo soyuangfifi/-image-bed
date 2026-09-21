@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.2-native",
-  "versionCode": 22,
+  "versionName": "3.9.3-native",
+  "versionCode": 23,
   "url": "super-sticky-note.apk",
-  "size": 6655198,
-  "sha256": "2176907e1ff1645870e05aa27e5e8f5f5b11ddf3743b69c1588d041372e90120",
-  "note": "原生版更新"
+  "size": 6680682,
+  "sha256": "58db5049059e2b7f80140924831bdc06e40002f9ac27b255ae607853e7991f14",
+  "note": "原生版更新：AI 对话 / 拍照识片 / 语音搜索"
 }
