@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.4-native",
-  "versionCode": 24,
+  "versionName": "3.9.5-native",
+  "versionCode": 25,
   "url": "super-sticky-note.apk",
-  "size": 6699046,
-  "sha256": "0a62416c637bf8614768bbbbbb99ae12bd57892747b24f482e6a5937fca3f621",
-  "note": "瀑布流按海报真实比例自适应高度；电影海报/剧照/影评；演员剧照与生活照；线性图标；悬浮语音助手+自定义呼唤词；分享可选封面或剧照"
+  "size": 6708214,
+  "sha256": "1167e90be536ebc1ab6c6f905e43b0f91a92b1577edb0387fd29c3f20633a797",
+  "note": "详情多源评分（豆瓣/TMDB/IMDb/烂番茄/Metacritic）；详情页按钮重设计（3方形+1主按钮）；影评翻译按钮精简；悬浮语音球长按说话+波纹动效；AI语音唤醒（后台循环识别+部分结果早匹配）；语音指令直跳拍电影识别/识别分享卡/搜索电影"
 }
