@@ -526,7 +526,7 @@ header{padding:32px 0 0}
       </div>
       <div class="ab-divider" data-page-node-id="8M5cI5asDniYpNFKDcD9K0"></div>
       <div class="ab-title" data-page-node-id="kgTy5Fty0cgy8SwTFW76Jp">影视热榜</div>
-      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.19.0</div>
+      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.20.0</div>
       <div class="ab-tagline" data-page-node-id="GAd20pcE0BPrierIJh0v25">多源聚合 · 豆瓣高分 · 搜索即看</div>
       <a class="abtn ab-dl" id="abDownload" href="https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk" target="_blank" rel="noopener" download style="text-decoration:none;margin-top:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>下载安卓 APP</a>
     </div>
@@ -2514,6 +2514,31 @@ window.addEventListener('popstate', function() {
   if (md && md.classList.contains('open') && location.hash !== '#__modal') closeModal(true);
   if (ab && ab.classList.contains('open') && location.hash !== '#__modal') closeAbout(true);
 });
+
+/* ===== 原生返回键/边缘手势桥：MainActivity 用此判断「是否有可关闭的层」 =====
+   file:// 下 history.pushState 未必进入 WebView 的 back 列表（opaque origin 可能抛 SecurityError 被静默吞掉），
+   导致 webView.canGoBack() 恒为 false → 一次返回手势直接 finish() 退出 APP。
+   改为由网页层直接报告/关闭当前层，完全不依赖历史栈：
+   返回键/边缘右滑 → 先关播放器(或非全屏)回上一级 → 再关全屏 → 再关弹窗，最后才到「双击退出」。 */
+window.__cmHasOpen = function() {
+  var pl = document.getElementById('player');
+  var md = document.getElementById('modal');
+  var ab = document.getElementById('aboutModal');
+  if (pl && pl.classList.contains('open')) return true;
+  if (md && md.classList.contains('open')) return true;
+  if (ab && ab.classList.contains('open')) return true;
+  return false;
+};
+window.__cmBack = function() {
+  var pl = document.getElementById('player');
+  // 全屏中：先退回网页全屏（仍停留在播放页），下一次返回才关播放器 —— 满足「先回上一级」
+  if (pl && pl.classList.contains('full')) { cmExitFull(); return; }
+  if (pl && pl.classList.contains('open')) { closePlayer(); return; }
+  var md = document.getElementById('modal');
+  if (md && md.classList.contains('open')) { closeModal(); return; }
+  var ab = document.getElementById('aboutModal');
+  if (ab && ab.classList.contains('open')) { closeAbout(); return; }
+};
 
 /* ===== 全屏手势：左半上下滑=音量 / 右半上下滑=亮度 / 左右滑=快进退 ===== */
 (function() {
