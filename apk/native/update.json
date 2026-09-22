@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.10-native",
-  "versionCode": 30,
+  "versionName": "3.9.12-native",
+  "versionCode": 32,
   "url": "super-sticky-note.apk",
-  "size": 6714554,
-  "sha256": "a5e85b1e0a1ca6d10e94e06927dd9ade1fcf2038eb9051afefec20a2f8d8408c",
-  "note": "修复更换个人头像后显示纯白圆：圆形裁切的 PorterDuff 顺序写反（先画白圆再用 DST_IN 画照片，颜色像素被丢弃），改为先画照片再用 DST_IN 圆遮罩；同时大图按目标尺寸采样解码，避免 OOM。"
+  "size": 6716602,
+  "sha256": "7dec4c158df94b89d22dddd8317f223ea43d984222bee0d25181a2e1b7c1302f",
+  "note": "v32：详情页评分卡对齐小程序设计——「豆瓣 / TMDB / OMDb / 烂番茄」四卡常驻显示（国内国际版一致，取不到分数的卡保留「—」不再隐藏整行），空壳回收逻辑 pruneEmptyRatingCards 停用。"
 }
