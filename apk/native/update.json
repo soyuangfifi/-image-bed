@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.14-native",
-  "versionCode": 34,
+  "versionName": "3.9.15-native",
+  "versionCode": 35,
   "url": "super-sticky-note.apk",
-  "size": 6715934,
-  "sha256": "b6f0ef47bd643a8b2916f697a41f107976ec7d5e272a6ff63266ef8c8148dfe2",
-  "note": "v34：修评分卡空白框真因——updateMeta 被多次调用（onCreate renderMovie / 异步 enrich 回填 / omdbFallback 触发）时 childCount 判断不可靠，用 boolean ratingCardsBuilt 替代：首次 build 后置 true，换片时 reset；彻底杜绝 removeAllViews 清空已填好的评分。换片（swapInPlace）时同步 reset 以匹配新片 source。"
+  "size": 6716002,
+  "sha256": "33a59b7f5fc25b5a47ebc499808ac370e55f37e4c9d032f0e078be4563db46c0",
+  "note": "v35：评分卡空框真因修复——buildRatingCards 里 num/src 两个 TextView 从未 addView 进卡片（只存了 map），卡片永远空框；补齐 card.addView(num)/card.addView(src) 后分数与标签正常渲染（编译警告 'Variable src is never used' 消失即为佐证）。"
 }
