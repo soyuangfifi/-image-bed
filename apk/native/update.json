@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.17-native",
-  "versionCode": 37,
+  "versionName": "3.9.18-native",
+  "versionCode": 38,
   "url": "super-sticky-note.apk",
-  "size": 6723134,
-  "sha256": "b87fcaf57f90481b88fe59cffeaa5235776a818a3030c00fde809234082858ce",
-  "note": "v37：① 图片放大+保存（封面/海报/剧照全屏预览，横向滑动浏览，保存到相册，新版MediaStore/旧版filesDir+扫描）；② 分享卡多模板（经典/横排/金边/海报压字 4 套，模板缩略选择器实时预览，微信/系统分享/存相册/复制链接）；③ 悬浮语音助手聆听动效反馈（球体上方金色小点徽标亮/熄 + 聆听中/已识别/已停止 hint + 对话页横幅同步）。"
+  "size": 6725914,
+  "sha256": "d55a28c8ef42956751becb14b0252fa3abb28a3f6e06a4de0d2ef7f8b4ad1874",
+  "note": "v38：① 分享卡二维码恢复显示（JSON 压缩只保留解码必需字段 + 容量兜底 + 白底小盒样式）；② 识别分享卡闪退修复（应用内直接解析 QR 影片 JSON，大图采样解码防 OOM，Fragment/Activity 生命周期防护，失败不崩给提示）；③ 个人页 POWERED BY 排版改为左侧图片签名框 + 右侧两行左对齐文案。"
 }
