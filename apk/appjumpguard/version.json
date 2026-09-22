@@ -1,6 +1,7 @@
 {
-  "versionCode": 1,
-  "versionName": "1.0",
+  "versionCode": 2,
+  "versionName": "1.1",
   "downloadUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/apk/appjumpguard/superblock.apk",
-  "releases": "首版：拦截跳转 / 关闭垃圾奖励弹窗 / 全机扫描清理垃圾安装包 / 检查更新(OTA)"
+  "downloadUrlMirror": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/apk/appjumpguard/superblock.apk",
+  "releases": "1.1 修复检查更新无网络权限导致失败的 bug；更新检查改多镜像容错，失败时提示具体原因"
 }
