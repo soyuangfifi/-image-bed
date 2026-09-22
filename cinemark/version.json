@@ -1,8 +1,8 @@
 {
-  "versionCode": 20,
-  "versionName": "1.19",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.19.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.19.apk",
-  "notes": "1. 修复豆瓣分类榜「加载更多」后排名数字整体错乱（第一页电影变成 21 名起）：排名改为按累计榜单位置连续编号 1,2,3…\n2. 防御性去重：代理缓存返回旧页时自动过滤重复电影并跳页，杜绝同一部电影出现两行",
+  "versionCode": 21,
+  "versionName": "1.20",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.20.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.20.apk",
+  "notes": "1. 修复播放页返回手势：在电影播放页从屏幕右缘向内滑（或按返回键）现在先关播放器回上一级列表，再关全屏，再关弹窗，最后才走「双击退出 APP」，不再一次性直接退出 APP。\n2. 根因：APK 内网页以 file:// 加载，history.pushState 在 opaque origin 下可能静默失败，导致 WebView 历史栈无记录、webView.canGoBack() 恒为 false，一次返回即 finish()。改为由网页层 __cmHasOpen/__cmBack 桥接逐级关闭。",
   "force": false
 }
