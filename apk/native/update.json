@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.15-native",
-  "versionCode": 35,
+  "versionName": "3.9.16-native",
+  "versionCode": 36,
   "url": "super-sticky-note.apk",
-  "size": 6716002,
-  "sha256": "33a59b7f5fc25b5a47ebc499808ac370e55f37e4c9d032f0e078be4563db46c0",
-  "note": "v35：评分卡空框真因修复——buildRatingCards 里 num/src 两个 TextView 从未 addView 进卡片（只存了 map），卡片永远空框；补齐 card.addView(num)/card.addView(src) 后分数与标签正常渲染（编译警告 'Variable src is never used' 消失即为佐证）。"
+  "size": 6716170,
+  "sha256": "e37a53b3be23a08131538f346b22276161cd960a19f2d7c98fb39e9f1c88f09e",
+  "note": "v36：评分卡恢复 v31 五卡布局——豆瓣/TMDB/IMDb/烂番茄/Metacritic（IMDb/Metacritic 数据来自 OMDb API 的 Ratings 数组，模型 Ratings.mc 字段本已保留，只是 v32 起不再渲染成卡，v36 重新渲染）；金边卡 = 豆瓣 + IMDb。"
 }
