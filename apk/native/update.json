@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.8-native",
-  "versionCode": 28,
+  "versionName": "3.9.9-native",
+  "versionCode": 29,
   "url": "super-sticky-note.apk",
-  "size": 6711282,
-  "sha256": "2def9a6233d5c36a5da8dedd4e4e0323598a2d1459e0bd8803e71ff2d720423c",
-  "note": "详情页左上返回键改为线性 chevron；评分卡加最小高度修复空壳；OMDb/TMDB 加本地缓存兜底（代理 502 时仍显示历史评分）。"
+  "size": 6714350,
+  "sha256": "d333654907c8ae7f6c5e8177bb785aab7604a61e83f5c6d1b1ff503644ad49a6",
+  "note": "语音助手动效改为灰色同心环 + 中心白点（署名风格）；悬浮球下方实时显示识别到的语音文字；对话页顶部横幅显示「你说了什么」和 AI 流式回答文字，方便核对识别是否准确。"
 }
