@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.18-native",
-  "versionCode": 38,
+  "versionName": "3.9.19-native",
+  "versionCode": 39,
   "url": "super-sticky-note.apk",
-  "size": 6725914,
-  "sha256": "d55a28c8ef42956751becb14b0252fa3abb28a3f6e06a4de0d2ef7f8b4ad1874",
-  "note": "v38：① 分享卡二维码恢复显示（JSON 压缩只保留解码必需字段 + 容量兜底 + 白底小盒样式）；② 识别分享卡闪退修复（应用内直接解析 QR 影片 JSON，大图采样解码防 OOM，Fragment/Activity 生命周期防护，失败不崩给提示）；③ 个人页 POWERED BY 排版改为左侧图片签名框 + 右侧两行左对齐文案。"
+  "size": 6728110,
+  "sha256": "6d970ea0b5ccb0256d26114b3cc231139af46e878f231e3fada881669d6e2ecf",
+  "note": "v39：① 选剧照/海报做分享卡闪退修复（图片预取移到后台线程，杜绝主线程网络异常；选中图真正用于卡片；大图压到 1080 宽防内存爆）；② 识别分享卡再加固（OOM 按 Error 捕获 + 采样上限 2048）；③ 含 v38 全部修复（分享卡二维码、识别闪退应用内解析、POWERED BY 左图右两行排版）。"
 }
