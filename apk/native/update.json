@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.12-native",
-  "versionCode": 32,
+  "versionName": "3.9.13-native",
+  "versionCode": 33,
   "url": "super-sticky-note.apk",
-  "size": 6716602,
-  "sha256": "7dec4c158df94b89d22dddd8317f223ea43d984222bee0d25181a2e1b7c1302f",
-  "note": "v32：详情页评分卡对齐小程序设计——「豆瓣 / TMDB / OMDb / 烂番茄」四卡常驻显示（国内国际版一致，取不到分数的卡保留「—」不再隐藏整行），空壳回收逻辑 pruneEmptyRatingCards 停用。"
+  "size": 6716086,
+  "sha256": "134b78630bce09815e205b9dc6b3042767453d718d52e4e9fc0787dee54630b7",
+  "note": "v33：①修详情页评分卡空白框框真因（updateMeta 在补全数据回填后又被调一次 → buildRatingCards 把已填好的卡全清掉；改成只在首次 build）；②「我的」页移除「AI 设置」入口（布局删 rowAiCfg + ProfileFragment 监听删；自定义网关仍可在 AI 对话页横幅点按进入）；③悬浮语音助手交互改「按住说话、松手停止识别」（原来单击/双击 380ms 才说话 → 单击空跑识别器报『识别失败』；现在 ACTION_DOWN 立即开始识别，球下方实时显示识别文字，UP/CANCEL 停止等结果；双击 300ms 内仍保留收起）。"
 }
