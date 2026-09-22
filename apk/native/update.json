@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.13-native",
-  "versionCode": 33,
+  "versionName": "3.9.14-native",
+  "versionCode": 34,
   "url": "super-sticky-note.apk",
-  "size": 6716086,
-  "sha256": "134b78630bce09815e205b9dc6b3042767453d718d52e4e9fc0787dee54630b7",
-  "note": "v33：①修详情页评分卡空白框框真因（updateMeta 在补全数据回填后又被调一次 → buildRatingCards 把已填好的卡全清掉；改成只在首次 build）；②「我的」页移除「AI 设置」入口（布局删 rowAiCfg + ProfileFragment 监听删；自定义网关仍可在 AI 对话页横幅点按进入）；③悬浮语音助手交互改「按住说话、松手停止识别」（原来单击/双击 380ms 才说话 → 单击空跑识别器报『识别失败』；现在 ACTION_DOWN 立即开始识别，球下方实时显示识别文字，UP/CANCEL 停止等结果；双击 300ms 内仍保留收起）。"
+  "size": 6715934,
+  "sha256": "b6f0ef47bd643a8b2916f697a41f107976ec7d5e272a6ff63266ef8c8148dfe2",
+  "note": "v34：修评分卡空白框真因——updateMeta 被多次调用（onCreate renderMovie / 异步 enrich 回填 / omdbFallback 触发）时 childCount 判断不可靠，用 boolean ratingCardsBuilt 替代：首次 build 后置 true，换片时 reset；彻底杜绝 removeAllViews 清空已填好的评分。换片（swapInPlace）时同步 reset 以匹配新片 source。"
 }
