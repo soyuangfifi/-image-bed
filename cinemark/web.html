@@ -321,12 +321,16 @@ header{padding:max(48px,var(--head-top,48px)) 0 0;text-align:center}
 .pov.full .pmain{position:absolute;inset:0;display:flex;flex-direction:column;min-height:0;overflow:hidden}
 .pov.full .pvid{position:fixed !important;inset:0;z-index:1;flex:none;width:100vw;height:100vh;height:100dvh;aspect-ratio:auto;min-height:0;background:#0b0b0e}
 .pov.full .pvid video,.pov.full .pvid iframe{width:100%;height:100%;border:none;background:#000}
-.pov.full .ph{position:absolute;top:0;left:0;right:0;z-index:10;padding:0 12px;padding-top:max(var(--safe-top,44px),env(safe-area-inset-top,0px));background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,0));border-bottom:none;transition:opacity .25s}
-.pov.full .ph.phhide{opacity:0;pointer-events:none}
+/* v1.29 头部/底部同步显隐：同一个 ctlOn 真值驱动，两者同为 .25s 过渡，
+   隐藏时各自再往屏幕外多移 16px —— 视觉上「一起弹出、一起隐退」，不再一前一后 */
+.pov.full .ph{position:absolute;top:0;left:0;right:0;z-index:10;padding:0 12px;padding-top:max(var(--safe-top,44px),env(safe-area-inset-top,0px));background:linear-gradient(rgba(0,0,0,.55),rgba(0,0,0,0));border-bottom:none;transform:translateY(0);transition:opacity .25s,transform .25s}
+.pov.full .ph.phhide{opacity:0;pointer-events:none;transform:translateY(-16px)}
 /* 自绘播放控制条：ROM WebView 原生控制栏的全屏键不可靠（controlslist 不生效/点击不触发
    onShowCustomView，实测点击无反应），改 controls=false 全面接管，全屏键直连 cmEnterFull */
-.cmcwrap{position:absolute;inset:0;z-index:5;transition:opacity .25s}
-.cmcwrap.cmchide{opacity:0;pointer-events:none}
+.cmcwrap{position:absolute;inset:0;z-index:5;transform:translateY(0);transition:opacity .25s,transform .25s}
+.cmcwrap.cmchide{opacity:0;pointer-events:none;transform:translateY(16px)}
+/* 宽按钮：给「铺满」这类中文标签用（默认 .phd 是 32px 圆钮，放不下两个汉字） */
+.phd.wide{width:auto;min-width:44px;padding:0 11px;border-radius:16px;font-size:12px;font-weight:700;letter-spacing:.04em}
 .cmcwrap .cmcenter{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:62px;height:62px;border-radius:50%;background:rgba(255,255,255,.92);display:flex;align-items:center;justify-content:center;color:#111;box-shadow:0 2px 14px rgba(0,0,0,.45)}
 .cmcwrap .cmcenter svg{width:26px;height:26px}
 .cmcwrap .cmc{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:10px;padding:10px 12px;padding-bottom:max(10px,env(safe-area-inset-bottom,10px));background:linear-gradient(transparent,rgba(0,0,0,.72))}
@@ -450,6 +454,16 @@ header{padding:max(32px,var(--head-top,32px)) 0 0}
 /* 铺满模式：视频内联 object-fit:contain 优先级高于样式表，必须 !important 才能覆盖 */
 .pov.fillmode .pvid video{object-fit:cover !important}
 .pov.fillstretch .pvid video{object-fit:fill !important}
+/* ===== v1.29 强制铺满 =====
+   黑边的根因是「片源画面比例 ≠ 手机屏幕比例」，两种源要分开治：
+   - <video>：object-fit 一改就无黑边（cover=比例不变·裁掉溢出，fill=拉伸填满·轻微变形）。
+   - <iframe> 网页源：跨域拿不到播放器内部，改不了它的尺寸，只剩下整层放大这一招 ——
+     transform:scale() 把播放器自带的黑边推到可视区外，观感就是「画面铺满整屏」。
+     .pvid 加 overflow:hidden 裁掉放大溢出的部分，头部/控制条浮在 z-index 更高的层不受影响。 */
+.pov.full .pvid{overflow:hidden}
+.pov.full .pvid video,.pov.full .pvid iframe{transform-origin:50% 50%;transition:transform .2s ease-out}
+.pov.ff-cover .pvid video{object-fit:cover !important}
+.pov.ff-fill .pvid video{object-fit:fill !important}
 /* iframe 源（m3u8 等）全屏时直接铺满视口（object-fit 对 iframe 无效，故固定铺满整屏即可） */
 .pov.full .pvid iframe{width:100vw !important;height:100vh;height:100dvh !important;position:fixed !important;inset:0;z-index:1;border:none}</style>
 </head>
@@ -539,7 +553,7 @@ header{padding:max(32px,var(--head-top,32px)) 0 0}
       </div>
       <div class="ab-divider" data-page-node-id="8M5cI5asDniYpNFKDcD9K0"></div>
       <div class="ab-title" data-page-node-id="kgTy5Fty0cgy8SwTFW76Jp">影视热榜</div>
-      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.28.0</div>
+      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.29.0</div>
       <div class="ab-tagline" data-page-node-id="GAd20pcE0BPrierIJh0v25">多源聚合 · 豆瓣高分 · 搜索即看</div>
       <a class="abtn ab-dl" id="abDownload" href="https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk" target="_blank" rel="noopener" download style="text-decoration:none;margin-top:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>下载安卓 APP</a>
     </div>
@@ -588,7 +602,8 @@ header{padding:max(32px,var(--head-top,32px)) 0 0}
       <button type="button" class="phd ptools" id="btnSnap" title="截图（当前画面保存 PNG）" data-page-node-id="snap01"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 012-2h1.5l1-1.5h9l1 1.5H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><circle cx="12" cy="12.5" r="3.2"/></svg></button>
       <button type="button" class="phd ptools" id="btnGif" title="录制 5 秒 GIF 动图" data-page-node-id="gif001"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l5-3v10l-5-3"/></svg></button>
       <span class="pstat" id="gifStat"></span>
-      <button type="button" class="phd" id="btnFill" title="适应（完整画面）">⛶</button><button type="button" class="phd" id="btnLandscape" title="横屏观看" data-page-node-id="vP5grMzUkoGcA9J1N5by37">⛶</button>
+      <button type="button" class="phd" id="btnLandscape" title="横屏观看" data-page-node-id="vP5grMzUkoGcA9J1N5by37">↻</button><!-- v1.29 强制铺满：旧版 横屏/比例/全屏 三个按钮全是同一个 ⛶ 字形，用户分不清谁是谁 →
+           横屏改用 ↻/↺，比例铺满改成带文字的宽按钮（能显示当前档位），全屏保留 ⛶ --><button type="button" class="phd wide" id="btnForceFill" title="强制铺满：消除上下左右黑边，逐级放大；再点到最后一档回到原始比例">铺满</button>
       <button type="button" class="phd ptools" id="btnFullscreen" title="全屏" data-page-node-id="Pt2jQuycsUuUvc318uiSLU">⛶</button>
     </div>
   </div>
@@ -2510,6 +2525,8 @@ function useIframe(url) {
   f.onload = function() { cmHideLoading(); };
   a.appendChild(f);
   cmShowLoading();
+  // 换 iframe 源：铺满档位复位
+  try { cmFillReset(); } catch (e) {}
   // 源类型变化（iframe 网页源）：重报原生（hasVideo=false → 原生接管全屏手势 + 轻点唤出）
   try { if (typeof _cmReportFull === 'function') _cmReportFull(); } catch (e) {}
 }
@@ -2547,6 +2564,8 @@ function attachCmControls(v) {
     /* 控制条内置 截图/录GIF（全屏时与进度条同显隐；iframe 源无控制条，仍走头部按钮） */
     '<button type="button" class="cmtool" data-cm="snap" title="截图（当前画面保存 PNG）"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 012-2h1.5l1-1.5h9l1 1.5H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><circle cx="12" cy="12.5" r="3.2"/></svg></button>' +
     '<button type="button" class="cmtool" data-cm="gif" title="录制 5 秒 GIF 动图"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 10l5-3v10l-5-3"/></svg></button>' +
+    /* v1.29 底部控制条也放一个「强制铺满」，与头部按钮同一套状态（低手位同样够得着） */
+    '<button type="button" class="cmtool" data-cm="fill" title="强制铺满：消除四周黑边，点击逐级放大"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V5.5A1.5 1.5 0 015.5 4H9"/><path d="M15 4h3.5A1.5 1.5 0 0120 5.5V9"/><path d="M20 15v3.5a1.5 1.5 0 01-1.5 1.5H15"/><path d="M9 20H5.5A1.5 1.5 0 014 18.5V15"/></svg></button>' +
     '<button type="button" class="cmf" title="全屏">\u26F6</button></div>';
   area.appendChild(wrap);
   var center = wrap.querySelector('.cmcenter');
@@ -2558,10 +2577,14 @@ function attachCmControls(v) {
   var ICO_PLAY = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z"/></svg>';
   function setCenter(playing) { center.innerHTML = playing ? ICO_PAUSE : ICO_PLAY; }
   function show() { try { if (window.__cmPh) window.__cmPh.showReset(); } catch (e) {} }
+  /* v1.29 只「续时」不「唤出」：控制条铺满整层（inset:0），任何轻点都会命中它并触发 click。
+     旧逻辑在 click 里无条件 show()，导致 touchend 刚把头部+控制条点隐，click 又立刻拉回来
+     → 表现为「点了不隐藏 / 只有一边动了」。这里改成：已显示就续 3 秒，已隐藏就维持隐藏。 */
+  function keep() { try { if (window.__cmPh && window.__cmPh.keep) window.__cmPh.keep(); } catch (e) {} }
   function togglePlay() { try { if (v.paused) v.play(); else v.pause(); } catch (e) {} }
-  center.addEventListener('click', function(e) { e.stopPropagation(); togglePlay(); });
-  wrap.querySelector('.cmc').addEventListener('click', function(e) { e.stopPropagation(); show(); });
-  wrap.addEventListener('click', function() { show(); });
+  center.addEventListener('click', function(e) { e.stopPropagation(); togglePlay(); keep(); });
+  wrap.querySelector('.cmc').addEventListener('click', function(e) { e.stopPropagation(); keep(); });
+  wrap.addEventListener('click', function() { keep(); });
   rng.addEventListener('input', function() {
     dragging = true;
     var d = v.duration;
@@ -2582,6 +2605,11 @@ function attachCmControls(v) {
   var cmGifFs = wrap.querySelector('.cmtool[data-cm="gif"]');
   if (cmSnapFs) cmSnapFs.addEventListener('click', function(e) { e.stopPropagation(); show(); snapShot(); });
   if (cmGifFs) cmGifFs.addEventListener('click', function(e) { e.stopPropagation(); show(); recGif(); });
+  /* v1.29 控制条内置「强制铺满」：与头部按钮同一套状态机 */
+  var cmFillFs = wrap.querySelector('.cmtool[data-cm="fill"]');
+  if (cmFillFs) cmFillFs.addEventListener('click', function(e) { e.stopPropagation(); cmForceFill(); });
+  /* 换视频源：铺满档位复位（不同源的黑边情况不一样），并把控制条套用当前显隐状态 */
+  try { cmFillReset(); } catch (e) {}
   v.addEventListener('play', function() { setCenter(true); });
   v.addEventListener('pause', function() { setCenter(false); show(); });
   v.addEventListener('ended', function() { setCenter(false); show(); });
@@ -2940,10 +2968,9 @@ window.__cmHasOpen = function() {
 window.__cmTap = function() {
   var p = document.getElementById('player');
   if (!p || !p.classList.contains('full')) return;
-  var phEl = p.querySelector('.ph');
-  var wrapEl = document.querySelector('#playerArea .cmcwrap');
-  var hidden = (phEl && phEl.classList.contains('phhide')) || (wrapEl && wrapEl.classList.contains('cmchide'));
-  try { if (window.__cmPh) { if (hidden) window.__cmPh.show(); else window.__cmPh.hide(); } } catch (e) {}
+  /* v1.29：交给统一显隐真值 ctlOn 切换（旧版分别读两个元素的 class，
+     只要有一层被换源重建/缺失就会读错，导致每次 tap 只动一边）。 */
+  try { if (window.__cmPh) window.__cmPh.toggle(); } catch (e) {}
 };
 /* 上报网页全屏状态与源类型（原生 dispatchTouchEvent 据此接管三区手势与轻点唤出）：
    iframe 网页源时触摸事件全部进入 iframe、父文档收不到任何 touch →
@@ -3108,26 +3135,101 @@ document.getElementById('playerBack').onclick = function() {
 };
 document.getElementById('btnSnap').onclick = snapShot;
 document.getElementById('btnGif').onclick = recGif;
-var __btnFill = document.getElementById('btnFill');
-if (__btnFill) __btnFill.onclick = function() {
+/* ===== v1.29 强制铺满 =====
+   需求：全屏后画面铺不满、上下左右留黑边时，点一下就把它强制铺满。
+   两种源要分开治（黑边成因不同）：
+     <video> ：片源比例 ≠ 屏幕比例 → 改 object-fit 即可，cover=比例不变只裁掉溢出，fill=拉伸填满。
+     <iframe> 网页源：跨域拿不到播放器内部，改不了它的尺寸 → 整层 transform:scale() 放大，
+              把播放器自带的黑边推到可视区外，观感就是铺满整屏溢出部分由 .pvid 的 overflow:hidden 裁掉。
+   每档都弹 toast 说明当前档位（旧三态按钮没有任何提示 → 用户以为点了没反应，这也是反馈之一）。 */
+var CM_FILL_VIDEO = [
+  {n:'原始比例',  fit:null,    z:1},
+  {n:'裁切铺满',  fit:'cover', z:1},
+  {n:'拉伸铺满',  fit:'fill',  z:1},
+  {n:'铺满 115%', fit:'cover', z:1.15},
+  {n:'铺满 130%', fit:'cover', z:1.30},
+  {n:'铺满 150%', fit:'cover', z:1.50},
+  {n:'铺满 175%', fit:'cover', z:1.75}
+];
+var CM_FILL_IFRAME = [
+  {n:'原始比例',  z:1},    {n:'铺满 115%', z:1.15}, {n:'铺满 130%', z:1.30},
+  {n:'铺满 145%', z:1.45}, {n:'铺满 160%', z:1.60}, {n:'铺满 180%', z:1.80}, {n:'铺满 200%', z:2.00}
+];
+var __cmFillIdx = 0;
+function cmMediaEl() { return document.querySelector('#playerArea video') || document.querySelector('#playerArea iframe'); }
+function cmIsVideo() { return !!document.querySelector('#playerArea video'); }
+function cmFillSteps() { return cmIsVideo() ? CM_FILL_VIDEO : CM_FILL_IFRAME; }
+function cmFillLabel(st, idx) {
+  if (st.z > 1) return Math.round(st.z * 100) + '%';
+  if (idx === 0) return '铺满';
+  if (st.fit === 'cover') return '裁切';
+  if (st.fit === 'fill') return '拉伸';
+  return '原始';
+}
+function cmFillSync() {
   var p = document.getElementById('player');
-  var fm = p.classList.contains('fillmode'), fs = p.classList.contains('fillstretch');
-  // 三态循环：适应(contain) -> 裁剪铺满(cover) -> 拉伸铺满(fill) -> 适应
-  p.classList.remove('fillmode', 'fillstretch');
-  var st;
-  if (!fm && !fs) { p.classList.add('fillmode'); st = 'cover'; }
-  else if (fm && !fs) { p.classList.add('fillstretch'); st = 'stretch'; }
-  else { st = 'contain'; }
-  this.textContent = st === 'stretch' ? '\u2922' : (st === 'cover' ? '\u25A3' : '\u26F6');
-  this.title = st === 'stretch' ? '拉伸铺满（填满全屏·不变形裁剪）' : (st === 'cover' ? '裁剪铺满（裁切黑边）' : '适应（完整画面）');
-  gifStat(st === 'contain' ? '适应模式：完整显示画面' : (st === 'cover' ? '铺满模式：画面裁切填满全屏' : '拉伸铺满模式：画面填满全屏'));
-};
+  var btn = document.getElementById('btnForceFill');
+  var steps = cmFillSteps();
+  __cmFillIdx = Math.max(0, Math.min(__cmFillIdx, steps.length - 1));
+  var st = steps[__cmFillIdx];
+  var el = cmMediaEl();
+  if (p) p.classList.remove('ff-cover', 'ff-fill');
+  if (el) {
+    if (st.fit === 'cover' && p) p.classList.add('ff-cover');
+    else if (st.fit === 'fill' && p) p.classList.add('ff-fill');
+    el.style.transform = st.z > 1 ? ('scale(' + st.z + ')') : '';
+    /* iframe 默认是 fixed 铺满视口；放大时必须改成随 .pvid 定位，否则溢出不受 .pvid 裁剪 */
+    if (!cmIsVideo()) {
+      if (st.z > 1) {
+        el.style.position = 'absolute'; el.style.inset = '0';
+        el.style.width = '100%'; el.style.height = '100%';
+      } else {
+        el.style.position = ''; el.style.inset = ''; el.style.width = ''; el.style.height = '';
+      }
+    }
+  }
+  if (btn) { btn.textContent = cmFillLabel(st, __cmFillIdx); btn.title = '强制铺满（当前：' + st.n + '）· 点击切换下一档'; }
+  var cb = document.querySelector('#playerArea .cmtool[data-cm="fill"]');
+  if (cb) cb.classList.toggle('rec', false);
+  return st;
+}
+function cmFillReset() { __cmFillIdx = 0; try { cmFillSync(); } catch (e) {} }
+function cmForceFill() {
+  var p = document.getElementById('player');
+  if (!p || !p.classList.contains('open')) return;
+  if (!cmMediaEl()) { gifStat('等画面加载出来再点铺满'); return; }
+  var steps = cmFillSteps();
+  __cmFillIdx = (__cmFillIdx + 1) % steps.length;
+  var st = cmFillSync();
+  gifStat(st.n + (__cmFillIdx === 0 ? '：已还原原始比例' : ' · 继续点击继续放大'));
+  try { if (window.__cmPh) window.__cmPh.show(); } catch (e) {}
+}
+var __btnForceFill = document.getElementById('btnForceFill');
+if (__btnForceFill) __btnForceFill.onclick = function(e) { e.stopPropagation(); cmForceFill(); };
 document.getElementById('btnLandscape').onclick = function() {
   var player = document.getElementById('player');
   player.classList.toggle('landscape');
-  this.textContent = player.classList.contains('landscape') ? '↩' : '⛶';
+  this.textContent = player.classList.contains('landscape') ? '\u21BA' : '\u21BB'; // ↺ / ↻
   this.title = player.classList.contains('landscape') ? '竖屏' : '横屏';
 };
+/* v1.29 播放区按「实际视口像素」钉死尺寸：
+   部分 WebView 旋转到横屏后 vh/dvh 单位仍按旋转前的视口结算，表现为 .pov.full .pvid 比真实屏幕小一圈、
+   四周留黑边，而且这种情况改 object-fit 也消不掉（new 元素本身就没铺满）。
+   进全屏 / resize / 旋转时直接写 px，把这圈黑边从根上拿掉。 */
+function cmPinStage() {
+  var p = document.getElementById('player');
+  var st = document.getElementById('playerArea');
+  if (!p || !st) return;
+  if (!p.classList.contains('full')) { st.style.width = ''; st.style.height = ''; return; }
+  var vv = window.visualViewport;
+  var w = (vv && vv.width) || document.documentElement.clientWidth || window.innerWidth || 0;
+  var h = (vv && vv.height) || document.documentElement.clientHeight || window.innerHeight || 0;
+  if (w > 0 && h > 0) { st.style.width = w + 'px'; st.style.height = h + 'px'; }
+}
+try {
+  window.addEventListener('resize', function() { cmPinStage(); });
+  window.addEventListener('orientationchange', function() { setTimeout(cmPinStage, 250); setTimeout(cmPinStage, 700); });
+} catch (e) {}
 function cmEnterFull() {
   var player = document.getElementById('player');
   if (!player || player.classList.contains('full')) return;
@@ -3143,6 +3245,9 @@ function cmEnterFull() {
   if (bf) { bf.textContent = '\u2715'; bf.title = '退出全屏'; }
   // 全屏头部自动隐藏：先显示 3 秒让用户看到工具，之后点屏幕唤出
   try { if (window.__cmPh) window.__cmPh.show(); } catch (e) {}
+  // v1.29 真全屏：旋转后部分 WebView 的 vh/dvh 仍按旧视口算 → .pvid 比屏幕小一圈、四周黑边。
+  // 进全屏后按实际像素把播放区钉死到视口尺寸（旋转落位需要时间，故多次补钉）。
+  cmPinStage(); setTimeout(cmPinStage, 300); setTimeout(cmPinStage, 800);
   // 诊断提示：WebView 是否真正铺满视口（innerW/H 应与屏幕一致）
   setTimeout(function(){
     var w = window.innerWidth, h = window.innerHeight;
@@ -3163,9 +3268,9 @@ function cmExitFull() {
   var player = document.getElementById('player');
   if (!player || !player.classList.contains('full')) return;
   player.classList.remove('full');
-  player.classList.remove('fillmode', 'fillstretch'); // 退出全屏：恢复适应模式，下次播放从完整画面开始
-  var bf2 = document.getElementById('btnFill');
-  if (bf2) { bf2.textContent = '\u26F6'; bf2.title = '适应（完整画面）'; }
+  /* v1.29：退出全屏不再清空铺满档位（同一条片源再进全屏不用重按），换片源时由 cmFillReset() 复位 */
+  cmPinStage();                                   // 清掉钉死的像素尺寸，交还给 CSS
+  try { cmFillSync(); } catch (e) {}
   var sid = document.getElementById('playerSel'); if (sid) sid.style.display = '';
   try {
     if (document.fullscreenElement) document.exitFullscreen().catch(function(){});
@@ -3246,34 +3351,57 @@ window.__cmWebFs = function(on) { if (on) cmEnterFull(); else cmExitFull(); };
   }, { passive: false });
   /* 全屏头部+自绘控制条统一显隐：3 秒无操作淡出；点屏幕（非头部/控制条）切换。
      注意本 touchend 必须注册在下面手势 touchend 之前——后者会把 gMoved 复位。 */
-  var phEl = player.querySelector('.ph'), phTimer = null, wrapEl = null;
-  function ctlShow() {
-    if (phEl) phEl.classList.remove('phhide');
-    if (wrapEl) wrapEl.classList.remove('cmchide');
-    clearTimeout(phTimer);
-    phTimer = setTimeout(ctlHide, 3000);
+  /* ===== v1.29 全屏显隐：头部(.ph) + 自绘控制条(.cmcwrap) 单一真值 ctlOn =====
+     旧实现两处分别在元素上判断/增删 class，任一元素被重建（换源时 area.innerHTML='' 重造控制条，
+     而 wrapEl 缓存的仍是已被移除的旧节点）就会出现「只显示一半」；
+     另外控制条自身的 click → show() 会在 touchend 刚把两层点隐之后立刻又拉回来，
+     表现为「点了没反应 / 只有一边动了」。现在统一由 ctlOn 驱动，且每次都实时查 DOM。 */
+  var phEl0 = player.querySelector('.ph'), phTimer = null, ctlOn = true;
+  function ctlPh() { return phEl0 || player.querySelector('.ph'); }
+  function ctlWrap() { return document.querySelector('#playerArea .cmcwrap'); }
+  function ctlApply(on) {
+    var ph = ctlPh(), w = ctlWrap();
+    if (ph) { if (on) ph.classList.remove('phhide'); else ph.classList.add('phhide'); }
+    if (w) { if (on) w.classList.remove('cmchide'); else w.classList.add('cmchide'); }
   }
   function ctlHide() {
     clearTimeout(phTimer);
     /* iframe 网页源：浏览器里触摸全进 iframe、头部淡出后唤不回 → 仅网页版常显；
        APP 内由原生 dispatchTouchEvent 代管轻点（__cmTap 唤出），恢复正常 3 秒淡出。 */
-    if (!vid() && !inApp()) return;
-    if (phEl) phEl.classList.add('phhide');
-    if (wrapEl) wrapEl.classList.add('cmchide');
+    if (!vid() && !inApp()) { ctlOn = true; ctlApply(true); return; }
+    ctlOn = false; ctlApply(false);
   }
+  function ctlShow() {
+    clearTimeout(phTimer);
+    ctlOn = true; ctlApply(true);
+    var v = vid();
+    if (v && v.paused) return;            // 暂停时不自动隐退，保持可控
+    phTimer = setTimeout(ctlHide, 3000);  // 3 秒无操作：一起隐退
+  }
+  function ctlKeep() { /* 交互中：只续时，不负责唤出（否则刚点隐就被 click 拉回来） */
+    clearTimeout(phTimer);
+    if (!ctlOn) return;
+    var v = vid();
+    if (v && v.paused) return;
+    phTimer = setTimeout(ctlHide, 3000);
+  }
+  function ctlToggle() { if (ctlOn) ctlHide(); else ctlShow(); }
   window.__cmPh = {
     show: ctlShow,
     showReset: ctlShow,
     hide: ctlHide,
-    reset: function() { clearTimeout(phTimer); if (phEl) phEl.classList.remove('phhide'); if (wrapEl) wrapEl.classList.remove('cmchide'); },
-    setWrap: function(w) { wrapEl = w; }
+    keep: ctlKeep,
+    toggle: ctlToggle,
+    isHidden: function() { return !ctlOn; },
+    reset: function() { clearTimeout(phTimer); ctlOn = true; ctlApply(true); },
+    /* setWrap 保留仅为兼容旧调用：wrap 不再缓存，每次实时查 DOM，换源后依然同步 */
+    setWrap: function(w) { ctlApply(ctlOn); }
   };
   player.addEventListener('touchend', function(e) {
     if (!player.classList.contains('full')) return;
     if (e.target.closest && e.target.closest('.ph,.cmc')) return; /* 点头部/控制条本身不切换 */
     if (gMoved) return; /* 手势滑动结束不切换 */
-    var hidden = (phEl && phEl.classList.contains('phhide')) || (wrapEl && wrapEl.classList.contains('cmchide'));
-    if (hidden) ctlShow(); else ctlHide();
+    ctlToggle();
   });
   player.addEventListener('touchend', function(e) {
     if (!gMoved) return;
