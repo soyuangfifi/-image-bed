@@ -1,8 +1,7 @@
 {
-  "versionCode": 26,
-  "versionName": "1.25",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.25.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.25.apk",
-  "notes": "1. 修复点击即闪退：injectSafeTop() 在 onApplyWindowInsets 回调内调用 dispatchApplyWindowInsets() 触发无限递归 StackOverflowError，改为直接复用 listener 传入的 insets 对象。\n2. 修复返回一级级失效：MutationObserver 从仅监听静态元素改为 body 子树监听，动态创建的 qrLightbox/shareCardLb class 变化也能自动同步原生缓存，不再漏报层级。\n3. 修复播放页直接退出：handleBack() 不再预设为 false，改为等 __cmBack JS 执行完再刷新缓存，避免下一次返回时原生误判「无层可关」。\n4. 分享卡海报加载失败时给用户明确提示（纯文字版仍可生成）。\n5. （v1.24/v1.23）其他历史修复同上。",
-  "force": false
+  "versionCode": 27,
+  "versionName": "1.26",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.26.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.26.apk",
+  "notes": "1. 修复点击闪退(v1.24)：injectSafeTop 无限递归改由 listener 直接传 insets。\n2. 修复返回一级级失效(v1.25)：MutationObserver 改为 body 子树监听，动态层 class 变化自动同步。\n3. 修复播放页直接退出(v1.25)：handleBack 不再预设 cmLayerOpen=false。\n4. 分享卡海报加载失败时提示用户（纯文字版仍可生成）。\n5. 分享卡增强(v1.26)：从 TMDB 取最多 4 张剧照+封面组成 2×2 网格；展示豆瓣/TMDB/IMDb 多源评分。"
 }
