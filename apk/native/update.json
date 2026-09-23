@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.22-native",
-  "versionCode": 42,
+  "versionName": "3.9.23-native",
+  "versionCode": 43,
   "url": "super-sticky-note.apk",
-  "size": 6733026,
-  "sha256": "d2b6e5364c58c0f4b746db19b2e7a6b34ca438b5060eb4b19299721f6417eb53",
-  "note": "v42：修复「识别语音时既看不到同步识别文字、AI 也不回复」。根因有两类——① 对话页 🎙 按钮（单击与长按说话）之前用 autoSend=false，识别完只把文字填进输入框、不发给 AI，且单击路径根本没有 onPartial 实时回显；现改为识别中实时把中间结果填进输入框+横幅（「正在识别：xxx」），识别完成自动发给 AI 并渲染回复（命中指令仍走原动作分支）。② 悬浮球「按住说话」松手瞬间原来 stopListening+destroy 一起调，会把尚未回传的最终 onResults 取消掉，导致松手后既无文字也无 AI 回复；现松手只 stopListening，由识别器回调自行 destroy，确保最终文本回传。"
+  "size": 6734094,
+  "sha256": "7c12c703b0bfccd84e86b84f925d6e31cfb83bed7ab236561ffa3398b5f116b2",
+  "note": "v43：AI 对话页支持「说片名就打开详情页 / 搜索 / 拍电影识别 / 识别分享卡」。本地片库（98 部）命中片名（如「盗梦空间」）时直接打开详情页；「打开/查看/我想看/我要看/看 + 片名」命中 DETAIL 指令；「搜索/查找 + 片名」命中 SEARCH 指令；本地未命中则 fallback 到搜索。原有「拍电影识别」「识别分享卡」指令继续可用。"
 }
