@@ -1,7 +1,7 @@
 {
-  "versionCode": 27,
-  "versionName": "1.26",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.26.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.26.apk",
-  "notes": "1. 修复点击闪退(v1.24)：injectSafeTop 无限递归改由 listener 直接传 insets。\n2. 修复返回一级级失效(v1.25)：MutationObserver 改为 body 子树监听，动态层 class 变化自动同步。\n3. 修复播放页直接退出(v1.25)：handleBack 不再预设 cmLayerOpen=false。\n4. 分享卡海报加载失败时提示用户（纯文字版仍可生成）。\n5. 分享卡增强(v1.26)：从 TMDB 取最多 4 张剧照+封面组成 2×2 网格；展示豆瓣/TMDB/IMDb 多源评分。"
+  "versionCode": 28,
+  "versionName": "1.27",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.27.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.27.apk",
+  "notes": "1. 修复播放页返回直接退出(v1.27)：refreshLayerCache 读取 JS 返回值时未剥 JSON 引号，导致层级缓存被误清为「无层」→ 现已按引号剥离后比较，播放页/列表页返回正常逐级回退。\n2. 修复全屏后截图/录GIF图标消失(v1.27)：网页源(iframe)全屏时触摸被 iframe 吞掉、头部唤不回 → 网页源全屏时头部常显；视频源仍为 3 秒淡出+点屏唤出。\n3. v1.26 分享卡增强：多源评分(豆瓣/TMDB/IMDb) + 剧照 2×2 网格。"
 }
