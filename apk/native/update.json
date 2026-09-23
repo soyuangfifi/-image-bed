@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.30-native",
-  "versionCode": 50,
+  "versionName": "3.9.31-native",
+  "versionCode": 51,
   "url": "super-sticky-note.apk",
-  "size": 6747326,
-  "sha256": "a9c372ae4fffa6a2a4f7a6162ad1943b0f28cc6e1367e93143d5da49f669627d",
-  "note": "v50：①详情页/演员页图片改为「独立一张张全屏查看」（废弃横向连体 RecyclerView，改为单张全屏铺满 CENTER_CROP + 沉浸；多张用底部 ‹ › 离散切换一次一张，带页码与保存）。②接入 MDBList 多源评分聚合（api.mdblist.com，IMDb/TMDB/Trakt/Letterboxd/烂番茄/Metacritic/RogerEbert 等），已有评分卡只补空不覆盖 OMDb，新源动态加卡（Trakt/Letterboxd/MDBList 综合分…）。"
+  "size": 6747358,
+  "sha256": "3d350da07811481fb23c2c4af187b3c468fca10b3dd5969c862f7dcf861b8f88",
+  "note": "v51：①图片全屏预览改为按原始比例完整显示（FIT_CENTER，不裁剪，横版剧照不再被裁掉上下；详情页+演员页统一）。②悬浮AI语音图标再放大（核心球 66→78dp，白点 16→18dp，图标 padding 15→17dp）。③长按「按住说话」新增呼吸感放大动效（scale 1↔1.18 循环 + 不透明）。④空闲（不操作）时悬浮图标半透明（alpha 0.45↔0.62 呼吸），不遮挡 APP 内容查看；按下/聆听恢复不透明。"
 }
