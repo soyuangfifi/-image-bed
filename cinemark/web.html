@@ -340,8 +340,9 @@ header{padding:max(48px,var(--head-top,48px)) 0 0;text-align:center}
 .pov.full .cmcwrap .cmtool{display:flex}
 .cmcwrap .cmtool svg{width:17px;height:17px;display:block}
 .cmcwrap .cmtool.rec{color:#ff6b6b}
-/* 截图/GIF 状态提示浮层：不依赖头部可见性，全屏时「录制中/已保存」也能看到 */
-#gifToast{position:absolute;left:50%;bottom:76px;transform:translateX(-50%);padding:8px 16px;border-radius:20px;background:rgba(0,0,0,.74);color:#fff;font-size:13px;font-weight:600;z-index:10001;pointer-events:none;opacity:0;transition:opacity .2s;white-space:nowrap}
+/* 截图/GIF/分享卡 状态提示浮层：挂 body + fixed，播放器/详情弹窗/分享卡灯箱里都可见
+   （旧版挂在 #player 内、absolute 定位 → 在详情页生成分享卡时提示完全不可见，用户不知道功能是否触发） */
+#gifToast{position:fixed;left:50%;bottom:76px;transform:translateX(-50%);padding:8px 16px;border-radius:20px;background:rgba(0,0,0,.78);color:#fff;font-size:13px;font-weight:600;z-index:12000;pointer-events:none;opacity:0;transition:opacity .2s;white-space:nowrap;box-shadow:0 4px 18px rgba(0,0,0,.4)}
 #gifToast.on{opacity:1}
 /* 剧照/海报画廊（详情弹窗）：TMDB images 横向滚动条，点击看大图 */
 .mstills{margin-top:14px}
@@ -538,7 +539,7 @@ header{padding:max(32px,var(--head-top,32px)) 0 0}
       </div>
       <div class="ab-divider" data-page-node-id="8M5cI5asDniYpNFKDcD9K0"></div>
       <div class="ab-title" data-page-node-id="kgTy5Fty0cgy8SwTFW76Jp">影视热榜</div>
-      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.27.0</div>
+      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.28.0</div>
       <div class="ab-tagline" data-page-node-id="GAd20pcE0BPrierIJh0v25">多源聚合 · 豆瓣高分 · 搜索即看</div>
       <a class="abtn ab-dl" id="abDownload" href="https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk" target="_blank" rel="noopener" download style="text-decoration:none;margin-top:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>下载安卓 APP</a>
     </div>
@@ -1661,7 +1662,9 @@ function cmShareCardPoster(url, cb) {
 function cmMakeShareCard() {
   if (!PI || !PI.title) { gifStat('先打开影片详情再生成分享卡'); return; }
   if (!window.AndroidCM || typeof AndroidCM.makeQr !== 'function') { gifStat('生成分享卡请在 APP 内使用'); return; }
-  gifStat('正在生成分享卡...');
+  if (window.__cmCardBusy) { gifStat('分享卡正在生成，请稍候…'); return; }
+  window.__cmCardBusy = true;
+  gifStat('正在生成分享卡，请稍候 1-3 秒…');
   var title = String(PI.title).trim();
   var year = PI.year || '';
   var type = PI.type || '';
@@ -1867,10 +1870,11 @@ function cmPaintShareCard(title, year, type, area, rateData, images, qrImg) {
   }
   var card = null;
   try { card = makeCard(); } catch (e) { card = null; }
-  if (!card) { gifStat('分享卡生成失败'); return; }
+  if (!card) { window.__cmCardBusy = false; gifStat('分享卡生成失败，请重试'); return; }
   cmShowShareCard(card.toDataURL('image/jpeg', 0.92));
 }
 function cmShowShareCard(dataUrl) {
+  window.__cmCardBusy = false;
   var lb = document.getElementById('shareCardLb');
   if (!lb) {
     lb = document.createElement('div');
@@ -1881,10 +1885,17 @@ function cmShowShareCard(dataUrl) {
   }
   document.getElementById('sclImg').src = dataUrl;
   document.getElementById('sclSave').onclick = function() {
+    var btn = this;
     if (window.AndroidCM && typeof AndroidCM.saveMedia === 'function') {
       var ok = 0;
       try { ok = AndroidCM.saveMedia(dataUrl.split(',')[1] || '', 'CineMark_share_' + Date.now() + '.jpg', 'image/jpeg'); } catch (e) {}
-      gifStat(ok ? '分享卡已保存到相册' : '保存失败，请长按图片保存');
+      if (ok) {
+        gifStat('✓ 分享卡已保存到手机相册');
+        btn.textContent = '✓ 已保存';
+        setTimeout(function() { btn.textContent = '保存到相册'; }, 2500);
+      } else {
+        gifStat('保存失败，请长按图片手动保存');
+      }
     } else {
       gifStat('网页版请长按图片保存');
     }
@@ -2499,6 +2510,8 @@ function useIframe(url) {
   f.onload = function() { cmHideLoading(); };
   a.appendChild(f);
   cmShowLoading();
+  // 源类型变化（iframe 网页源）：重报原生（hasVideo=false → 原生接管全屏手势 + 轻点唤出）
+  try { if (typeof _cmReportFull === 'function') _cmReportFull(); } catch (e) {}
 }
 // 播放加载覆盖层：视频/iframe 未就绪时显示转圈，避免一片死黑让人以为是坏了
 function cmShowLoading() {
@@ -2590,6 +2603,8 @@ function attachCmControls(v) {
   };
   // 控制条交给全屏显隐管理器（与头部一起：3 秒自动隐藏/点屏幕唤出）
   try { if (window.__cmPh && window.__cmPh.setWrap) window.__cmPh.setWrap(wrap); } catch (e) {}
+  // 源类型变化（video 就绪）：重报原生（dispatchTouchEvent 手势接管策略依赖 hasVideo）
+  try { if (typeof _cmReportFull === 'function') _cmReportFull(); } catch (e) {}
 }
 
 /* ===== 详情页剧照/海报画廊（TMDB images） =====
@@ -2736,11 +2751,11 @@ function gifStat(msg) {
     el.textContent = msg || '';
     if (msg) setTimeout(function() { el.textContent = ''; }, 4000);
   }
-  /* 状态浮层：全屏时头部会隐藏，「录制中/已保存」挂到播放器上，任何状态都可见 */
+  /* 状态浮层：挂 body（fixed 定位）——播放页/详情弹窗/分享卡灯箱任何界面都可见 */
   var toast = document.getElementById('gifToast');
   if (!toast) {
-    var host = document.getElementById('player');
-    if (host) { toast = document.createElement('div'); toast.id = 'gifToast'; host.appendChild(toast); }
+    toast = document.createElement('div'); toast.id = 'gifToast';
+    document.body.appendChild(toast);
   }
   if (toast) {
     if (msg) {
@@ -2922,6 +2937,27 @@ window.__cmHasOpen = function() {
   if (sc && sc.classList.contains('open')) return true;
   return false;
 };
+window.__cmTap = function() {
+  var p = document.getElementById('player');
+  if (!p || !p.classList.contains('full')) return;
+  var phEl = p.querySelector('.ph');
+  var wrapEl = document.querySelector('#playerArea .cmcwrap');
+  var hidden = (phEl && phEl.classList.contains('phhide')) || (wrapEl && wrapEl.classList.contains('cmchide'));
+  try { if (window.__cmPh) { if (hidden) window.__cmPh.show(); else window.__cmPh.hide(); } } catch (e) {}
+};
+/* 上报网页全屏状态与源类型（原生 dispatchTouchEvent 据此接管三区手势与轻点唤出）：
+   iframe 网页源时触摸事件全部进入 iframe、父文档收不到任何 touch →
+   JS 层的音量/亮度/快进退手势永远失效，必须由原生在分源头接管（原生能看到所有触摸）。 */
+function _cmReportFull() {
+  try {
+    var p = document.getElementById('player');
+    var full = !!(p && p.classList.contains('full'));
+    var v = !!document.querySelector('#playerArea video');
+    if (window.AndroidCM && typeof AndroidCM.reportFull === 'function') AndroidCM.reportFull(full, v);
+  } catch (e) {}
+}
+try { _cmReportFull(); } catch (e) {}
+
 window.__cmBack = function() {
   var pl = document.getElementById('player');
   // 全屏中：先退回网页全屏（仍停留在播放页），下一次返回才关播放器 —— 满足「先回上一级」
@@ -3121,6 +3157,7 @@ function cmEnterFull() {
     }
   }, 500);
   _cmSyncLayer();
+  _cmReportFull();
 }
 function cmExitFull() {
   var player = document.getElementById('player');
@@ -3144,6 +3181,7 @@ function cmExitFull() {
   try { if (window.__cmPh) window.__cmPh.reset(); } catch (e) {} // 退出全屏：头部恢复常显
   var stat = document.getElementById('gifStat'); if (stat) stat.textContent = '';
   _cmSyncLayer();
+  _cmReportFull();
 }
 window.__cmWebFs = function(on) { if (on) cmEnterFull(); else cmExitFull(); };
 
@@ -3217,20 +3255,16 @@ window.__cmWebFs = function(on) { if (on) cmEnterFull(); else cmExitFull(); };
   }
   function ctlHide() {
     clearTimeout(phTimer);
-    /* iframe 网页源（playerArea 里无 <video>）：触摸事件全部被 iframe 吞掉，
-       用户点屏幕根本唤不回头部 → 截图/录GIF 图标「消失后回不来」。
-       故网页源全屏时头部常显不自动隐藏（视频源仍保留 3 秒淡出 + 点屏唤出）。 */
-    if (!vid()) {
-      if (phEl) phEl.classList.remove('phhide');
-      if (wrapEl) wrapEl.classList.remove('cmchide');
-      return;
-    }
+    /* iframe 网页源：浏览器里触摸全进 iframe、头部淡出后唤不回 → 仅网页版常显；
+       APP 内由原生 dispatchTouchEvent 代管轻点（__cmTap 唤出），恢复正常 3 秒淡出。 */
+    if (!vid() && !inApp()) return;
     if (phEl) phEl.classList.add('phhide');
     if (wrapEl) wrapEl.classList.add('cmchide');
   }
   window.__cmPh = {
     show: ctlShow,
     showReset: ctlShow,
+    hide: ctlHide,
     reset: function() { clearTimeout(phTimer); if (phEl) phEl.classList.remove('phhide'); if (wrapEl) wrapEl.classList.remove('cmchide'); },
     setWrap: function(w) { wrapEl = w; }
   };
