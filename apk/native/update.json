@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.28-native",
-  "versionCode": 48,
+  "versionName": "3.9.29-native",
+  "versionCode": 49,
   "url": "super-sticky-note.apk",
-  "size": 6741142,
-  "sha256": "3d0f770de92edf85a39cad088e2e479027cc997f8c753da0dedd0ea720819506",
-  "note": "v48：悬浮语音图标交互修正 + 放大可点中面积。① 图标核心球 58→66dp、提示文案改为「点按对话 · 长按说话」。② 交互改为「短按=打开 AI 对话页自动收音（稳定，不在球上启停麦克风，杜绝一触即止）」，「长按≥380ms=按住说话（边按边听，松手带识别文字进对话）」，「双击=收起」；拖动仍可移球。③ 同步 worker/index.js 到 api-proxy-worker.js，新增 /douban 路由（线上部署需手动控制台粘贴）。"
+  "size": 6741170,
+  "sha256": "05e491750404ca9b8606e4445e9808cecd3a927d3c60bef602d1363abab7e4c3",
+  "note": "v49：详情页图片（封面/海报/剧照/演员照）点击全屏等比铺满预览。① 真因：previewImage 的 ImageView MATCH_PARENT 高度塌陷 + FIT_CENTER，图片挤在屏幕上方一小块不铺满；② 修复：根容器固定全屏像素高度 + CENTER_CROP 裁剪铺满 + 沉浸全屏（SYSTEM_UI_FLAG_IMMERSIVE）+ 锁竖屏。双副本 ssn_native 与 ZCode 已同步 build.gradle + DetailActivity.kt。"
 }
