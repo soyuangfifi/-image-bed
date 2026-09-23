@@ -1662,18 +1662,22 @@ function cmMakeShareCard() {
   if (!PI || !PI.title) { gifStat('先打开影片详情再生成分享卡'); return; }
   if (!window.AndroidCM || typeof AndroidCM.makeQr !== 'function') { gifStat('生成分享卡请在 APP 内使用'); return; }
   gifStat('正在生成分享卡...');
-  var payload = 'CINEMARK|' + String(PI.title).trim() + (PI.year ? '|' + PI.year : '');
+  var title = String(PI.title).trim();
+  var year = PI.year || '';
+  var type = PI.type || '';
+  var area = PI.area || '';
+  var rateData = cmFetchRatingData(PI);
+  var payload = 'CINEMARK|' + title + (year ? '|' + year : '');
   var qrB64 = '';
   try { qrB64 = AndroidCM.makeQr(payload, 360) || ''; } catch (e) {}
-  cmShareCardPoster(PI.img, function(posterUrl) {
-    var loadPoster = function(src) {
-      if (!src) { cmLoadQrAndPaint(qrB64, null); return; }
-      var p = new Image();
-      p.onload = function() { cmLoadQrAndPaint(qrB64, p); };
-      p.onerror = function() { cmLoadQrAndPaint(qrB64, null); };
-      p.src = src;
-    };
-    if (posterUrl) loadPoster(posterUrl); else cmLoadQrAndPaint(qrB64, null);
+  // 1. 取 TMDB 多图（封面+剧照）
+  cmFetchCardImages(title, year, 4, function(images) {
+    // 2. 取 QR
+    if (!qrB64) { cmPaintShareCard(title, year, type, area, rateData, images, null); return; }
+    var q = new Image();
+    q.onload = function() { cmPaintShareCard(title, year, type, area, rateData, images, q); };
+    q.onerror = function() { cmPaintShareCard(title, year, type, area, rateData, images, null); };
+    q.src = 'data:image/png;base64,' + qrB64;
   });
 }
 function cmLoadQrAndPaint(qrB64, posterImg) {
@@ -1683,54 +1687,188 @@ function cmLoadQrAndPaint(qrB64, posterImg) {
   q.onerror = function() { cmPaintShareCard(posterImg, null); };
   q.src = 'data:image/png;base64,' + qrB64;
 }
-function cmPaintShareCard(posterImg, qrImg) {
-  var W = 720, H = 1000;
-  function draw(withPoster) {
+
+/* ===== 分享卡增强：多图（海报+剧照）+ 多源评分 ===== */
+/* cmFetchCardImages：取最多 N 张图（封面+剧照）用于分享卡
+   优先读剧照缓存（cmStills）避免重复请求；缓存不存在时同步走 TMDB API。
+   结果格式：[{url:'https://image.tmdb.org/t/p/original/...'}, ...] */
+function cmFetchCardImages(title, year, maxCount, cb) {
+  if (!title) { cb([]); return; }
+  var t = cmCleanTitle(title);
+  if (!t) { cb([]); return; }
+  maxCount = maxCount || 4;
+  // 1. 优先读剧照缓存（initCmStills 已填充，包含海报+剧照）
+  try {
+    var cacheKey = 'cmStills:' + t + ':' + (year || '');
+    var cached = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+    if (cached && cached.list && cached.list.length) {
+      var out = [];
+      for (var i = 0; i < cached.list.length && out.length < maxCount; i++) {
+        var item = cached.list[i];
+        var size = item.k === 'p' ? 'original' : 'w780';
+        out.push({ url: 'https://image.tmdb.org/t/p/' + size + item.p });
+      }
+      if (out.length) { cb(out); return; }
+    }
+  } catch (e) {}
+  // 2. 缓存不存在则同步从 TMDB 取
+  var mt = 'movie';
+  fetchJSON('https://api.themoviedb.org/3/search/movie?api_key=' + CM_TMDB_KEY + '&language=zh-CN&query=' + encodeURIComponent(t))
+    .then(function(d) {
+      var pick = d.results && d.results[0];
+      if (!pick) throw new Error('no result');
+      mt = pick.media_type || (pick.first_air_date ? 'tv' : 'movie');
+      return fetchJSON('https://api.themoviedb.org/3/' + mt + '/' + pick.id + '/images?api_key=' + CM_TMDB_KEY);
+    })
+    .then(function(im) {
+      var posters = (im && im.posters) || [];
+      var bds = (im && im.backdrops) || [];
+      function firstByLang(a) {
+        for (var i = 0; i < a.length; i++) if (a[i].iso_639_1 === 'zh') return a[i];
+        for (var j = 0; j < a.length; j++) if (!a[j].iso_639_1) return a[j];
+        return a[0] || null;
+      }
+      var pz = firstByLang(posters);
+      var list = [];
+      if (pz) list.push({ k: 'p', p: pz.file_path });
+      var sb = bds.slice().sort(function(a, b) {
+        var za = a.iso_639_1 === 'zh' ? 1 : 0, zb = b.iso_639_1 === 'zh' ? 1 : 0;
+        return (zb - za) || ((b.vote_average || 0) - (a.vote_average || 0));
+      });
+      for (var i = 0; i < sb.length && list.length < maxCount; i++) list.push({ k: 'b', p: sb[i].file_path });
+      cb(list.map(function(it) {
+        return { url: 'https://image.tmdb.org/t/p/original' + it.p };
+      }));
+    })
+    .catch(function() { cb([]); });
+}
+
+/* cmFetchRatingData：从 PI 已有字段构建评分数据
+   PI.rate 来自豆瓣；TMDB/IMDb 需在 openCMS 时额外填充（本版本优先展示已有数据） */
+function cmFetchRatingData(pi) {
+  if (!pi) return { douban: '', tmdb: '', imdb: '' };
+  var r = {
+    douban: parseFloat(pi.rate) || 0,
+    tmdb: 0,
+    imdb: 0
+  };
+  // 尝试从 PI.tmdbId 反向从缓存读 vote_average（如果有）
+  try {
+    var key = 'cmStills:' + (cmCleanTitle(pi.title) || '') + ':' + (pi.year || '');
+    var c = JSON.parse(localStorage.getItem(key) || 'null');
+    if (c && c.list) {
+      // 剧照缓存不含评分，暂跳过
+    }
+  } catch (e) {}
+  // 若 PI 自带 tmdb/vote 字段则用
+  if (pi.tmdbRate) r.tmdb = parseFloat(pi.tmdbRate) || 0;
+  if (pi.imdbRate) r.imdb = parseFloat(pi.imdbRate) || 0;
+  return r;
+}
+
+function cmPaintShareCard(title, year, type, area, rateData, images, qrImg) {
+  var W = 720, H = 1080;
+  // 图元
+  function fillRoundedRect(ctx, x, y, w, h, r) {
+    ctx.beginPath();
+    ctx.moveTo(x + r, y);
+    ctx.arcTo(x + w, y, x + w, y + h, r);
+    ctx.arcTo(x + w, y + h, x, y + h, r);
+    ctx.arcTo(x, y + h, x, y, r);
+    ctx.arcTo(x, y, x + w, y, r);
+    ctx.closePath();
+  }
+  function makeCard() {
     var c = document.createElement('canvas'); c.width = W; c.height = H;
     var x = c.getContext('2d');
+    // 背景
     x.fillStyle = '#0b0b0e'; x.fillRect(0, 0, W, H);
-    x.strokeStyle = 'rgba(201,168,76,.55)'; x.lineWidth = 2; x.strokeRect(24, 24, W - 48, H - 48);
-    x.strokeStyle = 'rgba(201,168,76,.22)'; x.lineWidth = 1; x.strokeRect(34, 34, W - 68, H - 68);
-    var hasPoster = withPoster && posterImg && posterImg.naturalWidth;
-    if (hasPoster) {
-      var aw = W - 140, ah = 580;
-      var r = Math.min(aw / posterImg.naturalWidth, ah / posterImg.naturalHeight);
-      var dw = posterImg.naturalWidth * r, dh = posterImg.naturalHeight * r;
-      x.drawImage(posterImg, (W - dw) / 2, 70, dw, dh);
-    } else {
-      x.fillStyle = '#15121c'; x.fillRect(70, 70, W - 140, 580);
-      x.textAlign = 'center';
-      x.fillStyle = '#c9a84c'; x.font = 'bold 44px sans-serif';
-      x.fillText('CINEMARK', W / 2, 340);
-      x.font = '26px sans-serif'; x.fillStyle = '#8a8a92';
-      x.fillText('影视热榜', W / 2, 392);
-    }
-    var title = (PI && PI.title ? PI.title : '').trim();
-    var meta = [PI && PI.year, PI && PI.type, PI && PI.area].filter(Boolean).join(' · ');
+    // 金色边框
+    x.strokeStyle = 'rgba(201,168,76,.5)'; x.lineWidth = 2;
+    fillRoundedRect(x, 20, 20, W - 40, H - 40, 16); x.stroke();
+    x.strokeStyle = 'rgba(201,168,76,.2)'; x.lineWidth = 1;
+    fillRoundedRect(x, 30, 30, W - 60, H - 60, 12); x.stroke();
+    // 标题区
     x.textAlign = 'center';
-    x.fillStyle = '#f2ede1'; x.font = 'bold 42px sans-serif';
-    x.fillText(title.length > 14 ? title.slice(0, 13) + '…' : title, W / 2, 742);
-    x.fillStyle = '#9a9aa2'; x.font = '24px sans-serif';
-    x.fillText(meta || '多源聚合 · 搜索即看', W / 2, 786);
-    if (qrImg) {
-      var qs = 190, qx = W - qs - 66, qy = H - qs - 92;
-      x.fillStyle = '#ffffff'; x.fillRect(qx - 10, qy - 10, qs + 20, qs + 20);
-      x.drawImage(qrImg, qx, qy, qs, qs);
-      x.fillStyle = '#c9a84c'; x.font = '20px sans-serif';
-      x.fillText('扫码直达 · 免打字', qx + qs / 2, qy + qs + 34);
+    x.fillStyle = '#c9a84c'; x.font = 'bold 36px sans-serif';
+    x.fillText('CINEMARK', W / 2, 62);
+    x.fillStyle = '#8a8a92'; x.font = '22px sans-serif';
+    x.fillText('影视热榜 · 分享卡', W / 2, 90);
+    // 电影名
+    var safeTitle = (title || '').replace(/['"\\]/g, '');
+    var displayTitle = safeTitle.length > 16 ? safeTitle.slice(0, 15) + '…' : safeTitle;
+    x.fillStyle = '#f2ede1'; x.font = 'bold 40px sans-serif';
+    x.fillText(displayTitle, W / 2, 150);
+    // 元信息
+    var metas = [year, type, area].filter(Boolean).join(' · ');
+    x.fillStyle = '#9a9aa2'; x.font = '22px sans-serif';
+    x.fillText(metas || '多源聚合 · 搜索即看', W / 2, 188);
+    // 四图网格
+    var gw = 320, gh = 180, gap = 12, startX = (W - gw * 2 - gap) / 2, startY = 220;
+    var loaded = 0, total = Math.min((images || []).length, 4);
+    var canvases = [];
+    for (var i = 0; i < 4; i++) {
+      var col = i % 2, row = Math.floor(i / 2);
+      var ix = startX + col * (gw + gap), iy = startY + row * (gh + gap);
+      var img = document.createElement('canvas'); img.width = gw; img.height = gh;
+      var ictx = img.getContext('2d');
+      ictx.fillStyle = '#15121c'; ictx.fillRect(0, 0, gw, gh);
+      ictx.fillStyle = '#555'; ictx.font = '18px sans-serif'; ictx.textAlign = 'center';
+      ictx.fillText('加载中...', gw / 2, gh / 2 + 6);
+      canvases.push(img);
+      if (i < total && images[i]) {
+        var imgEl = new Image(); imgEl.crossOrigin = 'anonymous';
+        imgEl.onload = function(i2, cv, ctx2) {
+          return function() {
+            var sw = imgEl.naturalWidth, sh = imgEl.naturalHeight;
+            var ratio = Math.max(sw / cv.width, sh / cv.height);
+            var dw = sw / ratio, dh = sh / ratio;
+            ctx2.clearRect(0, 0, cv.width, cv.height);
+            ctx2.drawImage(imgEl, (cv.width - dw) / 2, (cv.height - dh) / 2, dw, dh);
+            loaded++;
+            if (loaded === total) { /* all loaded */ }
+          };
+        }(i, img, ictx);
+        imgEl.onerror = function() { /* keep placeholder */ };
+        imgEl.src = images[i].url;
+      }
     }
-    x.textAlign = 'left';
-    x.fillStyle = 'rgba(201,168,76,.85)'; x.font = 'bold 26px sans-serif';
-    x.fillText('CINEMARK', 66, H - 80);
-    x.fillStyle = '#8a8a92'; x.font = '20px sans-serif';
-    x.fillText('影视热榜 · 分享卡', 220, H - 80);
-    return c.toDataURL('image/jpeg', 0.92);
+    // 评分条
+    var ry = 220 + 2 * (gh + gap) + 20;
+    x.textAlign = 'center'; x.fillStyle = '#c9a84c'; x.font = 'bold 20px sans-serif';
+    x.fillText('评分', W / 2, ry);
+    ry += 32;
+    var ratings = [];
+    if (rateData && rateData.douban) ratings.push({ src: '豆瓣', val: rateData.douban.toFixed(1), color: '#d2d531' });
+    if (rateData && rateData.tmdb) ratings.push({ src: 'TMDB', val: (rateData.tmdb / 2).toFixed(1), color: '#21d07a' });
+    if (rateData && rateData.imdb) ratings.push({ src: 'IMDb', val: rateData.imdb.toFixed(1), color: '#f5c518' });
+    var ratingW = 180, ratingTotalW = ratings.length * (ratingW + 16);
+    var rx = (W - ratingTotalW) / 2;
+    for (var ri = 0; ri < ratings.length; ri++) {
+      var rd = ratings[ri];
+      fillRoundedRect(x, rx, ry, ratingW, 36, 8);
+      x.fillStyle = '#1a1a2e'; x.fill();
+      x.strokeStyle = rd.color; x.lineWidth = 1.5; fillRoundedRect(x, rx, ry, ratingW, 36, 8); x.stroke();
+      x.fillStyle = rd.color; x.font = 'bold 18px sans-serif'; x.textAlign = 'left';
+      x.fillText(rd.val, rx + 12, ry + 25);
+      x.fillStyle = '#8a8a92'; x.font = '14px sans-serif';
+      x.fillText(rd.src, rx + ratingW - 40, ry + 24);
+      rx += ratingW + 16;
+    }
+    // QR 码
+    var qrSize = 160, qrX = W - qrSize - 60, qrY = H - qrSize - 100;
+    if (qrImg && qrImg.naturalWidth) {
+      x.fillStyle = '#ffffff'; fillRoundedRect(x, qrX - 8, qrY - 8, qrSize + 16, qrSize + 16, 8); x.fill();
+      x.drawImage(qrImg, qrX, qrY, qrSize, qrSize);
+      x.textAlign = 'center'; x.fillStyle = '#c9a84c'; x.font = '16px sans-serif';
+      x.fillText('扫码直达 · 免打字', qrX + qrSize / 2, qrY + qrSize + 24);
+    }
+    return c;
   }
-  var dataUrl = null;
-  try { dataUrl = draw(true); } catch (e) { dataUrl = null; }
-  if (!dataUrl) { try { dataUrl = draw(false); } catch (e2) {} }
-  if (!dataUrl) { gifStat('分享卡生成失败（海报跨域受限）'); return; }
-  cmShowShareCard(dataUrl);
+  var card = null;
+  try { card = makeCard(); } catch (e) { card = null; }
+  if (!card) { gifStat('分享卡生成失败'); return; }
+  cmShowShareCard(card.toDataURL('image/jpeg', 0.92));
 }
 function cmShowShareCard(dataUrl) {
   var lb = document.getElementById('shareCardLb');
@@ -2544,9 +2682,18 @@ function initCmStills(title, year) {
       if (!list.length) throw new Error('no images');
       try { localStorage.setItem(cmStillsCacheKey(t, y), JSON.stringify({ t: Date.now(), list: list })); } catch (e) {}
       renderCmStills(box, list, token);
+      // 顺手取 TMDB 详情里的 vote_average（用于分享卡评分展示）
+      // 用同一个 pick（search 里找到的那一条）查 detail，避免额外网络开销
+      var mt2 = pick.media_type || (pick.first_air_date ? 'tv' : 'movie');
+      return fetchJSON('https://api.themoviedb.org/3/' + mt2 + '/' + pick.id + '?api_key=' + CM_TMDB_KEY + '&language=zh-CN');
+    })
+    .then(function(detail) {
+      if (detail && detail.vote_average) {
+        PI.tmdbRate = parseFloat(detail.vote_average) || 0;
+      }
     })
     .catch(function(e) {
-      console.log('[CM] stills fail:', e && e.message);
+      console.log('[CM] stills or rating fail:', e && e.message);
       if (box.__tok === token && box.parentNode) box.parentNode.removeChild(box);
     });
 }
