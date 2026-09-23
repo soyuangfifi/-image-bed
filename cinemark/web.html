@@ -14,7 +14,7 @@
 body{background:var(--bg);color:var(--t1);font-family:'DM Mono',monospace;min-height:100vh;min-height:100dvh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 12% 8%,rgba(201,168,76,.03) 0%,transparent 50%);pointer-events:none;z-index:0}
 .wrap{position:relative;z-index:1;max-width:1200px;margin:0 auto;padding:0 28px 60px}
-header{padding:48px 0 0;text-align:center}
+header{padding:max(48px,var(--head-top,48px)) 0 0;text-align:center}
 .bm{font-family:'Syne';font-weight:800;font-size:13px;letter-spacing:.45em;color:var(--acc);display:inline-flex;align-items:center;gap:12px}
 .bm::before,.bm::after{content:'';width:28px;height:2px;background:var(--acc)}
 .bh{font-family:'Noto Serif SC';font-weight:900;font-size:clamp(32px,4.5vw,50px);line-height:1.1;margin-top:8px;background:linear-gradient(135deg,var(--t1),var(--t2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
@@ -36,6 +36,15 @@ header{padding:48px 0 0;text-align:center}
 .sbox input::placeholder{color:var(--t3)}
 .sbox button{background:var(--acc);border:none;color:#080808;font-family:'Syne';font-weight:700;font-size:13px;padding:15px 28px;cursor:pointer;letter-spacing:.06em;transition:.25s}
 .sbox button:hover{background:var(--acc2)}.sbox button:disabled{opacity:.5;cursor:default}
+#scanCardBtn{background:none;color:var(--t3);padding:0 16px;cursor:pointer;display:flex;align-items:center;flex-shrink:0}
+#scanCardBtn:hover{background:none;color:var(--acc)}
+#scanCardBtn svg{width:20px;height:20px}
+#shareCardBtn{position:absolute;right:16px;bottom:16px;z-index:6;cursor:pointer;text-decoration:none}
+#shareCardLb{position:fixed;inset:0;z-index:3000;background:rgba(0,0,0,.9);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;opacity:0;pointer-events:none;transition:opacity .25s}
+#shareCardLb.open{opacity:1;pointer-events:auto}
+#shareCardLb .scl-box{display:flex;flex-direction:column;align-items:center;gap:14px;max-height:96%;overflow:auto}
+#shareCardLb img{max-width:78%;max-height:68%;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+#shareCardLb .scl-tip{color:var(--t3);font-size:12px}
 .kw{display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-top:16px}
 .kw button{background:var(--s1);border:1px solid var(--bd);color:var(--t2);font-family:'DM Mono';font-size:11px;padding:5px 13px;border-radius:99px;cursor:pointer;transition:.25s}
 .kw button:hover{border-color:var(--acc);color:var(--t1)}
@@ -183,7 +192,7 @@ header{padding:48px 0 0;text-align:center}
 .eb:hover{border-color:var(--acc);color:var(--acc);background:var(--s3)}
 .pov{position:fixed;inset:0;z-index:2000;background:rgba(11,11,14,.96);display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .3s}
 .pov.open{opacity:1;pointer-events:all}
-.ph{display:flex;align-items:center;gap:12px;padding:10px 16px;background:rgba(0,0,0,.6);border-bottom:1px solid var(--bd);flex-shrink:0}
+.ph{display:flex;align-items:center;gap:12px;padding:max(10px,calc(var(--safe-top,0px) - 20px)) 16px;background:rgba(0,0,0,.6);border-bottom:1px solid var(--bd);flex-shrink:0}
 .pback{background:none;border:1px solid rgba(255,255,255,.1);color:var(--t1);width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.25s;flex-shrink:0}
 .pback:hover{background:var(--acc);color:#080808;border-color:var(--acc)}
 .ptitle{font-family:'Noto Serif SC';font-weight:700;font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -370,7 +379,7 @@ header{padding:48px 0 0;text-align:center}
 /* ===== 移动端优化 ===== */
 @media(max-width:768px){
 .wrap{padding:0 14px}
-header{padding:32px 0 0}
+header{padding:max(32px,var(--head-top,32px)) 0 0}
 /* 分类 / 数据源栏改为单行横向滑动，避免换行占屏、便于手指滑动切换 */
 .sb,.cb{flex-wrap:nowrap;overflow-x:auto;justify-content:flex-start;gap:8px;padding:14px 14px 10px;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
 .sb::-webkit-scrollbar,.cb::-webkit-scrollbar{display:none}
@@ -391,8 +400,8 @@ header{padding:32px 0 0}
 /* 主导航吸顶，滚动时仍可切换 热榜/搜索 */
 .mt{position:sticky;top:0;z-index:60;background:linear-gradient(var(--bg) 78%,rgba(8,8,8,0));padding-top:14px;backdrop-filter:blur(6px)}
 /* 挖孔屏/刘海安全区：让主导航与左上 logo 避开顶部摄像头区，整体内容下移 */
-.mt{padding-top:max(40px,env(safe-area-inset-top,40px))}
-.app-logo{top:max(44px,calc(env(safe-area-inset-top,0px) + 44px))}
+.mt{padding-top:max(40px,env(safe-area-inset-top,40px),calc(var(--safe-top,0px) + 24px))}
+.app-logo{top:max(44px,calc(env(safe-area-inset-top,0px) + 44px),calc(var(--safe-top,0px) + 20px))}
 /* 底部操作区/页脚让位手势条 */
 .footer{padding-bottom:max(28px,env(safe-area-inset-bottom,28px))}
 /* 详情弹窗移动端全屏化，避免小屏拥挤 */
@@ -400,7 +409,7 @@ header{padding:32px 0 0}
 .mbx{max-width:100%;width:100%;max-height:100vh;max-height:100dvh;height:100vh;height:100dvh;border-radius:0;border:none}
 .mcl{top:max(12px,env(safe-area-inset-top));right:12px;width:36px;height:36px;font-size:20px}
 /* 播放器头部在窄屏自适应，标题与选集不溢出 */
-.ph{flex-wrap:wrap;gap:8px;padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top));padding-bottom:max(10px,env(safe-area-inset-bottom))}
+.ph{flex-wrap:wrap;gap:8px;padding:10px 12px;padding-top:max(10px,env(safe-area-inset-top),calc(var(--safe-top,0px) - 20px));padding-bottom:max(10px,env(safe-area-inset-bottom))}
 .ptitle{flex:1;min-width:0}
 .pright{margin-left:0}
 .psel{max-width:150px;flex-shrink:1;min-width:0}
@@ -428,7 +437,7 @@ header{padding:32px 0 0}
 .splash-line{width:40px;height:1px;background:linear-gradient(90deg,transparent,var(--acc),transparent);margin-top:12px;opacity:0;animation:splashIn .6s .6s cubic-bezier(.22,1,.36,1) forwards}
 @keyframes splashIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
 
-.app-logo{position:fixed;top:12px;left:12px;z-index:1000;width:56px;height:56px;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.5);border:1px solid rgba(201,168,76,.25);background:var(--bg)}
+.app-logo{position:fixed;top:max(12px,calc(var(--safe-top,0px) + 4px));left:12px;z-index:1000;width:56px;height:56px;border-radius:14px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,.5);border:1px solid rgba(201,168,76,.25);background:var(--bg)}
 .app-logo img{width:100%;height:100%;object-fit:cover;display:block}
 /* 关于弹窗：移动端 max-width:600/768px 的覆写会把它拉成 height:100vh 全屏薄片，
    内容全部顶到屏幕最上方。这里用 id 提高优先级，恢复为垂直居中的卡片。 */
@@ -477,8 +486,10 @@ header{padding:32px 0 0}
   <div id="searchArea" style="display:none" data-page-node-id="vn9KI0bN2B5gWqzOBoAKWC">
     <div class="sbox" data-page-node-id="YIiXCsvxOuwV5rVbplvfHt">
       <input type="text" id="searchInput" placeholder="搜索影视名称..." data-page-node-id="AxUzF2yuUNQwqOgZHqhRDc">
+      <button type="button" id="scanCardBtn" title="识别分享卡：选一张分享卡图片，扫码直达影片详情"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 012-2h1.5l1-1.5h9l1 1.5H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><circle cx="12" cy="12.5" r="3.2"/></svg></button>
       <button type="button" id="searchBtn" data-page-node-id="F3eClCwu6vSkISRXb2oNNy">搜索</button>
     </div>
+    <input type="file" id="scanCardInput" accept="image/*" style="display:none">
     <div class="kw" id="kwBar" data-page-node-id="P4GYxFpsRFSdD4n5AzM1UY"></div>
     <div id="resultBar" data-page-node-id="zM3fitStz3km8jHvW1LDjn"></div>
   </div>
@@ -507,6 +518,7 @@ header{padding:32px 0 0}
   <div class="mbx" data-page-node-id="h4bH8OGfJueqQIBRy7aaqX">
     <button type="button" class="mcl" id="modalClose" data-page-node-id="YWS4pV0dqJBtqRXnniBjhC">&times;</button>
     <div id="modalBody" data-page-node-id="c2D30aXKOBJCdxWnh1uDNE"></div>
+    <button type="button" class="abtn" id="shareCardBtn" title="生成电影分享卡图片（含识别二维码），发给朋友扫码直达详情">生成分享卡</button>
   </div>
 </div>
 
@@ -526,7 +538,7 @@ header{padding:32px 0 0}
       </div>
       <div class="ab-divider" data-page-node-id="8M5cI5asDniYpNFKDcD9K0"></div>
       <div class="ab-title" data-page-node-id="kgTy5Fty0cgy8SwTFW76Jp">影视热榜</div>
-      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.22.0</div>
+      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.23.0</div>
       <div class="ab-tagline" data-page-node-id="GAd20pcE0BPrierIJh0v25">多源聚合 · 豆瓣高分 · 搜索即看</div>
       <a class="abtn ab-dl" id="abDownload" href="https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk" target="_blank" rel="noopener" download style="text-decoration:none;margin-top:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>下载安卓 APP</a>
     </div>
@@ -1546,6 +1558,15 @@ function doSearch(q) {
         '<span class="rc">' + esc(found.src.name) + ' · ' + items.length + ' 条（可播 ' + found.playable + '）</span></div>' +
         '<button type="button" class="clr" onclick="clearSearch()">清除</button></div>';
       renderCards(items, false);
+      // 识别分享卡：识图扫码后自动打开目标影片详情（免打字）
+      if (window.__cmAutoOpenTitle) {
+        var want = String(window.__cmAutoOpenTitle); window.__cmAutoOpenTitle = '';
+        var hit = -1;
+        for (var i = 0; i < CI.length; i++) { if ((CI[i].title || '').trim() === want) { hit = i; break; } }
+        if (hit < 0) { for (var j = 0; j < CI.length; j++) { if ((CI[j].title || '').indexOf(want) >= 0) { hit = j; break; } } }
+        if (hit >= 0) openCMS(hit);
+        else gifStat('已搜索「' + want + '」，请在结果里点开详情');
+      }
     } else {
       document.getElementById('content').innerHTML =
         '<div class="msg">' + icoSVG(ICO.search) + '<div class="ttl">未找到 "' + esc(q) + '"</div>' +
@@ -1561,6 +1582,176 @@ function clearSearch() {
   document.getElementById('content').innerHTML = '<div class="msg">' + icoSVG(ICO.search) + '<div class="ttl">搜索你想看的影视</div><div class="desc">输入名称，点击即可在线播放</div></div>';
   document.getElementById('searchInput').value = '';
   document.getElementById('searchInput').focus();
+}
+
+/* ===== 识别分享卡 / 生成分享卡 =====
+   与超级便利贴同款玩法：详情页可生成带识别二维码的分享卡图片；
+   别人保存图片后，在「搜索」页点相机按钮选图 → 原生 zxing 解码 → 自动搜索并打开详情。
+   二维码 payload 用极简格式 CINEMARK|片名|年份（远小于 zxing EC 上限，杜绝超长 payload 解码失败）。 */
+function cmScanCard() {
+  var inp = document.getElementById('scanCardInput');
+  if (!inp) return;
+  if (!window.AndroidCM || typeof AndroidCM.decodeQr !== 'function') { gifStat('识别分享卡请在 APP 内使用'); return; }
+  inp.click();
+}
+function cmBindScanInput() {
+  var inp = document.getElementById('scanCardInput');
+  if (!inp || inp.__bound) return;
+  inp.__bound = true;
+  inp.addEventListener('change', function() {
+    var f = inp.files && inp.files[0];
+    inp.value = '';
+    if (!f) return;
+    gifStat('正在识别分享卡...');
+    var r = new FileReader();
+    r.onload = function() {
+      var b64 = String(r.result || '').split(',')[1] || '';
+      var payload = '';
+      try { payload = AndroidCM.decodeQr(b64) || ''; } catch (e) {}
+      cmHandleScanPayload(payload);
+    };
+    r.onerror = function() { gifStat('图片读取失败，请重试'); };
+    r.readAsDataURL(f);
+  });
+}
+function cmHandleScanPayload(p) {
+  p = String(p || '').trim();
+  if (!p) { gifStat('未识别到二维码，请选清晰一些的图片'); return; }
+  if (p.indexOf('CINEMARK|') !== 0) { gifStat('这不是影视热榜的分享卡'); return; }
+  var parts = p.split('|');
+  var title = (parts[1] || '').trim();
+  if (!title) { gifStat('分享卡内容为空'); return; }
+  window.__cmAutoOpenTitle = title;
+  try { closePlayer(true); } catch (e) {}
+  try { closeModal(true); } catch (e) {}
+  switchMode('search');
+  doSearch(title);
+}
+/* 分享卡海报：APK 走原生 fetchImage（无 Referer/CORS 限制）拿 dataURL，canvas 不受污染；
+   网页端 crossOrigin 直连（能过 CORS 就画，过不了就出纯底卡）。 */
+function cmShareCardPoster(url, cb) {
+  if (!url || !/^(https?:)?\/\//i.test(url)) { cb(null); return; }
+  var fin = false;
+  function done(d) { if (!fin) { fin = true; cb(d); } }
+  var img = document.createElement('img');
+  img.style.cssText = 'position:fixed;left:-9999px;top:0;width:1px;height:1px';
+  img.onload = function() { var ok = /^data:/i.test(img.src); done(ok ? img.src : null); setTimeout(function() { img.remove(); }, 50); };
+  img.onerror = function() { done(null); setTimeout(function() { img.remove(); }, 50); };
+  document.body.appendChild(img);
+  if (window.AndroidCM && typeof AndroidCM.fetchImage === 'function') {
+    var id = 'ni' + (++__cmImgSeq);
+    window.__cmImgMap[id] = { img: img, url: url, onFail: function() { webRetry(); } };
+    try { AndroidCM.fetchImage(id, url); } catch (e) { delete window.__cmImgMap[id]; webRetry(); }
+  } else webRetry();
+  function webRetry() {
+    var i2 = document.createElement('img');
+    i2.crossOrigin = 'anonymous';
+    i2.referrerPolicy = 'no-referrer';
+    i2.onload = function() { done(i2.naturalWidth ? i2.src : null); };
+    i2.onerror = function() { done(null); };
+    i2.src = url;
+  }
+}
+function cmMakeShareCard() {
+  if (!PI || !PI.title) { gifStat('先打开影片详情再生成分享卡'); return; }
+  if (!window.AndroidCM || typeof AndroidCM.makeQr !== 'function') { gifStat('生成分享卡请在 APP 内使用'); return; }
+  gifStat('正在生成分享卡...');
+  var payload = 'CINEMARK|' + String(PI.title).trim() + (PI.year ? '|' + PI.year : '');
+  var qrB64 = '';
+  try { qrB64 = AndroidCM.makeQr(payload, 360) || ''; } catch (e) {}
+  cmShareCardPoster(PI.img, function(posterUrl) {
+    var loadPoster = function(src) {
+      if (!src) { cmLoadQrAndPaint(qrB64, null); return; }
+      var p = new Image();
+      p.onload = function() { cmLoadQrAndPaint(qrB64, p); };
+      p.onerror = function() { cmLoadQrAndPaint(qrB64, null); };
+      p.src = src;
+    };
+    if (posterUrl) loadPoster(posterUrl); else cmLoadQrAndPaint(qrB64, null);
+  });
+}
+function cmLoadQrAndPaint(qrB64, posterImg) {
+  if (!qrB64) { cmPaintShareCard(posterImg, null); return; }
+  var q = new Image();
+  q.onload = function() { cmPaintShareCard(posterImg, q); };
+  q.onerror = function() { cmPaintShareCard(posterImg, null); };
+  q.src = 'data:image/png;base64,' + qrB64;
+}
+function cmPaintShareCard(posterImg, qrImg) {
+  var W = 720, H = 1000;
+  function draw(withPoster) {
+    var c = document.createElement('canvas'); c.width = W; c.height = H;
+    var x = c.getContext('2d');
+    x.fillStyle = '#0b0b0e'; x.fillRect(0, 0, W, H);
+    x.strokeStyle = 'rgba(201,168,76,.55)'; x.lineWidth = 2; x.strokeRect(24, 24, W - 48, H - 48);
+    x.strokeStyle = 'rgba(201,168,76,.22)'; x.lineWidth = 1; x.strokeRect(34, 34, W - 68, H - 68);
+    var hasPoster = withPoster && posterImg && posterImg.naturalWidth;
+    if (hasPoster) {
+      var aw = W - 140, ah = 580;
+      var r = Math.min(aw / posterImg.naturalWidth, ah / posterImg.naturalHeight);
+      var dw = posterImg.naturalWidth * r, dh = posterImg.naturalHeight * r;
+      x.drawImage(posterImg, (W - dw) / 2, 70, dw, dh);
+    } else {
+      x.fillStyle = '#15121c'; x.fillRect(70, 70, W - 140, 580);
+      x.textAlign = 'center';
+      x.fillStyle = '#c9a84c'; x.font = 'bold 44px sans-serif';
+      x.fillText('CINEMARK', W / 2, 340);
+      x.font = '26px sans-serif'; x.fillStyle = '#8a8a92';
+      x.fillText('影视热榜', W / 2, 392);
+    }
+    var title = (PI && PI.title ? PI.title : '').trim();
+    var meta = [PI && PI.year, PI && PI.type, PI && PI.area].filter(Boolean).join(' · ');
+    x.textAlign = 'center';
+    x.fillStyle = '#f2ede1'; x.font = 'bold 42px sans-serif';
+    x.fillText(title.length > 14 ? title.slice(0, 13) + '…' : title, W / 2, 742);
+    x.fillStyle = '#9a9aa2'; x.font = '24px sans-serif';
+    x.fillText(meta || '多源聚合 · 搜索即看', W / 2, 786);
+    if (qrImg) {
+      var qs = 190, qx = W - qs - 66, qy = H - qs - 92;
+      x.fillStyle = '#ffffff'; x.fillRect(qx - 10, qy - 10, qs + 20, qs + 20);
+      x.drawImage(qrImg, qx, qy, qs, qs);
+      x.fillStyle = '#c9a84c'; x.font = '20px sans-serif';
+      x.fillText('扫码直达 · 免打字', qx + qs / 2, qy + qs + 34);
+    }
+    x.textAlign = 'left';
+    x.fillStyle = 'rgba(201,168,76,.85)'; x.font = 'bold 26px sans-serif';
+    x.fillText('CINEMARK', 66, H - 80);
+    x.fillStyle = '#8a8a92'; x.font = '20px sans-serif';
+    x.fillText('影视热榜 · 分享卡', 220, H - 80);
+    return c.toDataURL('image/jpeg', 0.92);
+  }
+  var dataUrl = null;
+  try { dataUrl = draw(true); } catch (e) { dataUrl = null; }
+  if (!dataUrl) { try { dataUrl = draw(false); } catch (e2) {} }
+  if (!dataUrl) { gifStat('分享卡生成失败（海报跨域受限）'); return; }
+  cmShowShareCard(dataUrl);
+}
+function cmShowShareCard(dataUrl) {
+  var lb = document.getElementById('shareCardLb');
+  if (!lb) {
+    lb = document.createElement('div');
+    lb.id = 'shareCardLb';
+    lb.innerHTML = '<div class="scl-box"><img id="sclImg" alt="分享卡"><div class="scl-tip">长按或保存图片发给朋友，扫码直达详情</div><button type="button" class="abtn" id="sclSave">保存到相册</button></div>';
+    lb.addEventListener('click', function(e) { if (e.target === lb) closeShareCardLb(); });
+    document.body.appendChild(lb);
+  }
+  document.getElementById('sclImg').src = dataUrl;
+  document.getElementById('sclSave').onclick = function() {
+    if (window.AndroidCM && typeof AndroidCM.saveMedia === 'function') {
+      var ok = 0;
+      try { ok = AndroidCM.saveMedia(dataUrl.split(',')[1] || '', 'CineMark_share_' + Date.now() + '.jpg', 'image/jpeg'); } catch (e) {}
+      gifStat(ok ? '分享卡已保存到相册' : '保存失败，请长按图片保存');
+    } else {
+      gifStat('网页版请长按图片保存');
+    }
+  };
+  lb.classList.add('open');
+  _cmSyncLayer();
+}
+function closeShareCardLb() {
+  var lb = document.getElementById('shareCardLb');
+  if (lb) lb.classList.remove('open');
+  _cmSyncLayer();
 }
 
 /* 列表接口返回的条目常常缺少 vod_pic/desc/actor（如量子站当前返回 0-3 条且全空），
@@ -2533,6 +2724,16 @@ function _cmSyncLayer() {
     }
   } catch (e) {}
 }
+/* 双保险：监听层容器 class 变化，任何路径开/关层都自动补报原生，
+   杜绝个别入口漏调 _cmSyncLayer 导致返回手势误判「无层可关 → 直接双击退出」 */
+(function() {
+  if (!window.MutationObserver) return;
+  ['player', 'modal', 'aboutModal'].forEach(function(id) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    new MutationObserver(function() { _cmSyncLayer(); }).observe(el, { attributes: true, attributeFilter: ['class'] });
+  });
+})();
 
 /* ===== 原生返回键/边缘手势桥：MainActivity 用此判断「是否有可关闭的层」 =====
    file:// 下 history.pushState 未必进入 WebView 的 back 列表（opaque origin 可能抛 SecurityError 被静默吞掉），
@@ -2546,6 +2747,10 @@ window.__cmHasOpen = function() {
   if (pl && pl.classList.contains('open')) return true;
   if (md && md.classList.contains('open')) return true;
   if (ab && ab.classList.contains('open')) return true;
+  var qr = document.getElementById('qrLightbox');
+  if (qr && qr.classList.contains('open')) return true;
+  var sc = document.getElementById('shareCardLb');
+  if (sc && sc.classList.contains('open')) return true;
   return false;
 };
 window.__cmBack = function() {
@@ -2557,36 +2762,64 @@ window.__cmBack = function() {
   if (md && md.classList.contains('open')) { closeModal(); return; }
   var ab = document.getElementById('aboutModal');
   if (ab && ab.classList.contains('open')) { closeAbout(); return; }
+  var sc = document.getElementById('shareCardLb');
+  if (sc && sc.classList.contains('open')) { closeShareCardLb(); return; }
+  var qr = document.getElementById('qrLightbox');
+  if (qr && qr.classList.contains('open')) { closeQrLightbox(); return; }
 };
 
 /* ===== 全屏手势：左半上下滑=音量 / 右半上下滑=亮度 / 左右滑=快进退 ===== */
 (function() {
   var area = document.getElementById('playerArea');
   if (!area) return;
-  var dim = document.createElement('div'); dim.id = 'swipeDim';
-  var tip = document.createElement('div'); tip.id = 'swipeTip';
-  area.appendChild(dim); area.appendChild(tip);
   var tipTimer = null;
   function showTip(txt) {
     tip.textContent = txt; tip.style.opacity = '1';
     if (tipTimer) clearTimeout(tipTimer);
     tipTimer = setTimeout(function() { tip.style.opacity = '0'; }, 900);
   }
-  var sx = 0, sy = 0, mode = "", moved = false, baseVol = 0, baseDim = 0, seekFrom = 0, seekTo = -1;
+  var sx = 0, sy = 0, mode = "", moved = false, armed = false, baseVol = 0, baseDim = 0, seekFrom = 0, seekTo = -1;
   function inFull() {
     var pl = document.getElementById('player');
-    // 放宽：播放器打开即启用手势（非全屏也可滑音量/亮度/进度），不再要求 .full
-    return pl && pl.classList.contains('open') && curPlayerVideo();
+    // 放宽：播放器打开即启用手势（非全屏也可滑音量/亮度/进度），不再要求 .full；
+    // 无 <video> 的源（iframe 源/加载超时）也可滑音量（走原生媒体音量）与亮度，仅快进快退需要 video
+    return pl && pl.classList.contains('open');
+  }
+  // doPlay/useIframe 每次都会 area.innerHTML='' 重建内容，把叠层冲掉——
+  // 改为惰性取用：叠层不在 playerArea 里就重新挂回去，亮度遮罩/提示永远可用
+  function getDim() {
+    var el = document.getElementById('swipeDim');
+    if (!el) { el = document.createElement('div'); el.id = 'swipeDim'; }
+    if (el.parentNode !== area) area.appendChild(el);
+    return el;
+  }
+  function getTip() {
+    var el = document.getElementById('swipeTip');
+    if (!el) { el = document.createElement('div'); el.id = 'swipeTip'; }
+    if (el.parentNode !== area) area.appendChild(el);
+    return el;
+  }
+  function showTip(txt) {
+    var tip = getTip();
+    tip.textContent = txt; tip.style.opacity = '1';
+    if (tipTimer) clearTimeout(tipTimer);
+    tipTimer = setTimeout(function() { tip.style.opacity = '0'; }, 900);
   }
   area.addEventListener('touchstart', function(e) {
-    if (!inFull()) return;
+    if (!inFull()) { armed = false; return; }
     var t = e.touches[0];
+    // 屏幕左右边缘 32px 内的触摸让给系统返回手势：三区手势在这块 preventDefault
+    // 会吞掉 MIUI/HyperOS 的边缘内滑返回，表现为「播放页/选集列表手势返回失效」
+    var W = window.innerWidth || area.clientWidth || 0;
+    if (W && (t.clientX < 32 || t.clientX > W - 32)) { armed = false; moved = false; mode = ""; return; }
+    armed = true;
     sx = t.clientX; sy = t.clientY; moved = false; mode = ""; seekTo = -1;
     var v = curPlayerVideo();
-    baseVol = v.volume; baseDim = parseFloat(dim.style.opacity || "0"); seekFrom = v.currentTime || 0;
+    baseVol = v ? v.volume : (window.AndroidCM && typeof AndroidCM.getVolPct === 'function' ? AndroidCM.getVolPct() / 100 : 0.5);
+    baseDim = parseFloat(getDim().style.opacity || "0"); seekFrom = v ? (v.currentTime || 0) : 0;
   }, { passive: true });
   area.addEventListener('touchmove', function(e) {
-    if (!inFull()) return;
+    if (!inFull() || !armed) return;
     var v = curPlayerVideo();
     var t = e.touches[0];
     var dx = t.clientX - sx, dy = t.clientY - sy;
@@ -2599,14 +2832,16 @@ mode = Math.abs(dx) > Math.abs(dy) ? "seek" : (sx < (area.clientWidth / 2) ? "vo
     if (mode === "vol") {
       e.preventDefault();
       var nv = Math.min(1, Math.max(0, baseVol - dy / hh));
-      v.volume = nv; v.muted = (nv === 0);
+      if (v) { v.volume = nv; v.muted = (nv === 0); }
+      else if (window.AndroidCM && typeof AndroidCM.setVolPct === 'function') AndroidCM.setVolPct(Math.round(nv * 100));
       showTip('音量 ' + Math.round(nv * 100) + '%');
     } else if (mode === "bri") {
       e.preventDefault();
       var no = Math.min(0.75, Math.max(0, baseDim + dy / hh));
-      dim.style.opacity = no;
+      getDim().style.opacity = no;
       showTip('亮度 ' + Math.round((1 - no / 0.75) * 100) + '%');
     } else if (mode === "seek") {
+      if (!v) { showTip('当前播放源不支持快进快退'); return; }
       e.preventDefault();
       var dsec = Math.round(dx / w * 120);
       var dur = v.duration || 0;
@@ -2616,11 +2851,11 @@ mode = Math.abs(dx) > Math.abs(dy) ? "seek" : (sx < (area.clientWidth / 2) ? "vo
     }
   }, { passive: false });
   area.addEventListener('touchend', function() {
-    if (moved && mode === "seek" && seekTo >= 0) {
+    if (armed && moved && mode === "seek" && seekTo >= 0) {
       var v = curPlayerVideo();
       if (v) { try { v.currentTime = seekTo; } catch (e) {} }
     }
-    moved = false; mode = ""; seekTo = -1;
+    armed = false; moved = false; mode = ""; seekTo = -1;
   });
 })();
 
@@ -2644,6 +2879,9 @@ document.getElementById('modalClose').onclick = closeModal;
 document.getElementById('modal').onclick = function(e) { if (e.target === this) closeModal(); };
 document.getElementById('aboutClose').onclick = closeAbout;
 document.getElementById('aboutModal').onclick = function(e) { if (e.target === this) closeAbout(); };
+document.getElementById('scanCardBtn').onclick = cmScanCard;
+cmBindScanInput();
+document.getElementById('shareCardBtn').onclick = cmMakeShareCard;
 
 /* 关于页徽标：hover/触碰 切真实图片，离开复原线稿 */
 (function() {
@@ -2934,11 +3172,13 @@ function openLearnMore(){
     var img = document.getElementById('qlImg');
     if (img) { img.dataset.orig = src; img.src = src; }
     box.classList.add('open');
+    _cmSyncLayer();
   } catch (e) { console.warn('[CM] openLearnMore', e); }
 }
 function closeQrLightbox(){
   var box = document.getElementById('qrLightbox');
   if (box) box.classList.remove('open');
+  _cmSyncLayer();
 }
 
 /* ===== OTA 版本检查 ===== */
