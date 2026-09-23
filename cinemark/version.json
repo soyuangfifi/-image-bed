@@ -1,8 +1,8 @@
 {
-  "versionCode": 22,
-  "versionName": "1.21",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.21.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.21.apk",
-  "notes": "1. 加固播放页返回手势：APK 内网页（file:// 加载）彻底禁用 history.back()，改为由 __cmHasOpen/__cmBack 桥接逐级关闭（播放器→全屏→弹窗→双击退出），杜绝 history.back() 误导航到 about:blank 污染页面状态。\n2. 新增 Android Predictive Back (OnBackInvokedCallback) 兜底：在 targetSdk≥33 上边缘返回手势同样走 handleBack 逻辑，提前适配未来 36 强制行为。\n3. 修复旧版 APK 在播放页一次返回即退出的问题（根因：file:// 下 pushState 静默失败导致 canGoBack 恒 false）。",
+  "versionCode": 23,
+  "versionName": "1.22",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.22.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.22.apk",
+  "notes": "1. 升级 targetSdk 36：全面启用 Android 14 预测性返回（Predictive Back）手势，从屏幕右缘往左滑即可逐层返回，系统自动绘制预测动画。\n2. 新增 JS 桥 AndroidCM.reportLayer()：网页每次开/关层（全屏/播放器/弹窗/关于）时主动上报原生，原生侧同步维护 cmLayerOpen 布尔位，返回键/边缘手势不再依赖异步 evaluateJavascript，预测性 back 手势下也能快且一致地响应。\n3. 修复播放页返回手势：file:// 下彻底禁用 history.back()，改为 __cmHasOpen/__cmBack 桥接逐级关闭（全屏→播放器→弹窗→关于→双击退出 APP）。",
   "force": false
 }
