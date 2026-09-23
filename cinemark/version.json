@@ -1,8 +1,8 @@
 {
-  "versionCode": 21,
-  "versionName": "1.20",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.20.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.20.apk",
-  "notes": "1. 修复播放页返回手势：在电影播放页从屏幕右缘向内滑（或按返回键）现在先关播放器回上一级列表，再关全屏，再关弹窗，最后才走「双击退出 APP」，不再一次性直接退出 APP。\n2. 根因：APK 内网页以 file:// 加载，history.pushState 在 opaque origin 下可能静默失败，导致 WebView 历史栈无记录、webView.canGoBack() 恒为 false，一次返回即 finish()。改为由网页层 __cmHasOpen/__cmBack 桥接逐级关闭。",
+  "versionCode": 22,
+  "versionName": "1.21",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.21.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.21.apk",
+  "notes": "1. 加固播放页返回手势：APK 内网页（file:// 加载）彻底禁用 history.back()，改为由 __cmHasOpen/__cmBack 桥接逐级关闭（播放器→全屏→弹窗→双击退出），杜绝 history.back() 误导航到 about:blank 污染页面状态。\n2. 新增 Android Predictive Back (OnBackInvokedCallback) 兜底：在 targetSdk≥33 上边缘返回手势同样走 handleBack 逻辑，提前适配未来 36 强制行为。\n3. 修复旧版 APK 在播放页一次返回即退出的问题（根因：file:// 下 pushState 静默失败导致 canGoBack 恒 false）。",
   "force": false
 }
