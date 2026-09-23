@@ -1,8 +1,8 @@
 {
-  "versionCode": 23,
-  "versionName": "1.22",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.22.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.22.apk",
-  "notes": "1. 升级 targetSdk 36：全面启用 Android 14 预测性返回（Predictive Back）手势，从屏幕右缘往左滑即可逐层返回，系统自动绘制预测动画。\n2. 新增 JS 桥 AndroidCM.reportLayer()：网页每次开/关层（全屏/播放器/弹窗/关于）时主动上报原生，原生侧同步维护 cmLayerOpen 布尔位，返回键/边缘手势不再依赖异步 evaluateJavascript，预测性 back 手势下也能快且一致地响应。\n3. 修复播放页返回手势：file:// 下彻底禁用 history.back()，改为 __cmHasOpen/__cmBack 桥接逐级关闭（全屏→播放器→弹窗→关于→双击退出 APP）。",
+  "versionCode": 24,
+  "versionName": "1.23",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.23.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.23.apk",
+  "notes": "1. 修复选集列表/播放页手势返回失效：三区手势不再吞屏幕边缘 32px 的触摸（那是系统返回手势的地盘），并用 MutationObserver 双保险自动上报层级状态。\n2. 非全屏播放也支持左右滑动快进快退；播放源没有视频画面（iframe 源/加载超时）时，左半屏竖滑改走原生媒体音量、右半屏竖滑调亮度，不再整体失效。\n3. 修复头部又被通知栏图标压住：弃用 FLAG_LAYOUT_NO_LIMITS（会阻断 insets 分发），改 WindowCompat 标准边到边 + 状态栏高度资源兜底 + onResume/insets 变化重注入。\n4. 新增「识别分享卡」：详情页可生成带二维码的电影分享卡并保存相册；搜索框相机按钮选一张分享卡图片即可自动搜索直达详情，免打字。",
   "force": false
 }
