@@ -1632,7 +1632,13 @@ function cmHandleScanPayload(p) {
 function cmShareCardPoster(url, cb) {
   if (!url || !/^(https?:)?\/\//i.test(url)) { cb(null); return; }
   var fin = false;
-  function done(d) { if (!fin) { fin = true; cb(d); } }
+  function done(d) {
+    if (!fin) { fin = true; cb(d); }
+    // 海报加载失败时给用户明确提示（纯文字版分享卡仍能生成）
+    if (d === null) {
+      try { gifStat('海报跨域受限，已用纯文字版分享卡'); } catch (e) {}
+    }
+  }
   var img = document.createElement('img');
   img.style.cssText = 'position:fixed;left:-9999px;top:0;width:1px;height:1px';
   img.onload = function() { var ok = /^data:/i.test(img.src); done(ok ? img.src : null); setTimeout(function() { img.remove(); }, 50); };
@@ -2724,15 +2730,31 @@ function _cmSyncLayer() {
     }
   } catch (e) {}
 }
-/* 双保险：监听层容器 class 变化，任何路径开/关层都自动补报原生，
-   杜绝个别入口漏调 _cmSyncLayer 导致返回手势误判「无层可关 → 直接双击退出」 */
+/* 双保险：监听所有可能存在的层元素 class 变化，任何路径开/关层都自动补报原生，
+   杜绝个别入口漏调 _cmSyncLayer 导致返回手势误判「无层可关 → 直接双击退出」。
+   注意：qrLightbox / shareCardLb 是动态创建的，必须在 document.body 上监听子树变化，
+   而不是仅 observe 静态元素（那些在 observer 初始化时可能还不存在）。 */
 (function() {
   if (!window.MutationObserver) return;
-  ['player', 'modal', 'aboutModal'].forEach(function(id) {
+  var staticIds = ['player', 'modal', 'aboutModal'];
+  staticIds.forEach(function(id) {
     var el = document.getElementById(id);
     if (!el) return;
     new MutationObserver(function() { _cmSyncLayer(); }).observe(el, { attributes: true, attributeFilter: ['class'] });
   });
+  // 动态层：monitor body subtree 变化（qrLightbox/shareCardLb 在点击时才创建）
+  var bodyEl = document.body;
+  if (bodyEl) {
+    new MutationObserver(function(mutations) {
+      for (var i = 0; i < mutations.length; i++) {
+        var m = mutations[i];
+        if (m.type === 'attributes' && m.attributeName === 'class') {
+          _cmSyncLayer();
+          return;
+        }
+      }
+    }).observe(bodyEl, { attributes: true, attributeFilter: ['class'], subtree: true });
+  }
 })();
 
 /* ===== 原生返回键/边缘手势桥：MainActivity 用此判断「是否有可关闭的层」 =====
