@@ -1,7 +1,7 @@
 {
-  "versionCode": 29,
-  "versionName": "1.28",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.28.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.28.apk",
-  "notes": "1. 修复全屏手势失灵(v1.28)：网页源(iframe)触摸进不了父文档、JS 手势全部失效 → 改由原生在触摸分源头接管：左半竖滑=音量、右半竖滑=亮度、横滑=±120秒进度，网页源/视频源全屏都可用。\n2. 恢复全屏头部自动隐藏(v1.28)：3 秒无操作淡出，轻点屏幕唤出（网页源在 APP 内由原生代为唤出）。\n3. 全屏轻点恢复：点视频区可唤出/隐藏控制层与进度条，iframe 源自身的播放/暂停也不受影响。\n4. 分享卡反馈增强(v1.28)：生成中/已生成/保存成功全程浮动提示（此前提示挂在播放器内，详情页看不到）；保存按钮显示「✓已保存」；生成中防重复点击。"
+  "versionCode": 30,
+  "versionName": "1.29",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.29.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.29.apk",
+  "notes": "1. 强制铺满(v1.29)：全屏画面铺不满、四周有黑边时，点「铺满」按钮逐级放大强制填满整屏。视频源用 object-fit（裁切/拉伸）消除黑边；iframe 网页源跨域拿不到内部播放器，改用整层放大把黑边推出可视区。逐档弹提示，最后一档回到原始比例。\n2. 真全屏兜底(v1.29)：部分 WebView 旋转后 vh/dvh 仍按旧视口结算、留下一圈怎么调都消不掉的黑边 → 进全屏按实际像素把播放区钉死到视口尺寸。\n3. 头部与底部进度条同步显隐(v1.29)：统一由单一 ctlOn 真值驱动，点屏幕一起弹出、3 秒无操作一起隐退（同 .25s 过渡，隐藏时各自向屏幕外多移 16px）；修复旧版两处分别判断 class、换源后控制条被重建导致「只显示一半 / 点了没反应」的问题。\n4. 横屏按钮改用 ↻/↺ 字形，与全屏 ⛶ 区分清楚；铺满按钮为带文字宽按钮，可显示当前档位。"
 }
