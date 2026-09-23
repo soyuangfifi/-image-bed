@@ -1,7 +1,7 @@
 {
-  "versionCode": 28,
-  "versionName": "1.27",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.27.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.27.apk",
-  "notes": "1. 修复播放页返回直接退出(v1.27)：refreshLayerCache 读取 JS 返回值时未剥 JSON 引号，导致层级缓存被误清为「无层」→ 现已按引号剥离后比较，播放页/列表页返回正常逐级回退。\n2. 修复全屏后截图/录GIF图标消失(v1.27)：网页源(iframe)全屏时触摸被 iframe 吞掉、头部唤不回 → 网页源全屏时头部常显；视频源仍为 3 秒淡出+点屏唤出。\n3. v1.26 分享卡增强：多源评分(豆瓣/TMDB/IMDb) + 剧照 2×2 网格。"
+  "versionCode": 29,
+  "versionName": "1.28",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.28.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.28.apk",
+  "notes": "1. 修复全屏手势失灵(v1.28)：网页源(iframe)触摸进不了父文档、JS 手势全部失效 → 改由原生在触摸分源头接管：左半竖滑=音量、右半竖滑=亮度、横滑=±120秒进度，网页源/视频源全屏都可用。\n2. 恢复全屏头部自动隐藏(v1.28)：3 秒无操作淡出，轻点屏幕唤出（网页源在 APP 内由原生代为唤出）。\n3. 全屏轻点恢复：点视频区可唤出/隐藏控制层与进度条，iframe 源自身的播放/暂停也不受影响。\n4. 分享卡反馈增强(v1.28)：生成中/已生成/保存成功全程浮动提示（此前提示挂在播放器内，详情页看不到）；保存按钮显示「✓已保存」；生成中防重复点击。"
 }
