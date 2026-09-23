@@ -1,8 +1,8 @@
 {
-  "versionCode": 24,
-  "versionName": "1.23",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.23.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.23.apk",
-  "notes": "1. 修复选集列表/播放页手势返回失效：三区手势不再吞屏幕边缘 32px 的触摸（那是系统返回手势的地盘），并用 MutationObserver 双保险自动上报层级状态。\n2. 非全屏播放也支持左右滑动快进快退；播放源没有视频画面（iframe 源/加载超时）时，左半屏竖滑改走原生媒体音量、右半屏竖滑调亮度，不再整体失效。\n3. 修复头部又被通知栏图标压住：弃用 FLAG_LAYOUT_NO_LIMITS（会阻断 insets 分发），改 WindowCompat 标准边到边 + 状态栏高度资源兜底 + onResume/insets 变化重注入。\n4. 新增「识别分享卡」：详情页可生成带二维码的电影分享卡并保存相册；搜索框相机按钮选一张分享卡图片即可自动搜索直达详情，免打字。",
+  "versionCode": 25,
+  "versionName": "1.24",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.24.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.24.apk",
+  "notes": "1. 修复点击即闪退：injectSafeTop() 在 onApplyWindowInsets 回调内调用 dispatchApplyWindowInsets() 触发无限递归 StackOverflowError，改为直接复用 listener 传入的 insets 对象。\n2. （v1.23）修复选集列表/播放页手势返回失效：三区手势不再吞屏幕边缘 32px 的触摸，并用 MutationObserver 双保险自动上报层级状态。\n3. （v1.23）非全屏播放也支持左右滑动快进快退；播放源没有视频画面（iframe 源/加载超时）时，左半屏竖滑改走原生媒体音量、右半屏竖滑调亮度，不再整体失效。\n4. （v1.23）修复头部又被通知栏图标压住：弃用 FLAG_LAYOUT_NO_LIMITS，改 WindowCompat 标准边到边 + 状态栏高度资源兜底 + onResume/insets 变化重注入。\n5. （v1.23）新增「识别分享卡」：详情页可生成带二维码的电影分享卡并保存相册；搜索框相机按钮选一张分享卡图片即可自动搜索直达详情，免打字。",
   "force": false
 }
