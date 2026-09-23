@@ -526,7 +526,7 @@ header{padding:32px 0 0}
       </div>
       <div class="ab-divider" data-page-node-id="8M5cI5asDniYpNFKDcD9K0"></div>
       <div class="ab-title" data-page-node-id="kgTy5Fty0cgy8SwTFW76Jp">影视热榜</div>
-      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.20.0</div>
+      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.21.0</div>
       <div class="ab-tagline" data-page-node-id="GAd20pcE0BPrierIJh0v25">多源聚合 · 豆瓣高分 · 搜索即看</div>
       <a class="abtn ab-dl" id="abDownload" href="https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk" target="_blank" rel="noopener" download style="text-decoration:none;margin-top:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>下载安卓 APP</a>
     </div>
@@ -2498,7 +2498,9 @@ function closePlayer(noBack) {
   document.getElementById('playerArea').innerHTML = '<div class="pmsg">' + icoSVG(ICO.play) + '<div>选择剧集播放</div></div>';
   PI = null;
   if (!document.getElementById('modal').classList.contains('open')) document.body.style.overflow = '';
-  if (!noBack) { try { if (location.hash === '#__player') { window.__cmClosing = true; history.back(); } } catch(e) {} }
+  // 原生 APK（inApp）里返回键/边缘手势已由 __cmHasOpen/__cmBack 桥接管，不再 history.back()；
+  // 纯浏览器保留 history.back() 让页内「前进」键可用。
+  if (!noBack && !inApp()) { try { if (location.hash === '#__player') { window.__cmClosing = true; history.back(); } } catch(e) {} }
 }
 
 /* ===== 全面屏边缘返回：系统 back 触发 popstate 时关闭播放器 ===== */
@@ -2514,6 +2516,11 @@ window.addEventListener('popstate', function() {
   if (md && md.classList.contains('open') && location.hash !== '#__modal') closeModal(true);
   if (ab && ab.classList.contains('open') && location.hash !== '#__modal') closeAbout(true);
 });
+
+/* APP 内（WebView + AndroidCM 桥存在）返回键/边缘手势已由 __cmHasOpen/__cmBack 桥接管，
+   各级「关闭」函数不再调用 history.back()——file:// 单历史栈上 back() 会跳到 about:blank，
+   把页面状态打乱。纯浏览器环境保留 history.back() 让前进键可用。 */
+function inApp() { return !!(window.AndroidCM && typeof AndroidCM.appVersionName === 'function'); }
 
 /* ===== 原生返回键/边缘手势桥：MainActivity 用此判断「是否有可关闭的层」 =====
    file:// 下 history.pushState 未必进入 WebView 的 back 列表（opaque origin 可能抛 SecurityError 被静默吞掉），
@@ -2607,9 +2614,9 @@ mode = Math.abs(dx) > Math.abs(dy) ? "seek" : (sx < (area.clientWidth / 2) ? "vo
 
 /* ===== 弹窗 ===== */
 function openModal() { document.getElementById('modal').classList.add('open'); document.body.style.overflow = 'hidden'; try { if (location.hash !== '#__modal') history.pushState({cm:2}, '', '#__modal'); } catch(e) {} }
-  function closeModal(noBack) { document.getElementById('modal').classList.remove('open'); if (!document.getElementById('player').classList.contains('open')) document.body.style.overflow = ''; if (!noBack) { try { if (location.hash === '#__modal') { window.__cmClosing = true; history.back(); } } catch(e) {} } }
+  function closeModal(noBack) { document.getElementById('modal').classList.remove('open'); if (!document.getElementById('player').classList.contains('open')) document.body.style.overflow = ''; if (!noBack && !inApp()) { try { if (location.hash === '#__modal') { window.__cmClosing = true; history.back(); } } catch(e) {} } }
   function openAbout() { document.getElementById('aboutModal').classList.add('open'); document.body.style.overflow = 'hidden'; try { if (location.hash !== '#__modal') history.pushState({cm:3}, '', '#__modal'); } catch(e) {} }
-  function closeAbout(noBack) { document.getElementById('aboutModal').classList.remove('open'); if (!document.getElementById('player').classList.contains('open')) document.body.style.overflow = ''; if (!noBack) { try { if (location.hash === '#__modal') { window.__cmClosing = true; history.back(); } } catch(e) {} } }
+  function closeAbout(noBack) { document.getElementById('aboutModal').classList.remove('open'); if (!document.getElementById('player').classList.contains('open')) document.body.style.overflow = ''; if (!noBack && !inApp()) { try { if (location.hash === '#__modal') { window.__cmClosing = true; history.back(); } } catch(e) {} } }
 
 /* 意见反馈：跳百度贴吧 */
 function openFeedback() {
@@ -2710,7 +2717,8 @@ function cmExitFull() {
     if (window.AndroidCM && typeof AndroidCM.fullscreenChrome === 'function') AndroidCM.fullscreenChrome(false);
     else if (screen.orientation && screen.orientation.unlock) screen.orientation.unlock();
   } catch (e) {}
-  if (location.hash === '#__pfs') { window.__cmFsClosing = true; try { history.back(); } catch (e) {} }
+  // 原生 APK（inApp）里全屏进出不再走 history.back()（file:// 单历史栈 back() 会跳 about:blank）；纯浏览器保留。
+  if (!inApp() && location.hash === '#__pfs') { window.__cmFsClosing = true; try { history.back(); } catch (e) {} }
   var bf = document.getElementById('btnFullscreen');
   if (bf) { bf.textContent = '\u26F6'; bf.title = '全屏'; }
   try { if (window.__cmPh) window.__cmPh.reset(); } catch (e) {} // 退出全屏：头部恢复常显
