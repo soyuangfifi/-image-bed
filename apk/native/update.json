@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.33-native",
-  "versionCode": 53,
+  "versionName": "3.9.34-native",
+  "versionCode": 54,
   "url": "super-sticky-note.apk",
-  "size": 6752574,
-  "sha256": "51a23fd3936090274a03fb1feeebbfaa607d8af019b9f8581062c7a68b6cfbda",
-  "note": "v53：悬浮球加大(96dp)+透明命中区防误触；呼吸放大围绕圆心等比例；语音唤醒开箱即用(APP启动自启+首启申请麦克风)，修复识别器叠加/同音容错"
+  "size": 6752602,
+  "sha256": "7d1d01a8a2d009e9e2d44901eedc2ec04280cbf00ee8cf6b5cc2b504d4c65f53",
+  "note": "v54：修复呼吸/声波环放大被容器裁成方形的bug（容器168→200dp、环扩散2.8→2.0、core透明撑满容器、可见球仍96dp）；聆听徽标跟随球位"
 }
