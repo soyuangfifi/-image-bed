@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.34-native",
-  "versionCode": 54,
+  "versionName": "3.9.35-native",
+  "versionCode": 55,
   "url": "super-sticky-note.apk",
-  "size": 6752602,
-  "sha256": "7d1d01a8a2d009e9e2d44901eedc2ec04280cbf00ee8cf6b5cc2b504d4c65f53",
-  "note": "v54：修复呼吸/声波环放大被容器裁成方形的bug（容器168→200dp、环扩散2.8→2.0、core透明撑满容器、可见球仍96dp）；聆听徽标跟随球位"
+  "size": 6753502,
+  "sha256": "5e96164c1fc4248a0eef7c224b8964b53377d235efa5876dfb192a589098ae53",
+  "note": "v55：①AI语音播报时悬浮球做「说话呼吸」动效（Tts挂UtteranceProgressListener，开始念→球体加快脉动、念完→恢复待机呼吸，图标随语音同步动起来不再静止）；②唤醒轮询空隙300→150ms更快重启，并在后台真正开麦时点亮悬浮球金色聆听点，一眼确认服务是否在听呼唤词"
 }
