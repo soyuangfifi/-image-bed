@@ -1,7 +1,7 @@
 {
-  "versionCode": 30,
-  "versionName": "1.29",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.29.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.29.apk",
-  "notes": "1. 强制铺满(v1.29)：全屏画面铺不满、四周有黑边时，点「铺满」按钮逐级放大强制填满整屏。视频源用 object-fit（裁切/拉伸）消除黑边；iframe 网页源跨域拿不到内部播放器，改用整层放大把黑边推出可视区。逐档弹提示，最后一档回到原始比例。\n2. 真全屏兜底(v1.29)：部分 WebView 旋转后 vh/dvh 仍按旧视口结算、留下一圈怎么调都消不掉的黑边 → 进全屏按实际像素把播放区钉死到视口尺寸。\n3. 头部与底部进度条同步显隐(v1.29)：统一由单一 ctlOn 真值驱动，点屏幕一起弹出、3 秒无操作一起隐退（同 .25s 过渡，隐藏时各自向屏幕外多移 16px）；修复旧版两处分别判断 class、换源后控制条被重建导致「只显示一半 / 点了没反应」的问题。\n4. 横屏按钮改用 ↻/↺ 字形，与全屏 ⛶ 区分清楚；铺满按钮为带文字宽按钮，可显示当前档位。"
+  "versionCode": 31,
+  "versionName": "1.30",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.30.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.30.apk",
+  "notes": "1. 修复 APP 播放 m3u8 报「视频加载超时」(v1.30)：根因是所有 m3u8 都被改写到电脑本地代理 127.0.0.1:8788，手机上没有这个服务 → 永远拿不到播放清单。现在 APP 内直连播放（WebView 已放行跨域），网页版仍走本地代理。\n2. HLS 网络错误不再无限重试：连续 3 次失败直接提示「视频加载失败」，更快给出换源指引。\n3. 看门狗补 DOM 检查：已被 iframe 兜底替换时不再把兜底界面误砸成「加载超时」。"
 }
