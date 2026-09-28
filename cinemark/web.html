@@ -553,7 +553,7 @@ header{padding:max(32px,var(--head-top,32px)) 0 0}
       </div>
       <div class="ab-divider" data-page-node-id="8M5cI5asDniYpNFKDcD9K0"></div>
       <div class="ab-title" data-page-node-id="kgTy5Fty0cgy8SwTFW76Jp">影视热榜</div>
-      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.29.0</div>
+      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.30.0</div>
       <div class="ab-tagline" data-page-node-id="GAd20pcE0BPrierIJh0v25">多源聚合 · 豆瓣高分 · 搜索即看</div>
       <a class="abtn ab-dl" id="abDownload" href="https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk" target="_blank" rel="noopener" download style="text-decoration:none;margin-top:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>下载安卓 APP</a>
     </div>
@@ -2458,8 +2458,12 @@ function doPlay() {
   area.innerHTML = '<div class="pmsg"><div class="ring"></div><div>正在加载...</div></div>';
   if (HlsRef && HlsRef._inst) { try { HlsRef._inst.destroy(); } catch(e){} HlsRef._inst = null; }
   var url = ep.url;
-  // m3u8：统一走本地 /hls 端点（把 master/variant/ts 全重写为同源带 CORS 的 URL）
-  if (/\.m3u8/i.test(url)) {
+  // m3u8 分流（v1.30 修复 APP 视频加载超时）：
+  //  - 网页版：走本地 /hls 端点（把 master/variant/ts 重写为同源带 CORS 的 URL，绕过浏览器 CORS）。
+  //  - APP 内：必须直连！手机上 127.0.0.1 是手机自己、根本没有 8788 服务，
+  //    旧版无条件改写 → hls.js 永远拿不到清单 → 12 秒看门狗报「视频加载超时」。
+  //    WebView file:// 已开 setAllowUniversalAccessFromFileURLs(true)，XHR 直连上游不受 CORS 限制。
+  if (/\.m3u8/i.test(url) && !inApp()) {
     url = LOCAL_HLS + encodeURIComponent(ep.url);
   }
   if (/\.m3u8/i.test(url) && HlsRef && HlsRef.isSupported()) {
@@ -2483,18 +2487,29 @@ function doPlay() {
     h.loadSource(url);
     h.attachMedia(v);
     h.on(HlsRef.Events.MANIFEST_PARSED, function() { v.play().catch(function(){}); });
+    // 播放失败提示（看门狗 / HLS 网络重试耗尽 共用）。v1.30 补 isConnected 检查：
+    // 若已被 iframe 兜底替换，v 已脱离 DOM（currentTime 恒 0），旧版看门狗会把兜底界面砸成「加载超时」。
+    function _cmPlayFail(why) {
+      if (!v.isConnected) return;
+      var _tip = '<div class="pmsg">' + icoSVG(ICO.play) + '<div style="text-align:center"><div style="color:var(--red);font-size:13px;margin-bottom:8px">' + why + '</div><div style="font-size:11px;color:var(--t3)">当前播放源可能失效，试试上方下拉换一个播放源</div></div></div>';
+      area.innerHTML = _tip;
+      if(HlsRef&&HlsRef._inst){try{HlsRef._inst.destroy();}catch(e){}HlsRef._inst=null;}
+    }
     // 看门狗：12s 还没开始播放就提示加载失败（代理挂了 / 源失效）
     var _wd=setTimeout(function(){
-      if(v.currentTime===0 && v.readyState<3){
-        var _tip = '<div class="pmsg">' + icoSVG(ICO.play) + '<div style="text-align:center"><div style="color:var(--red);font-size:13px;margin-bottom:8px">视频加载超时</div><div style="font-size:11px;color:var(--t3)">当前播放源可能失效，试试上方下拉换一个播放源</div></div></div>';
-        area.innerHTML = _tip;
-        if(HlsRef&&HlsRef._inst){try{HlsRef._inst.destroy();}catch(e){}HlsRef._inst=null;}
-      }
+      if(!v.isConnected) return;
+      if(v.currentTime===0 && v.readyState<3) _cmPlayFail('视频加载超时');
     },12000);
     v.addEventListener("playing",function(){clearTimeout(_wd);cmHideLoading();});
+    // 网络 fatal 不再无限 startLoad：3 次仍失败按源失效处理（比干等 12s 看门狗更快给出提示）
+    var _netRetry = 0;
     h.on(HlsRef.Events.ERROR, function(_, data) {
       if (data.fatal) {
-        if (data.type === HlsRef.ErrorTypes.NETWORK_ERROR) h.startLoad();
+        if (data.type === HlsRef.ErrorTypes.NETWORK_ERROR) {
+          _netRetry++;
+          if (_netRetry >= 3) { clearTimeout(_wd); _cmPlayFail('视频加载失败'); }
+          else h.startLoad();
+        }
         else if (data.type === HlsRef.ErrorTypes.MEDIA_ERROR) h.recoverMediaError();
         else useIframe(ep.url);
       }
