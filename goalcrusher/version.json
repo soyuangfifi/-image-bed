@@ -1,6 +1,6 @@
 {
-  "version": "1.29",
-  "notes": "导航栏移到屏幕底部，单手更好够到；五个页面（实时收入/今日考勤/考勤日历/收支记录/我的目标）左右滑动或点底部标签切换，弹簧回弹与边缘橡皮筋动效保留，键盘左右方向键也可切页",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.29.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/goalcrusher/GoalCrusher-1.29.apk"
+  "version": "1.30",
+  "notes": "修复检查更新可能收不到的问题（多源取最新）；导航栏移到屏幕底部，单手更好够到；五个页面（实时收入/今日考勤/考勤日历/收支记录/我的目标）左右滑动或点底部标签切换，弹簧回弹与边缘橡皮筋动效保留，键盘左右方向键也可切页",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.30.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/goalcrusher/GoalCrusher-1.30.apk"
 }
