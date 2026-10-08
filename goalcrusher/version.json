@@ -1,6 +1,6 @@
 {
-  "version": "1.33",
-  "notes": "修复：全屏页面在部分手机上轻点屏幕中央无法退出（改用指针事件判定轻点，不再依赖 WebView 的 click 合成）；修复：语音输入在部分手机上一直卡在「正在聆听」（优先尝试使用系统语音组件，增加超时保护与明确的错误提示）。",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.33.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/goalcrusher/GoalCrusher-1.33.apk"
+  "version": "1.34",
+  "notes": "修复语音输入「麦克风没被唤起」的真因：补齐录音权限（RECORD_AUDIO），由 App 自行申请权限并通过系统语音识别直接打开麦克风；同时给 WebView 授信麦克风、增加超时保护与明确错误提示。",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.34.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/goalcrusher/GoalCrusher-1.34.apk"
 }
