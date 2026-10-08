@@ -1,6 +1,6 @@
 {
-  "version": "1.32",
-  "notes": "优化页面切换过渡动效（回弹更明显，切换时带景深渐变）；数字全屏支持轻点数字进入/退出，不必再点右上角退出按钮；设置新增「版本介绍」，可查看更新日志、公众号二维码与署名。",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.32.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/goalcrusher/GoalCrusher-1.32.apk"
+  "version": "1.33",
+  "notes": "修复：全屏页面在部分手机上轻点屏幕中央无法退出（改用指针事件判定轻点，不再依赖 WebView 的 click 合成）；修复：语音输入在部分手机上一直卡在「正在聆听」（优先尝试使用系统语音组件，增加超时保护与明确的错误提示）。",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.33.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/goalcrusher/GoalCrusher-1.33.apk"
 }
