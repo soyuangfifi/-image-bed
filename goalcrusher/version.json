@@ -1,6 +1,6 @@
 {
-  "version": "1.31",
-  "notes": "收支记录新增语音输入：在「登记收支」弹窗点「语音输入」，直接说话即可自动识别金额、分类与备注。支持中文数字（如「四十二块五」→42.5、「二百」→200、「买书三十元」→教育分类/30元）；APK 内优先走原生语音识别（系统识别器，无需录音权限），浏览器环境回退 Web Speech API。",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.31.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/goalcrusher/GoalCrusher-1.31.apk"
+  "version": "1.32",
+  "notes": "优化页面切换过渡动效（回弹更明显，切换时带景深渐变）；数字全屏支持轻点数字进入/退出，不必再点右上角退出按钮；设置新增「版本介绍」，可查看更新日志、公众号二维码与署名。",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.32.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/goalcrusher/GoalCrusher-1.32.apk"
 }
