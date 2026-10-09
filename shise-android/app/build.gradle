@@ -1,0 +1,36 @@
+// 拾色 Android 壳（原生 WebView + 内容热更新 + APK 自更新 OTA）
+apply plugin: 'com.android.application'
+
+android {
+    namespace 'com.shise.app'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId "com.shise.app"
+        minSdk 24
+        targetSdk 34
+        versionCode 1
+        versionName "1.0.0"
+    }
+
+    signingConfigs {
+        release {
+            storeFile file('shise.keystore')
+            storePassword 'shise'
+            keyAlias 'shise'
+            keyPassword 'shise'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.release
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}

@@ -1,0 +1,7 @@
+{
+  "version": "1.0.0",
+  "apkUrl": "https://github.com/soyuangfifi/-image-bed/releases/download/shise-1.0.0/shise.apk",
+  "sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+  "publishedAt": "1970-01-01T00:00:00Z",
+  "note": "占位：CI 每次构建 shise-android 后会用真实 version/sha256/apkUrl 覆盖本文件。sha256 全 0 时客户端跳过校验直接下载。"
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="shise_bg">#F4F0E8</color>
+    <color name="shise_primary">#C41A1A</color>
+    <color name="shise_text">#1C1A17</color>
+
+    <style name="Theme.Shise" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/shise_bg</item>
+        <item name="android:statusBarColor">@color/shise_bg</item>
+        <item name="android:navigationBarColor">@color/shise_bg</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+</resources>

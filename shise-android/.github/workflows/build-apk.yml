@@ -1,0 +1,88 @@
+# 拾色 Android 构建（自动出 APK + 维护 latest.json + 自动建 Release 上传 APK）
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'shise-android/**'
+      - 'shise.html'
+      - 'latest.json'
+  workflow_dispatch: {}
+
+name: Shise Android
+
+jobs:
+  apk:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    defaults:
+      run:
+        working-directory: shise-android
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android/setup-android@v4
+
+      - name: Build release APK
+        run: |
+          # 本地仓库没有 wrapper，直接用 AGP 在线拉取 + gradle 命令（CI 自带 gradle）
+          gradle wrapper --gradle-version 8.11
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon
+
+      - name: Sign APK
+        id: sign
+        run: |
+          set -e
+          OUT=app/build/outputs/apk/release/app-release-unsigned.apk
+          SIGNED=shise-release.apk
+          keytool -genkeypair -v \
+            -alias shise -keyalg RSA -keysize 2048 -validity 10000 \
+            -keystore shise.keystore -storepass shise -keypass shise \
+            -dname "CN=Shise, OU=ShiSe, O=ShiSe, L=BJ, ST=BJ, C=CN"
+          jarsigner -verbose -sigalg SHA256withRSA -digestalg SHA-256 \
+            -keystore shise.keystore -storepass shise "$OUT" shise
+          mv "$OUT" "$SIGNED"
+          SHA=$(sha256sum "$SIGNED" | cut -d' ' -f1)
+          VER=$(grep -o 'versionName "[^"]*"' app/build.gradle | cut -d'"' -f2)
+          echo "sha256=$SHA" >> "$GITHUB_OUTPUT"
+          echo "ver=${VER:-1.0.0}" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release + upload APK
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="shise-${{ steps.sign.outputs.ver }}"
+          # 若同名 release 已存在则删掉重建（保证 APK 资产更新）
+          gh release delete "$TAG" --yes 2>/dev/null || true
+          gh release create "$TAG" \
+            --title "拾色 $TAG" \
+            --notes "Auto build $TAG" \
+            shise-release.apk
+          echo "url=https://github.com/soyuangfifi/-image-bed/releases/download/$TAG/shise.apk" >> "$GITHUB_OUTPUT"
+
+      - name: Generate + commit latest.json
+        run: |
+          cd "${GITHUB_WORKSPACE}"
+          cat > latest.json <<EOF
+          {
+            "version": "${{ steps.sign.outputs.ver }}",
+            "apkUrl": "${{ steps.release.outputs.url }}",
+            "sha256": "${{ steps.sign.outputs.sha256 }}",
+            "publishedAt": "$(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          }
+          EOF
+          git config user.name "shise-bot"
+          git config user.email "bot@users.noreply.github.com"
+          git add latest.json
+          git commit -m "chore(shise): update latest.json ${{ steps.sign.outputs.sha256 }}" || echo "no changes"
+          git push origin main
