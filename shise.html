@@ -256,6 +256,11 @@ main{max-width:1060px;margin:0 auto;padding:32px 24px 60px}
 .about-sign .powered-label{font-size:10px;letter-spacing:3px;color:var(--text2);opacity:.7}
 .about-sign .powered-name{font-size:18px;font-weight:800;letter-spacing:1px;color:var(--text);font-family:monospace,Consolas}
 .about-sign .sign-name{font-size:13px;color:var(--text2)}
+.about-update{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:20px 0 4px;padding:14px 16px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r)}
+.about-update .au-info{display:flex;flex-direction:column;gap:3px}
+.about-update .au-label{font-size:11px;letter-spacing:1px;color:var(--text2)}
+.about-update .au-ver{font-size:14px;font-weight:700;color:var(--text);font-family:monospace,Consolas}
+.about-update .au-btn{flex-shrink:0}
 
 /* 全屏沉浸 */
 .fs-overlay{position:fixed;inset:0;z-index:10000;background:#111;display:flex;flex-direction:column;opacity:0;transition:opacity .3s ease}
@@ -305,8 +310,38 @@ footer .sep{width:40px;height:2px;background:var(--primary);margin:0 auto 12px;b
   .about-qrcode{flex-direction:column;text-align:center}
 }
 </style>
+<style>
+/* ===== 开屏动画：扇形色卡展开 ===== */
+#splash{position:fixed;inset:0;z-index:20000;background:#F4F0E8;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .6s ease,transform .6s ease}
+#splash.splash-out{opacity:0;transform:scale(1.08);pointer-events:none}
+#splash .fan{position:relative;width:240px;height:240px}
+#splash .fan .card{position:absolute;left:50%;top:50%;width:64px;height:160px;border-radius:12px;margin-left:-32px;margin-top:-80px;transform-origin:center center;transform:rotate(var(--r)) translate(0,-30px) scale(.6);opacity:0;box-shadow:0 6px 20px rgba(0,0,0,.12);animation:fanIn .7s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d)}
+@keyframes fanIn{
+  0%{transform:rotate(var(--r)) translate(0,80px) scale(.3);opacity:0}
+  60%{opacity:1}
+  100%{transform:rotate(var(--r)) translate(0,-26px) scale(1);opacity:1}
+}
+#splash .fan .badge{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:#C41A1A;color:#fff;display:flex;align-items:center;justify-content:center;font-family:"Songti SC","SimSun",serif;font-size:26px;box-shadow:0 4px 14px rgba(196,26,26,.4);z-index:5;opacity:0;animation:badgeIn .5s .55s ease forwards}
+@keyframes badgeIn{0%{opacity:0;transform:scale(.5)}100%{opacity:1;transform:scale(1)}}
+#splash .splash-cap{position:absolute;bottom:46px;left:0;right:0;text-align:center;font-size:13px;letter-spacing:4px;color:#888;opacity:0;animation:capIn .5s 1s ease forwards}
+@keyframes capIn{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:translateY(0)}}
+@media (prefers-reduced-motion:reduce){#splash .fan .card{animation-duration:.01s}#splash .fan .badge{animation-duration:.01s}}
+</style>
 </head>
 <body>
+
+<!-- 开屏动画：扇形色卡展开 -->
+<div id="splash" aria-hidden="true">
+  <div class="fan">
+    <div class="card" style="--r:-48deg;--d:.05s;background:#8B2500"></div>
+    <div class="card" style="--r:-24deg;--d:.12s;background:#C41A1A"></div>
+    <div class="card" style="--r:0deg;--d:.19s;background:#9CAF88"></div>
+    <div class="card" style="--r:24deg;--d:.26s;background:#1C1A17"></div>
+    <div class="card" style="--r:48deg;--d:.33s;background:#F4F0E8;border:1px solid #ddd"></div>
+    <div class="badge">拾</div>
+  </div>
+  <div class="splash-cap">拾 色 · 收 集 世 间 每 一 种 颜 色</div>
+</div>
 
 <header>
   <div class="hdr-inner">
@@ -538,6 +573,13 @@ footer .sep{width:40px;height:2px;background:var(--primary);margin:0 auto 12px;b
         <div class="qr-title">关注公众号</div>
         <div class="qr-sub">扫码了解更多配色灵感与更新动态<br>每周分享传统色知识与设计案例</div>
       </div>
+    </div>
+    <div class="about-update">
+      <div class="au-info"><span class="au-label">当前版本</span><span class="au-ver" id="aboutVersion">v1.0</span></div>
+      <button class="btn btn-o au-btn" id="checkUpdateBtn" onclick="shiseCheckUpdate()">
+        <svg viewBox="0 0 24 24" width="16" height="16"><path d="M21 12a9 9 0 01-9 9 9 9 0 01-6.36-2.64M3 12a9 9 0 019-9 9 9 0 016.36 2.64"/><path d="M21 3v6h-6"/></svg>
+        检查更新
+      </button>
     </div>
     <div class="about-sign">
       <img class="sign-img" src="https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/img/%E9%BB%91%20%E6%8B%B7%E8%B4%9D.png" alt="署名 logo" onerror="this.style.display='none'">
@@ -943,6 +985,22 @@ function findPantone(hex){let best=PANTONE[0],bd=Infinity;PANTONE.forEach(p=>{co
 function $(id){return document.getElementById(id)}
 function showToast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2000)}
 function copyText(text,btn){navigator.clipboard.writeText(text).then(()=>{showToast('已复制: '+text);if(btn){const o=btn.textContent;btn.textContent='✓';btn.classList.add('copied');setTimeout(()=>{btn.textContent=o;btn.classList.remove('copied')},1200)}}).catch(()=>{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('已复制: '+text)})}
+// 关于页「检查更新」按钮：APK 环境走壳桥接 Shise.checkUpdate()；网页环境走 fetch 检查 latest.json
+function shiseCheckUpdate(){
+if(window.Shise&&window.Shise.checkUpdate){window.Shise.checkUpdate();return}
+// 网页版：直接拉 latest.json，若 sha256/apkUrl 存在则提示下载
+const LATEST='https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/latest.json';
+const btn=$('checkUpdateBtn');if(btn){btn.disabled=true;btn.style.opacity='.6'}
+fetchWithTimeout(LATEST,8000).then(r=>r.json()).then(o=>{
+const v=o.version||'?';
+const cur=($('aboutVersion')?$('aboutVersion').textContent:'').replace('v','')||'1.0';
+if(v&&v!==cur){showToast('发现新版本 v'+v+'，请打开应用更新');if(o.apkUrl){window.open(o.apkUrl,'_blank')}}
+else{showToast('已是最新版本')}
+}).catch(()=>showToast('检查更新失败，请检查网络'))
+.finally(()=>{if(btn){btn.disabled=false;btn.style.opacity=''};});
+}
+// 同步当前版本号到关于页（壳会注入 window.shiseVersion）
+(function syncAboutVersion(){if(window.shiseVersion){const el=$('aboutVersion');if(el)el.textContent='v'+window.shiseVersion}else{const el=$('aboutVersion');if(el)el.textContent='v1.0 · 网页版'}})();
 
 // ============================================================
 //  fetch 带超时
@@ -1038,7 +1096,7 @@ document.addEventListener('click',e=>{
 let startX=0,startY=0,delX=0,delY=0,tracking=false,locked=false,swiping=false;
 const stage=document.querySelector('main');
 if(!stage)return;
-function isMobile(){return matchMedia('(max-width:768px)').matches&&!matchMedia('(pointer:fine)').matches}
+function isMobile(){if(window.__shiseApk)return true;return matchMedia('(max-width:768px)').matches&&!matchMedia('(pointer:fine)').matches}
 function isVertical(){return Math.abs(delY)>Math.abs(delX)*1.2&&Math.abs(delY)>10}
 function isHorizontal(){return Math.abs(delX)>Math.abs(delY)*1.2&&Math.abs(delX)>10}
 function findTabs(){
@@ -1982,6 +2040,14 @@ updateFullscreenColor(nPal[0],'',' ',nPal,'古诗配色',npoem);
 };
 openFullscreen(pal[0],'',' ',pal,'古诗配色',poem);
 }
+
+// 开屏动画：扇形色卡展开后淡出
+(function playSplash(){
+  const sp=$('splash');if(!sp)return;
+  const hide=()=>{if(sp.classList.contains('splash-out'))return;sp.classList.add('splash-out');setTimeout(()=>{if(sp&&sp.parentElement)sp.parentElement.removeChild(sp)},650)};
+  setTimeout(hide,1600);
+  document.addEventListener('click',()=>{if(sp)hide()},true);
+})();
 
 // ============================================================
 //  初始化
