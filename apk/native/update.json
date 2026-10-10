@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.38-native",
-  "versionCode": 58,
+  "versionName": "3.9.39-native",
+  "versionCode": 59,
   "url": "super-sticky-note.apk",
-  "size": 6752938,
-  "sha256": "0ea3ca8e80a4fdc8b84e15ad490c2cc154db857c36b84aa6046da061cf536609",
-  "note": "v58：详情页全屏图片预览彻底极简化——完全移除底栏与所有黄色按钮（‹/保存/› 全删），纯手势操作（封面/剧照/海报共用）：左右滑动手势切图（挂 iv 上不挂 root，不吞顶栏 ✕）、双击 iv=保存当前图、单击 iv/右上角 ✕=关闭；顶栏仅居中页码+✕；修复 v57 旧代码双顶栏 bug；修 GestureDetector 覆写错（onSingleTapConfirmed 替代 onSingleTapUp、onDoubleTap 替代 onDoubleTapUp）"
+  "size": 6753974,
+  "sha256": "5aae618c13acfa209710d1da246967937a8b1f9e1e9c8641ff8faf54c5f965f9",
+  "note": "v59：①修复「点封面/剧照/海报跳回首页」崩溃——root.addView(topRow,3) 在 root 只有 1 个子 View 时 IndexOutOfBoundsException 崩溃重启，改为 root.addView(topRow) 不带 index；②演员页 person() 补 birthday/deathday/biography 的 Gson 显式 null 防御（JsonNull≠Kotlin null）；③演员页图标改版：⏳/📡 emoji 换成 APP 金色主题自绘——加载=三个金色圆点依次脉冲(600ms 波浪)，失败=金色描边圆+感叹号，风格与全文统一"
 }
