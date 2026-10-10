@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.36-native",
-  "versionCode": 56,
+  "versionName": "3.9.37-native",
+  "versionCode": 57,
   "url": "super-sticky-note.apk",
-  "size": 6753738,
-  "sha256": "cd5fe1f1f51d7d3457cd74ac55bdcc90270c00e5bfa183adc395926fc9b17755",
-  "note": "v56：修复影人页「加载失败（海外数据源未连接）」。真因=Gson 坑：TMDB 在拍/未上映作品 poster_path 为显式 null 时 get() 返回 JsonNull（非 Kotlin null），asString 抛异常→整个 person() 被 catch 吞掉返回 null。已在 person()/personPhotos()/fetchDetailOnline() 全部改用 isJsonNull 判定（poster_path/file_path/media.title），无海报作品正常跳过"
+  "size": 6753634,
+  "sha256": "e50e036ff39f541357892400c1da28b862f617a6cbd4fa3d03245bff2661c762",
+  "note": "v57：详情页全屏图片预览改为左右滑动手势切换（替代旧版底栏‹/›按钮），底栏极简化为居中页码提示，保留右上角✕关闭与点按图片关闭；切换时 iv 淡入 140ms 动效"
 }
