@@ -1557,25 +1557,53 @@ function drawSwatchStyle(ctx,W,H,colors,label){
   ctx.fillText('拾色 · ShiSe',30,62);
 }
 function drawCircleStyle(ctx,W,H,colors,label){
-  ctx.fillStyle='#fff';ctx.fillRect(0,0,W,H);
+  ctx.fillStyle='#F8F7F4';ctx.fillRect(0,0,W,H);
+  // 顶部"色采" logo
+  drawCaiLogo(ctx,W,46);
   const n=colors.length;
-  const cx=W/2,cy=H/2-20;
-  const r=Math.min(W,H)*0.3;
+  const cx=W/2, cy=(H-110)/2+30;
+  const R=Math.min(W,H)*0.3;          // 外圆半径
+  const ringW=R*0.36;                  // 环宽
+  const rOut=R, rIn=R-ringW;          // 环外/内半径
+  const holeR=rIn*0.92;               // 圆心图片圆半径
+  // 1) 扇形色块铺满圆环（从 -90° 起，顺时针铺 n 段）
+  const startA=-Math.PI/2;
+  const per=n>0?Math.PI*2/n:Math.PI*2;
   colors.forEach((hex,i)=>{
-    const angle=(i/n)*Math.PI*2-Math.PI/2;
-    const x=cx+Math.cos(angle)*(r*0.55);
-    const y=cy+Math.sin(angle)*(r*0.55);
+    const a0=startA+i*per, a1=a0+per-0.02; // 留 0.02 rad 缝隙
     ctx.fillStyle=hex;
-    ctx.beginPath();ctx.arc(x,y,r*0.32,0,Math.PI*2);ctx.fill();
-    ctx.strokeStyle='rgba(0,0,0,.08)';ctx.lineWidth=2;ctx.stroke();
-    ctx.fillStyle=isLight(hex)?'#333':'#fff';
-    ctx.font='bold 13px monospace';ctx.textAlign='center';
-    ctx.fillText(hex,x,y+4);
+    ctx.beginPath();
+    ctx.arc(cx,cy,rOut,a0,a1);
+    ctx.arc(cx,cy,rIn,a1,a0,true);
+    ctx.closePath();ctx.fill();
   });
-  ctx.fillStyle='#C41A1A';ctx.font='bold 24px "Songti SC",serif';ctx.textAlign='center';
-  ctx.fillText(label,W/2,H-80);
-  ctx.fillStyle='#999';ctx.font='13px sans-serif';
-  ctx.fillText('拾色 · ShiSe · 收集世间每一种颜色',W/2,H-52);
+  // 2) 圆心：原图圆形裁切
+  ctx.save();
+  ctx.beginPath();ctx.arc(cx,cy,holeR,0,Math.PI*2);ctx.clip();
+  if(shareSourceImage&&shareSourceImage.naturalWidth){
+    const iw=shareSourceImage.naturalWidth,ih=shareSourceImage.naturalHeight;
+    const s=Math.max(holeR*2/iw,holeR*2/ih);
+    ctx.drawImage(shareSourceImage,cx-holeR,cy-holeR,holeR*2,holeR*2);
+  }else{ctx.fillStyle='#E8E0D8';ctx.beginPath();ctx.arc(cx,cy,holeR,0,Math.PI*2);ctx.fill();}
+  ctx.restore();
+  ctx.strokeStyle='#fff';ctx.lineWidth=4;ctx.beginPath();ctx.arc(cx,cy,holeR,0,Math.PI*2);ctx.stroke();
+  // 3) 下方色点 + HEX 图例（最多 5 个，两行排布）
+  const legendY=cy+R+22;
+  ctx.textBaseline='middle';
+  const shown=colors.slice(0,5);
+  const rows=shown.length<=3?1:2;
+  const perRow=rows===2?[3,shown.length-3]:[shown.length];
+  shown.forEach((hex,idx)=>{
+    const row=idx<perRow[0]?0:1;
+    const colInRow=row===0?idx:idx-perRow[0];
+    const totalInRow=perRow[row];
+    const lx=W/2+(colInRow-(totalInRow-1)/2)*90;
+    const ly=legendY+row*26;
+    ctx.fillStyle=hex;ctx.beginPath();ctx.arc(lx-30,ly,6,0,Math.PI*2);ctx.fill();
+    ctx.strokeStyle='#E8E0D8';ctx.lineWidth=1;ctx.stroke();
+    ctx.fillStyle='#555';ctx.font='14px monospace';ctx.textAlign='left';
+    ctx.fillText(hex.toUpperCase(),lx-18,ly+1);
+  });
 }
 function drawGradientStyle(ctx,W,H,colors,label){
   ctx.fillStyle='#1a1a2e';ctx.fillRect(0,0,W,H);
@@ -1728,28 +1756,31 @@ function drawImage(ctx,x,y,w,h){
 }
 function drawImageStyle(ctx,W,H,colors,label){
   ctx.fillStyle='#F8F7F4';ctx.fillRect(0,0,W,H);
-  ctx.fillStyle='#C41A1A';ctx.font='bold 24px "Songti SC",serif';ctx.textAlign='left';
-  ctx.fillText('拾色 · 图片取色',30,44);
-  ctx.fillStyle='#999';ctx.font='12px sans-serif';
-  ctx.fillText('图片与色卡 · 一键分享',30,66);
-  const pad=30,topY=88,availH=H-topY-40;
+  const pad=30,topY=88,availH=H-topY-56;
   const n=colors.length;
   if(imageLayout==='h'){
-    // 横排：左图右卡
-    const gap=20;
-    const imgW=Math.round((W-pad*2-gap)*0.44);
-    const cardX=pad+imgW+gap,cardW=W-pad-cardX,imgH=availH;
-    drawImage(ctx,pad,topY,imgW,imgH);
-    const rowH=(imgH-gap*(n-1))/n;
+    // 前三张样式：左 5 色块竖排（块内写 HEX）+ 右侧竖图 + 底部"色采"logo
+    const gap=24;
+    const imgW=Math.round((W-pad*2-gap)*0.52);
+    const cardW=W-pad*2-gap-imgW;
+    const cardX=pad, imgX=pad+cardW+gap;
+    const rowH=(availH-gap*(n-1))/n;
     colors.forEach((hex,i)=>{
       const y=topY+i*(rowH+gap);
-      ctx.fillStyle=hex;ctx.beginPath();ctx.roundRect(cardX,y,cardW,rowH,8);ctx.fill();
+      ctx.fillStyle=hex;ctx.beginPath();ctx.roundRect(cardX,y,cardW,rowH,6);ctx.fill();
       const tc=isLight(hex)?'#333':'#fff';
-      ctx.fillStyle=tc;ctx.font='bold 15px monospace';ctx.textAlign='left';
-      ctx.fillText(hex.toUpperCase(),cardX+14,y+rowH/2-4);
-      ctx.font='12px "Songti SC",serif';ctx.fillStyle=tc;ctx.globalAlpha=0.8;
-      ctx.fillText(findClosest(hex,COLORS).color.name,cardX+14,y+rowH/2+16);ctx.globalAlpha=1;
+      ctx.fillStyle=tc;ctx.font='bold 22px monospace';ctx.textAlign='center';
+      ctx.fillText(hex.toUpperCase(),cardX+cardW/2,y+rowH/2+8);
     });
+    // 右侧原图（竖向）
+    ctx.save();ctx.beginPath();ctx.roundRect(imgX,topY,imgW,availH,14);ctx.clip();
+    if(shareSourceImage&&shareSourceImage.naturalWidth){
+      const iw=shareSourceImage.naturalWidth,ih=shareSourceImage.naturalHeight;
+      const s=Math.max(imgW/iw,availH/ih);
+      ctx.drawImage(shareSourceImage,imgX+(imgW-iw*s)/2,topY+(availH-ih*s)/2,iw*s,ih*s);
+    }else{ctx.fillStyle='#E8E0D8';ctx.fillRect(imgX,topY,imgW,availH);}
+    ctx.restore();
+    ctx.strokeStyle='#E8E0D8';ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(imgX,topY,imgW,availH,14);ctx.stroke();
   }else if(imageLayout==='v'){
     // 竖排：上图下卡（色块横排）
     const gap=20;
@@ -1773,14 +1804,11 @@ function drawImageStyle(ctx,W,H,colors,label){
     const gap=14;
     const cellW=(W-pad*2-gap*(cols-1))/cols;
     const cellH=(availH-gap*(rows-1))/rows;
-    // 图片占 2x2（左上）
     const imgW3=cellW*2+gap,imgH3=cellH*2+gap;
     drawImage(ctx,pad,topY,imgW3,imgH3);
-    // 色块放在剩余格子
     let ci=0;
     for(let r=0;r<rows;r++){
       for(let c=0;c<cols;c++){
-        // 跳过被图片占据的区域（前2行前2列）
         if(r<2&&c<2)continue;
         if(ci>=n)break;
         const hex=colors[ci];
@@ -1795,8 +1823,26 @@ function drawImageStyle(ctx,W,H,colors,label){
       }
     }
   }
-  ctx.fillStyle='#bbb';ctx.font='11px sans-serif';ctx.textAlign='center';
-  ctx.fillText('拾色 · ShiSe · 收集世间每一种颜色',W/2,H-18);
+  // 底部"色采" logo（扇形圆 + 文字）
+  drawCaiLogo(ctx,W,H);
+}
+// 底部"色采"小 logo：左侧一个扇形色轮圆 + "色采"二字
+function drawCaiLogo(ctx,W,H){
+  const cx=W/2-26,cy=H-34;
+  ctx.save();
+  ctx.translate(cx,cy);
+  ctx.beginPath();ctx.arc(0,0,11,0,Math.PI*2);ctx.fillStyle='#F4F0E8';ctx.fill();
+  const segs=6,sw=0.06;
+  const pal=['#C59B2F','#F1E1C0','#F2E7CB','#F8E17B','#6A8D6D'];
+  for(let s=0;s<segs;s++){
+    const a0=s/segs*Math.PI*2-0.5+sw, a1=(s+1)/segs*Math.PI*2-0.5-sw;
+    ctx.beginPath();ctx.arc(0,0,11,a0,a1);ctx.lineTo(0,0);ctx.closePath();
+    ctx.fillStyle=pal[s%pal.length];ctx.fill();
+  }
+  ctx.strokeStyle='#333';ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(0,0,11,0,Math.PI*2);ctx.stroke();
+  ctx.fillStyle='#333';ctx.font='14px "Songti SC","SimSun",serif';ctx.textAlign='left';ctx.textBaseline='middle';
+  ctx.fillText('色采',26,0);
+  ctx.restore();
 }
 function updateShareCanvas(){
   const canvas=$('shareCanvas');
