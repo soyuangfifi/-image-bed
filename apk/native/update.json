@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.40-native",
-  "versionCode": 60,
+  "versionName": "3.9.41-native",
+  "versionCode": 61,
   "url": "super-sticky-note.apk",
-  "size": 6756022,
-  "sha256": "f7bb1aff6c8e11e6e132009a0d1c78c306f3b050a14fed5b649654e9717b4a10",
-  "note": "v60：修复「海外数据加载不出来」。①图片代理路径修正：代理真实路由是 /img<size>/*（如 /imgw500/xxx.jpg），旧代码拼的 /i?p=... 恒 404，导致海外海报兜底一直失效；②TMDB 取数改为双源并发竞速（代理源 api.superstickynote.com 与直连 api.themoviedb.org 同时打，谁先成功用谁），代理源额外重试 1 次，超时由 12s 放宽到 10s/25s，覆盖跨境链路偶发 502 与抖动；③海报加载同样并发竞速（直连 image.tmdb.org 与代理源），不再干等直连 8s 才降级；④首页海外模式失败后自动重试 1 次再出错误卡；⑤OMDb/翻译/预告片通用超时 12s→20s"
+  "size": 6757782,
+  "sha256": "4a94d962acdb0a927ab6a68751293096fbb1029cef672983c48191ac3b93c00a",
+  "note": "v61：图片查看体验优化。①切图加平移过渡动效——改为双 ImageView 轮播，左右滑动时新图跟手从对应方向滑入、旧图同时滑出（260ms 减速插值），过渡期间忽略新的滑动避免动画错乱；②保存手势由「双击」改为「长按」，符合相册类应用习惯，长按带震动反馈；单击关闭、右上角 ✕ 关闭保持不变"
 }
