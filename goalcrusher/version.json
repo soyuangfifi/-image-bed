@@ -1,6 +1,6 @@
 {
-  "version": "1.45",
-  "notes": "修复桌面灵动岛数字与 App 内不一致：桌面胶囊改为直接显示 App 用完整计薪规则（含午休扣除、按上班时长计薪）算好的「今日已赚」，并每秒实时同步，不再用简化公式自行重算。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.45.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.45.apk"
+  "version": "1.46",
+  "notes": "桌面灵动岛位置再调：水平居中、紧靠状态栏下方、尺寸缩短（像 iOS 灵动岛那种居中药丸）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.46.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.46.apk"
 }
