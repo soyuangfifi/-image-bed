@@ -1,6 +1,6 @@
 {
-  "version": "1.41",
-  "notes": "桌面灵动岛悬浮窗调整到右上角（避开左侧系统时钟），半透明窄条不遮挡桌面内容；工作中显示「今日已赚 ¥xx.xx」并实时跳动，到点未打卡显示趣味提醒。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.41.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.41.apk"
+  "version": "1.42",
+  "notes": "桌面灵动岛悬浮窗位置微调：水平居中、往下移一点（到状态栏下方）、宽度缩短，更不遮挡桌面内容；工作中显示「今日已赚 ¥xx.xx」并实时跳动，到点未打卡显示趣味提醒。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.42.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.42.apk"
 }
