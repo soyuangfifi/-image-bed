@@ -1,6 +1,6 @@
 {
-  "version": "1.37",
-  "notes": "修复灵动岛不显示的问题；新增「桌面灵动岛悬浮窗」：回到手机桌面也能看到已赚工资与打卡状态（设置里开启，需悬浮窗权限，可拖动、点按回应用）；收支记录新增「账户」字段，记一笔时可标注来自哪个账户（微信 / 支付宝 / 银行卡等，支持自定义）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.37.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.37.apk"
+  "version": "1.38",
+  "notes": "桌面灵动岛悬浮窗调整到顶部状态栏下方不再遮挡桌面内容；工作中时只显示数字实时递增；到时间未打卡时变成趣味提醒文案（上班啦/下班啦，带表情），点按即进入 App 打卡。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.38.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.38.apk"
 }
