@@ -1,6 +1,6 @@
 {
-  "version": "1.43",
-  "notes": "根治「检查更新收不到」：新增自有域名 OTA 源（api.superstickynote.com/goalcrusher/*，大陆可达、无 jsDelivr 缓存、恒新鲜）并置顶；桌面灵动岛位置微调（居中、下移、缩短）。",
-  "apkUrl": "https://api.superstickynote.com/goalcrusher/GoalCrusher-1.43.apk",
-  "apkUrlAlt": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.43.apk"
+  "version": "1.44",
+  "notes": "修复「立即更新」HTTP 404：APK 下载改回 gcore 直链（不再依赖尚未部署的自有域名 proxy），自有域名源保留作未来最优更新源。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.44.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.44.apk"
 }
