@@ -1,6 +1,6 @@
 {
-  "version": "1.35",
-  "notes": "新增：收支记录可按「时刻（几时几分）」精准登记；收支页新增「分类统计」圆环图与「收支趋势」图；考勤日历标记 2026 法定节假日；目标支持补充「链接」与「图片」（参考资料随时查看）。",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.35.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/goalcrusher/GoalCrusher-1.35.apk"
+  "version": "1.36",
+  "notes": "新增「灵动岛」：顶部常驻胶囊实时显示今日已赚工资；到点自动弹出上班 / 下班打卡提醒（可稍后提醒或点击直接打卡），点按可展开今日状态概览。",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.36.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/goalcrusher/GoalCrusher-1.36.apk"
 }
