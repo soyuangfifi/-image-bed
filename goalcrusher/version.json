@@ -1,6 +1,6 @@
 {
-  "version": "1.50",
-  "notes": "桌面灵动岛改回水平居中、贴状态栏中间；App 内灵动岛只显示简洁胶囊、不再重复展开；桌面数字用 App 完整计薪规则实时同步。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.50.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.50.apk"
+  "version": "1.51",
+  "notes": "① 进 App 隐藏 App 内胶囊；② 桌面胶囊新增点按进 App、长按下拖拉大回弹进 App 动效。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.51.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.51.apk"
 }
