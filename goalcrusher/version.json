@@ -1,6 +1,6 @@
 {
-  "version": "1.38",
-  "notes": "桌面灵动岛悬浮窗调整到顶部状态栏下方不再遮挡桌面内容；工作中时只显示数字实时递增；到时间未打卡时变成趣味提醒文案（上班啦/下班啦，带表情），点按即进入 App 打卡。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.38.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.38.apk"
+  "version": "1.39",
+  "notes": "修复 App 内灵动岛被挤压遮挡：默认常驻展开完整计时模块（已赚数字 + 状态 + 操作按钮），点按胶囊可临时折叠；有打卡提醒时自动展开。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.39.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.39.apk"
 }
