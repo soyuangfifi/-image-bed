@@ -1,6 +1,6 @@
 {
-  "version": "1.49",
-  "notes": "桌面灵动岛位置精确对齐到左上角系统时钟「9:06」右侧那一格（与 11.5 MB/s、5G、电池图标同一行），短药丸、半透明，不遮挡时钟。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.49.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.49.apk"
+  "version": "1.50",
+  "notes": "桌面灵动岛改回水平居中、贴状态栏中间；App 内灵动岛只显示简洁胶囊、不再重复展开；桌面数字用 App 完整计薪规则实时同步。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.50.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.50.apk"
 }
