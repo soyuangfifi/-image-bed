@@ -1,6 +1,6 @@
 {
-  "version": "1.48",
-  "notes": "修复 App 内灵动岛图标/文字挤在一起 + 打开 App 时出现重复展开模块：App 内只显示简洁一条胶囊，不再常驻展开；到点有打卡提醒时才临时展开。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.48.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.48.apk"
+  "version": "1.49",
+  "notes": "桌面灵动岛位置精确对齐到左上角系统时钟「9:06」右侧那一格（与 11.5 MB/s、5G、电池图标同一行），短药丸、半透明，不遮挡时钟。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.49.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.49.apk"
 }
