@@ -1,6 +1,6 @@
 {
-  "version": "1.51",
-  "notes": "① 进 App 隐藏 App 内胶囊；② 桌面胶囊新增点按进 App、长按下拖拉大回弹进 App 动效。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.51.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.51.apk"
+  "version": "1.52",
+  "notes": "彻底移除 App 内「今日已赚」胶囊，打卡提醒与实时已赚只靠桌面原生悬浮窗。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.52.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.52.apk"
 }
