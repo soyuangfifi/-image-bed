@@ -1,6 +1,6 @@
 {
-  "version": "1.36",
-  "notes": "新增「灵动岛」：顶部常驻胶囊实时显示今日已赚工资；到点自动弹出上班 / 下班打卡提醒（可稍后提醒或点击直接打卡），点按可展开今日状态概览。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.36.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.36.apk"
+  "version": "1.37",
+  "notes": "修复灵动岛不显示的问题；新增「桌面灵动岛悬浮窗」：回到手机桌面也能看到已赚工资与打卡状态（设置里开启，需悬浮窗权限，可拖动、点按回应用）；收支记录新增「账户」字段，记一笔时可标注来自哪个账户（微信 / 支付宝 / 银行卡等，支持自定义）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.37.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.37.apk"
 }
