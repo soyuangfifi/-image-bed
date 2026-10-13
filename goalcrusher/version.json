@@ -1,6 +1,6 @@
 {
-  "version": "1.44",
-  "notes": "修复「立即更新」HTTP 404：APK 下载改回 gcore 直链（不再依赖尚未部署的自有域名 proxy），自有域名源保留作未来最优更新源。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.44.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.44.apk"
+  "version": "1.45",
+  "notes": "修复桌面灵动岛数字与 App 内不一致：桌面胶囊改为直接显示 App 用完整计薪规则（含午休扣除、按上班时长计薪）算好的「今日已赚」，并每秒实时同步，不再用简化公式自行重算。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.45.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.45.apk"
 }
