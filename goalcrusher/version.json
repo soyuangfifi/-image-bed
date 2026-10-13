@@ -1,6 +1,6 @@
 {
-  "version": "1.46",
-  "notes": "桌面灵动岛位置再调：水平居中、紧靠状态栏下方、尺寸缩短（像 iOS 灵动岛那种居中药丸）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.46.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.46.apk"
+  "version": "1.47",
+  "notes": "桌面灵动岛再调：水平居中、贴到状态栏那一行（与系统时钟/信号/电池同行）、尺寸缩短到更短的药丸。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.47.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.47.apk"
 }
