@@ -1,6 +1,6 @@
 {
-  "version": "1.54",
-  "notes": "灵动岛胶囊对齐状态栏图标行；按 App 设定时间分段提醒：上班蹦跳/午休呼吸/下班轻摇/23点睡觉💤，含表情动画。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.54.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.54.apk"
+  "version": "1.55",
+  "notes": "进 App 自动隐藏桌面胶囊、回桌面自动显示；清晨改问好倒计时（不再夜深了）；胶囊下移到状态栏正下方，恢复点按/下拉手势。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.55.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.55.apk"
 }
