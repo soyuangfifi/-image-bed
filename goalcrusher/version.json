@@ -1,6 +1,6 @@
 {
-  "version": "1.42",
-  "notes": "桌面灵动岛悬浮窗位置微调：水平居中、往下移一点（到状态栏下方）、宽度缩短，更不遮挡桌面内容；工作中显示「今日已赚 ¥xx.xx」并实时跳动，到点未打卡显示趣味提醒。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.42.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.42.apk"
+  "version": "1.43",
+  "notes": "根治「检查更新收不到」：新增自有域名 OTA 源（api.superstickynote.com/goalcrusher/*，大陆可达、无 jsDelivr 缓存、恒新鲜）并置顶；桌面灵动岛位置微调（居中、下移、缩短）。",
+  "apkUrl": "https://api.superstickynote.com/goalcrusher/GoalCrusher-1.43.apk",
+  "apkUrlAlt": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.43.apk"
 }
