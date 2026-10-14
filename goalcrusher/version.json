@@ -1,6 +1,6 @@
 {
-  "version": "1.58",
-  "notes": "OTA 更新源清理：移除长期 404 的 api.superstickynote.com 死源，保留 gcore / testingcf / cdn.jsdelivr 与 raw.githubusercontent 四个镜像，检测更稳定；底部导航维持「悬浮液体玻璃胶囊」玻璃质感与淡金选中态。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.58.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.58.apk"
+  "version": "1.59",
+  "notes": "悬浮玻璃胶囊导航圆角统一：选中项高亮改为「胶囊端」样式（左右满圆、上下直角），与玻璃导航栏两端的 31px 圆角语言对齐；未选中项不再带多余圆角，整体更协调。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.59.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.59.apk"
 }
