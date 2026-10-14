@@ -1,1 +1,1 @@
-{"code": 7, "name": "1.6", "note": "v1.6 新增应用内 OTA 更新、存活源优先加速首屏、修复首页加载提示残留、直播失效不再自动跳台改为明确提示+重试", "apk": "yingyuan-v1.6.apk", "size": 228235, "sha256": "6c3c45eb47c473fcb0e11512611077a1f3ac0c9d2fe1d61b87f9de69481fecf2"}
+{"code": 8, "name": "1.7", "note": "v1.7 接入央视频官方直播页（CCTV1~17 官方源），直播页新增入口卡片", "apk": "yingyuan-v1.7.apk", "size": 230687, "sha256": "d8f7f4ec3415be0b3cb7e30a5134517e2911c0ff1920ffae66724d7a4eaf3588"}
