@@ -1,6 +1,6 @@
 {
-  "version": "1.63",
-  "notes": "灵动岛升级为「会看你的小宠物」：① 胶囊位置再下移 1.5px（顶边距屏幕边缘 3dp）；② 全天时段趣味提醒：深夜该睡了 / 6:30-7:30 起床啦 / 7:30 起记得打卡 / 打卡后赚钱数字递增并每 5 分钟插一句摸鱼吐槽 / 午休先开饭后午睡 / 到点下班啦；③ 上班时段你在玩手机时，胶囊里会「睁开」两只极简圆点眼睛（纯平面单色），眼睛盯着你手指的方向看、会眨眼、会眯眼笑，几秒后闭眼收回、数字继续递增；深夜闭眼睡觉，午休打盹，下班高兴地跳两下。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.63.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.63.apk"
+  "version": "1.64",
+  "notes": "灵动岛小宠物交互升级：① 胶囊再下移 2px（顶边距屏幕边缘 5dp）；② 午休后半段与深夜，小宠物会自己出来闭眼睡着（慢呼吸）；③ 点按胶囊逗宠物——睡着时点一下会睁眼醒来、开心跳两下、眨眨眼，4 秒后接着睡；醒着时点一下会眯眼笑、摇一摇；④ 双击胶囊 = 打开 App（长按下拖进 App 保留）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.64.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.64.apk"
 }
