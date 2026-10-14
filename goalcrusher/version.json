@@ -1,6 +1,6 @@
 {
-  "version": "1.55",
-  "notes": "进 App 自动隐藏桌面胶囊、回桌面自动显示；清晨改问好倒计时（不再夜深了）；胶囊下移到状态栏正下方，恢复点按/下拉手势。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.55.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.55.apk"
+  "version": "1.56",
+  "notes": "桌面灵动岛胶囊上移 1.5dp，更贴近状态栏、仍保留在可交互区。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.56.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.56.apk"
 }
