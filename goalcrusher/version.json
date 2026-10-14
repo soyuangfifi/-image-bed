@@ -1,6 +1,6 @@
 {
-  "version": "1.56",
-  "notes": "桌面灵动岛胶囊上移 1.5dp，更贴近状态栏、仍保留在可交互区。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.56.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.56.apk"
+  "version": "1.57",
+  "notes": "底部导航重构为「悬浮液体玻璃胶囊」：真模糊玻璃质感（blur 14px + 提饱和 + 顶部折射亮线 + 1px 全周描边 + 投影）、选中态改为淡金胶囊高亮；不支持 backdrop-filter 的环境自动降级为实色，不影响功能与美观。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.57.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.57.apk"
 }
