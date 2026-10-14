@@ -1,6 +1,6 @@
 {
-  "version": "1.62",
-  "notes": "灵动岛与导航细节修复：① 桌面灵动岛胶囊上移到状态栏那一行，与状态栏时间/电量图标上下居中对齐，顶边距屏幕边缘 1.5px；② 下班后灵动岛不再播报赚了多少，改为「收工啦 🎉 该摸鱼了」等放松文案，每 5 分钟换一句；③ 修复「我的目标」等 10 个图标显示为空白的问题（原图标名在 Remix Icon 4.5 中并不存在，已换成同名义图标）；④ 底部导航切换页面时金色高亮不再先方后圆——所有导航项统一为药丸外形，切换只变化颜色。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.62.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.62.apk"
+  "version": "1.63",
+  "notes": "灵动岛升级为「会看你的小宠物」：① 胶囊位置再下移 1.5px（顶边距屏幕边缘 3dp）；② 全天时段趣味提醒：深夜该睡了 / 6:30-7:30 起床啦 / 7:30 起记得打卡 / 打卡后赚钱数字递增并每 5 分钟插一句摸鱼吐槽 / 午休先开饭后午睡 / 到点下班啦；③ 上班时段你在玩手机时，胶囊里会「睁开」两只极简圆点眼睛（纯平面单色），眼睛盯着你手指的方向看、会眨眼、会眯眼笑，几秒后闭眼收回、数字继续递增；深夜闭眼睡觉，午休打盹，下班高兴地跳两下。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.63.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.63.apk"
 }
