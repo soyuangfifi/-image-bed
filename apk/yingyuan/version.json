@@ -1,1 +1,1 @@
-{"code": 8, "name": "1.7", "note": "v1.7 接入央视频官方直播页（CCTV1~17 官方源），直播页新增入口卡片", "apk": "yingyuan-v1.7.apk", "size": 230687, "sha256": "d8f7f4ec3415be0b3cb7e30a5134517e2911c0ff1920ffae66724d7a4eaf3588"}
+{"code": 8, "name": "1.7", "note": "v1.7 接入央视频官方直播页（CCTV1~17 官方源），直播页新增入口卡片；OTA 检查改为多源取最大版本", "apk": "yingyuan-v1.7.apk", "size": 230659, "sha256": "c8666948cbfeedf4553182e9882feaf63827851cd236328b7990d06eb62f72ff"}
