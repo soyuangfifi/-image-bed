@@ -1,6 +1,6 @@
 {
-  "version": "1.57",
-  "notes": "底部导航重构为「悬浮液体玻璃胶囊」：真模糊玻璃质感（blur 14px + 提饱和 + 顶部折射亮线 + 1px 全周描边 + 投影）、选中态改为淡金胶囊高亮；不支持 backdrop-filter 的环境自动降级为实色，不影响功能与美观。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.57.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.57.apk"
+  "version": "1.58",
+  "notes": "OTA 更新源清理：移除长期 404 的 api.superstickynote.com 死源，保留 gcore / testingcf / cdn.jsdelivr 与 raw.githubusercontent 四个镜像，检测更稳定；底部导航维持「悬浮液体玻璃胶囊」玻璃质感与淡金选中态。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.58.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.58.apk"
 }
