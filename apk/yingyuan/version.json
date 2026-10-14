@@ -1,1 +1,1 @@
-{"code": 9, "name": "1.8", "note": "v1.8 网页版加载稳定性：首页接入渐进渲染、请求分批发射、本地代抓加缓存+黑名单+压缩超时，首帧 43s→7s", "apk": "yingyuan-v1.8.apk", "size": 231279, "sha256": "8b2d3ac3d5232d34092b6f4e087fbf02819b1a255549a728cae85af47dcbed76"}
+{"code": 10, "name": "1.9", "note": "修复播放失败：解析播放页地址自动补全为真实 m3u8 流（/index.m3u8）；新增防盗链 Referer 注入；修复本地代抓被死源 502 拖累降级导致后续资源加载不出的问题", "apk": "yingyuan-v1.9.apk", "size": 232475, "sha256": "4974364fc4c50d1d101843b8e4cbd9983caad965a974acfed3aac3788fd83980"}
