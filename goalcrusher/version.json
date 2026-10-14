@@ -1,6 +1,6 @@
 {
-  "version": "1.64",
-  "notes": "灵动岛小宠物交互升级：① 胶囊再下移 2px（顶边距屏幕边缘 5dp）；② 午休后半段与深夜，小宠物会自己出来闭眼睡着（慢呼吸）；③ 点按胶囊逗宠物——睡着时点一下会睁眼醒来、开心跳两下、眨眨眼，4 秒后接着睡；醒着时点一下会眯眼笑、摇一摇；④ 双击胶囊 = 打开 App（长按下拖进 App 保留）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.64.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.64.apk"
+  "version": "1.65",
+  "notes": "提醒时也由小宠物出场：① 起床时段（6:30-7:30）宠物慢慢睁眼 + 伸懒腰；② 该打卡 / 已过上班时间还没打卡时，宠物左右急促张望地催促；③ 午睡时段宠物打哈欠后闭眼睡觉。提醒类时段改为每 20 秒主动露面一次（不再要求你在玩手机），每次停留 5 秒，与文字提醒交替出现。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.65.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.65.apk"
 }
