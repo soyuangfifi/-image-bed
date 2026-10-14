@@ -1,8 +1,8 @@
 {
-  "versionName": "3.9.56-native",
-  "versionCode": 76,
+  "versionName": "3.9.57-native",
+  "versionCode": 77,
   "url": "super-sticky-note.apk",
   "size": 6827066,
-  "sha256": "48641d48f3130ac7b73433f9e4101474e2d5d47a95a40f6ebdb0380616d51c6b",
-  "note": "v76：修复胶囊下方黑色色块。\nv73 走边到边（导航栏透明 + LAYOUT_HIDE_NAVIGATION）在真机上会被系统 gesture nav 画成黑色 scrim，导致胶囊下方一条明显黑带。改为把系统导航栏设成页面底色 #141414，与 activity_main 根背景一致，内容不延伸至导航栏下方，胶囊保持 16dp 浮在内容区底部，视觉上不再有一块黑色底色。"
+  "sha256": "dacf01856796d0296e0362be65084d853b70cb151cdbfedb4ac3fe4d6ca180af",
+  "note": "v77：底部液态玻璃胶囊改「方案 B」——真·背景模糊，能看见下方海报/内容的颜色与轮廓。\n① 玻璃底不透明度降到 ~42%（v75 的 28% 太实，内容透不出来）；\n② 同时同步上 v76 的修复：系统导航栏颜色改 #141414，胶囊下方不再出现黑色色块。\n图标保持提亮 #D8D1C0，圆点/交互逻辑不变"
 }
