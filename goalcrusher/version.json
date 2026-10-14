@@ -1,6 +1,6 @@
 {
-  "version": "1.59",
-  "notes": "悬浮玻璃胶囊导航圆角统一：选中项高亮改为「胶囊端」样式（左右满圆、上下直角），与玻璃导航栏两端的 31px 圆角语言对齐；未选中项不再带多余圆角，整体更协调。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.59.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.59.apk"
+  "version": "1.60",
+  "notes": "修正悬浮玻璃胶囊导航：选中项高亮由「满圆」改回「圆角矩形」（14px），与图标外围药丸/圆角矩形外形统一，不再偏方；未选中项保持无背景块。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.60.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.60.apk"
 }
