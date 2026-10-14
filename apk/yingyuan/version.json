@@ -1,1 +1,1 @@
-{"code": 10, "name": "1.9", "note": "修复播放失败：解析播放页地址自动补全为真实 m3u8 流（/index.m3u8）；新增防盗链 Referer 注入；修复本地代抓被死源 502 拖累降级导致后续资源加载不出的问题", "apk": "yingyuan-v1.9.apk", "size": 232475, "sha256": "4974364fc4c50d1d101843b8e4cbd9983caad965a974acfed3aac3788fd83980"}
+{"code": 10, "name": "1.9", "note": "修复播放失败：解析播放页地址自动补全为真实 m3u8 流（/index.m3u8）；防盗链 Referer 注入；修复本地代抓被死源 502 拖累降级；hls.js 四路 CDN 回退；urllib/curl 并行竞速", "apk": "yingyuan-v1.9.apk", "size": 232767, "sha256": "b3f1eedc9fd93e260ab010a235879df11eafc0bf97647e1a5033c10faaa3dfc8"}
