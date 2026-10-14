@@ -1,6 +1,6 @@
 {
-  "version": "1.61",
-  "notes": "悬浮玻璃胶囊导航改为「暗哑玻璃」风格：外壳底色压暗接近纯黑、细描边、去掉内部黑阴影与强高光（消除胶囊下方黑色块）；选中项改为宽药丸（左右满圆 + 金色描边 + 淡金填充）；图标下方标签文字缩小一档，整体更贴近参考图样式。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.61.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.61.apk"
+  "version": "1.62",
+  "notes": "灵动岛与导航细节修复：① 桌面灵动岛胶囊上移到状态栏那一行，与状态栏时间/电量图标上下居中对齐，顶边距屏幕边缘 1.5px；② 下班后灵动岛不再播报赚了多少，改为「收工啦 🎉 该摸鱼了」等放松文案，每 5 分钟换一句；③ 修复「我的目标」等 10 个图标显示为空白的问题（原图标名在 Remix Icon 4.5 中并不存在，已换成同名义图标）；④ 底部导航切换页面时金色高亮不再先方后圆——所有导航项统一为药丸外形，切换只变化颜色。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.62.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.62.apk"
 }
