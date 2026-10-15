@@ -1,6 +1,6 @@
 {
-  "version": "1.66",
-  "notes": "灵动岛图标单色化 + 位置对齐：① 文字提醒里的系统彩色 emoji 换成自绘扁平实心小图标（月牙/太阳/闹钟/铅笔/小鱼/饭碗/小床/小旗/笑脸，与胶囊两点眼同一极简风格）；② 胶囊位置再下调至顶边距屏幕边缘 8dp，与状态栏图标行对齐；③ 新增眨眼 WINK 表情（●‹ / ›● 两种）；④ 深夜/午睡小宠物闭眼睡觉时，眼角飘出淡暖灰 ZZZ；⑤ 两点眼现在会大幅跟随手指方向（左右最大 ±42dp），盯着你玩手机。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.66.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.66.apk"
+  "version": "1.67",
+  "notes": "灵动岛胶囊位置微调：在 v1.66（顶边距 8dp）基础上再下移 3dp → 顶边距屏幕边缘 11dp，与小米 HyperOS 状态栏图标 / 时间一行上下居中对齐。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.67.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.67.apk"
 }
