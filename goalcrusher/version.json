@@ -1,6 +1,6 @@
 {
-  "version": "1.71",
-  "notes": "灵动岛胶囊长度缩短 11dp：修复右端与小米 HyperOS 状态栏图标（信号/WiFi/电量）轻微重叠的问题。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.71.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.71.apk"
+  "version": "1.72",
+  "notes": "灵动岛 v1.72：① 长文字（摸鱼口号等）超宽时在胶囊内跑马灯滚动（右→左循环），保证完整展示；② 胶囊高度 26dp→29dp（上下各加高 1.5dp，中心线不变，与状态栏图标行对齐关系保持）；③ 上班赚钱数字递增改为 8 位小数、刷新频率 500ms→80ms，递增更顺滑流畅。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.72.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.72.apk"
 }
