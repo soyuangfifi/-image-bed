@@ -1,6 +1,6 @@
 {
-  "version": "1.65",
-  "notes": "提醒时也由小宠物出场：① 起床时段（6:30-7:30）宠物慢慢睁眼 + 伸懒腰；② 该打卡 / 已过上班时间还没打卡时，宠物左右急促张望地催促；③ 午睡时段宠物打哈欠后闭眼睡觉。提醒类时段改为每 20 秒主动露面一次（不再要求你在玩手机），每次停留 5 秒，与文字提醒交替出现。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.65.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.65.apk"
+  "version": "1.66",
+  "notes": "灵动岛图标单色化 + 位置对齐：① 文字提醒里的系统彩色 emoji 换成自绘扁平实心小图标（月牙/太阳/闹钟/铅笔/小鱼/饭碗/小床/小旗/笑脸，与胶囊两点眼同一极简风格）；② 胶囊位置再下调至顶边距屏幕边缘 8dp，与状态栏图标行对齐；③ 新增眨眼 WINK 表情（●‹ / ›● 两种）；④ 深夜/午睡小宠物闭眼睡觉时，眼角飘出淡暖灰 ZZZ；⑤ 两点眼现在会大幅跟随手指方向（左右最大 ±42dp），盯着你玩手机。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.66.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.66.apk"
 }
