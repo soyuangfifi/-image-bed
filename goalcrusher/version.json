@@ -1,6 +1,6 @@
 {
-  "version": "1.72",
-  "notes": "灵动岛 v1.72：① 长文字（摸鱼口号等）超宽时在胶囊内跑马灯滚动（右→左循环），保证完整展示；② 胶囊高度 26dp→29dp（上下各加高 1.5dp，中心线不变，与状态栏图标行对齐关系保持）；③ 上班赚钱数字递增改为 8 位小数、刷新频率 500ms→80ms，递增更顺滑流畅。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.72.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.72.apk"
+  "version": "1.74",
+  "notes": "灵动岛 v1.74（胶囊宽度自适应 + 文字/双眼互斥 + 数字滚动修复）：① 没有文字时（小宠物在场）胶囊自动收窄到「仅容两只眼」的小宽度，文字态再平滑拉伸回满宽承载文案，拉伸用补间动画自然流畅、不突兀；② 宠物态同步收窄内边距，文字态恢复 14dp 内边距；③ 宽窄切换时始终保持水平居中，并同步更新 home 基准（横扫轻推 / 拉大回弹 / 进场动画依赖它）；④ 修复「两种状态同时显示文字」：小宠物退场→文字接管改为严格互斥（双眼淡出完成后才显示文字，且淡出回调只在宠物确不在场时才接管），杜绝常驻睡觉态漏出文字；⑤ 修复「睡觉态眼睛显示成一条线」：进场/重设表情前先把两眼 scaleY/scaleX 复位为纯圆点再按性格闭合，消除残留闭合动画打架；⑥ 修复数字递增态（¥0.xxxxxxxx）也会左右跑马灯滚动 → 数字态改为静态居中、只平滑递增，仅超宽文案（摸鱼口号等）才滚动；⑦ 延续 v1.73 全部能力：长按逗宠物随机表情（惊讶/思考/爱心/委屈/转晕/庆祝）、双击眨眼、横扫轻推、空闲呼吸、点击进 App、长按下拖拉大进 App；⑧ 修复胶囊顶边写死 13.5dp 在状态栏较高机型被手势区吞触摸 → 改落状态栏正下方(sbH+6dp)。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.74.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.74.apk"
 }
