@@ -1,6 +1,6 @@
 {
-  "version": "1.68",
-  "notes": "灵动岛胶囊位置微调：在 v1.67（顶边距 11dp）基础上再下移 3dp → 顶边距屏幕边缘 14dp，继续对齐小米 HyperOS 状态栏图标 / 时间一行。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.68.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.68.apk"
+  "version": "1.69",
+  "notes": "修复灵动岛点击进不去 App：触摸逻辑统一到整枚胶囊 root。短按=进 App；长按=逗宠物；长按下拖=拉大进 App。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.69.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.69.apk"
 }
