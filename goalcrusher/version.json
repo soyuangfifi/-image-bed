@@ -1,6 +1,6 @@
 {
-  "version": "1.69",
-  "notes": "修复灵动岛点击进不去 App：触摸逻辑统一到整枚胶囊 root。短按=进 App；长按=逗宠物；长按下拖=拉大进 App。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.69.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.69.apk"
+  "version": "1.70",
+  "notes": "灵动岛 v1.70：① 胶囊位置再下移 1dp（顶边距 15dp）对齐小米 HyperOS 状态栏；② 上班赚钱数字改为「货币符号+4位小数」递增（去掉「今日已赚」中文，符号随 App 所选币种 ￥/$/€…）；③ 上班时段每分钟末轮换一句扩充后的摸鱼有趣口号；④ WINK 眨眼尖角按比例放大加粗，与圆点更协调。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.70.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.70.apk"
 }
