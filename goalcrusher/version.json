@@ -1,6 +1,6 @@
 {
-  "version": "1.75",
-  "notes": "灵动岛 v1.75（胶囊位置回退到 v1.72）：① 撤销 v1.73/1.74 的「sbH 动态探测顶边」改动，lp.y 改回 v1.72 的写死 13.5dp（屏幕物理顶端往下 13.5dp）——v1.73/1.74 在你这台小米上探到的状态栏高度偏大，把胶囊顶到了状态栏图标行、压住时间那一行，位置太靠上；现改回 1.72 的固定 13.5dp，位置稳定、不再随机型状态栏高度浮动；② 保留 v1.74 全部能力：胶囊宽度自适应（宠物态窄/文字态宽、补间拉伸居中）、文字/双眼严格互斥、睡觉态眼睛复位纯圆点、数字递增态静态不跑马灯；③ 其余能力不变（长按逗表情 / 双击眨眼 / 横扫轻推 / 空闲呼吸 / 点击进 App / 长按下拖拉大进 App）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.75.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.75.apk"
+  "version": "1.76",
+  "notes": "灵动岛 v1.76（胶囊位置固定 · 只朝眼睛方向拉长/拉高）：① 胶囊的「静息矩形」位置固定不变，不再整体跟着小宠物眼睛平移；② 眼睛往左 → 胶囊左边拉长（右边原地不动）；往右 → 右边拉长（左边不动）；往下 → 下方拉高（上边不动）；往上 → 上方拉高（下边不动）；对角 → 对应两向同时生长；③ 眼睛始终在胶囊内，且到「新长出来那条边」的留白 = 静息留白（和左/中/右观感一致）；④ 眼神跟随幅度加大（横向 ±9dp / 纵向 ±6dp，并按手指远近成比例）；⑤ 表情飘字（爱心/泪/撒花/ZZZ）改为跟随眼睛而不是跟随窗口，胶囊单边生长时不再漂移；⑥ 保留 v1.75 全部能力（位置写死 13.5dp / 宽度自适应 / 文字双眼互斥 / 数字不跑马灯 / 长按逗表情 / 双击眨眼 / 横扫轻推 / 长按下拖拉大进 App）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.76.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.76.apk"
 }
