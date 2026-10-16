@@ -1,6 +1,6 @@
 {
-  "version": "1.82",
-  "notes": "灵动岛 v1.82（小宠物眼睛「真·实时追踪手指」无障碍服务）：① 新增无障碍服务「目标打卡器 · 灵动岛追踪」：跨任意 App/桌面实时拿到你每次点/滑的全局坐标，小宠物眼睛立刻转向你手指所在方向并盯住——这是让眼睛实时追踪的唯一可靠方式（悬浮窗 ACTION_OUTSIDE 拿不到实时轨迹）；② 追踪优先级：无障碍坐标（实时）> 悬浮窗 outside 坐标 > 提醒类张望/下方中心兜底；巡检降到 300ms 更跟手；③ 设置面板新增「开启小宠物实时追踪手指」按钮，跳系统无障碍页授权一次即可（不用可关）；④ 只读触摸坐标驱动动画，不读/不记/不上传任何内容；未开无障碍时其余功能不受影响；⑤ 保留 v1.81 全部能力（数字退桌面也涨 / 双胶囊已修 / 位置13.5dp / 数字缓动 / 轻扫切宠物 / 胶囊单向生长 / 委屈转晕 / 空胶囊修复）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.82.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.82.apk"
+  "version": "1.83",
+  "notes": "灵动岛 v1.83（修「此服务出现故障」：无障碍配置最小化 + 不覆盖 + 兜底接回）：① v1.82 因配置声明过度且自相矛盾（canRetrieveWindowContent=true 却没监听窗口状态变化、叠加 retrieve/not-important 标志）被小米 HyperOS 判为「此服务出现故障/无法运行」并杀掉进程，导致眼睛完全不动；② v1.83 把 XML 与代码配置都【最小化】：去掉 canRetrieveWindowContent 与 retrieve 相关标志，只监听 点击 + 触摸交互 事件，反馈设 NONE，onServiceConnected 不再覆盖系统给的 info（只在合法时补反馈类型），服务事件处理全程 try/catch，任何异常都不让服务被系统判故障；③ 眼神【三级兜底接回】：无障碍实时坐标 → 悬浮窗 outside 坐标（v1.81 老兜底接回）→ 提醒类张望/下方中心，即使无障碍服务没起来，点屏幕/切 App 时眼睛也能朝手指方向转；④ 装 1.83 后需到系统里把「目标打卡器 · 灵动岛追踪」关掉再重新开一次让新配置生效；⑤ 保留 v1.82 全部意图与 v1.81 全部能力（数字退桌面也涨 / 双胶囊已修 / 位置13.5dp / 数字缓动 / 轻扫切宠物 / 胶囊单向生长 / 委屈转晕 / 空胶囊修复）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.83.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.83.apk"
 }
