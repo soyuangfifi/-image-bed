@@ -1,6 +1,6 @@
 {
-  "version": "1.84",
-  "notes": "灵动岛 v1.84（眼神追踪再修 + 下班标语优化 + 标语自定义）：① 眼神追踪：新增追踪状态指示（设置面板「关于」区显示 无障碍实时坐标/仅悬浮窗兜底/未启用，每 3s 刷新），并强化坐标源优先级（TYPE_TOUCH_INTERACTION_START 优先、CLICKED 兜底）——一眼看出是服务没起来还是拿不到坐标；② 下班标语：去掉「摸鱼」措辞（上班才是摸鱼时段），全换正向「辛苦了/休息/快乐」；且下班标语只在下班后前 30 分钟出现，之后回纯数字静默递增不再打扰；轮换周期每 5 分钟；③ 标语自定义：设置面板新增「标语自定义」三类（上班摸鱼口号 / 下班放松标语 / 打卡提醒标语），多条用「·」分隔，留空用默认；保存经 islandSync 传 sl 字段 → 原生读取，填了用你的、没填回退默认；④ 保留 v1.83 全部能力（修此服务故障 / 数字退桌面也涨 / 双胶囊已修 / 位置13.5dp / 轻扫切宠物 / 胶囊单向生长 / 委屈转晕 / 空胶囊修复 / 表情不被裁）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.84.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.84.apk"
+  "version": "1.85",
+  "notes": "灵动岛 v1.85（下班1h后只留小宠物 + 修数字不同步 + 双击看追踪状态）：① 下班后三阶段（按 clockOut/到点起算）：0–1h 下班标语+赚钱数字；1h 后到 23:00 数字与文字都不显示、只留小宠物常驻（睁眼/眨眼/呼吸、可点按逗）；23:00 起小宠物进入入睡模式（闭眼+慢呼吸+ZZZ）；② 修「胶囊 ¥458.33 ≠ App ¥369.57」：新增 cappedEarned() 统一封顶口径——clockOut>0 用 App 的封顶值、未打卡封顶到下班时间不再随时间漂移；并修回被我 v1.84 写坏的 2 位小数，恢复 8 位递增；③ 追踪状态改「双击胶囊」显示指示灯 10 秒（不占长按）：绿=无障碍实时 / 黄=仅悬浮窗兜底 / 红=没坐标；④ 用户手动轻扫常驻（petUserPinned）与系统下班自动常驻区分开，不会互相干扰；⑤ 保留 v1.84 全部能力（标语自定义三类 / 下班标语去摸鱼 / 数字退桌面也涨 / 双胶囊已修 / 位置13.5dp / 胶囊单向生长 / 委屈转晕 / 空胶囊修复 / 表情不被裁）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.85.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.85.apk"
 }
