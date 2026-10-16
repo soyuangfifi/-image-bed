@@ -1,6 +1,6 @@
 {
-  "version": "1.79",
-  "notes": "灵动岛 v1.79（数字递增更流畅 + 轻扫切宠物 + 真追踪手指 + 位置维持13.5dp）：① 位置维持 13.5dp 不变；② 工资数字递增改「方案 D」——ValueAnimator 连续插值（400ms Decelerate 补间到目标值， 不再 80ms 直接 setText 造成顿挫），末位小数像秒针一样平滑滚动，整体更流畅；③ 新增「胶囊上水平轻扫一下 → 切换小宠物出场/收起」：轻扫=出场（手动常驻），再轻扫=收起恢复自动；   原「横扫轻推躲闪」保留给中等速度场景；④ 追踪手指：桌面/任意 App 上手指在哪眼睛就朝哪（含下方/对角），一有手指位置小宠物就出来盯，   去掉 12 秒不出场门槛，灵敏度提高；⑤ 保留 v1.78 全部能力（数字与 App 完全同步 / 空胶囊修复 / 表情不被裁 / 委屈圆点泪 / 转晕蚊香眼 /   胶囊位置固定·只朝眼睛方向单向生长 / 双击眨眼 / 呼吸 / 长按逗宠物）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.79.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.79.apk"
+  "version": "1.80",
+  "notes": "灵动岛 v1.80（小宠物眼睛「一直跟着手指」·方案 B）：① 去掉追踪的 15 秒衰减门槛：一旦拿到过手指位置（你在桌面/任意 App 上点/按到屏幕任意位置），小宠物眼睛就【持续盯住最后一个位置】——手指停在屏幕任意角落，眼睛都朝那，不随时间回落；② 桌面 / 任意 App 上你点/按到哪个位置都算数（真·追踪手机任何位置）；③ 只有「从没拿到过坐标」时，才用下方中心 / 提醒类急促张望兜底；④ 每次重新拉起灵动岛 / 关闭时清掉残留坐标，避免一出来就盯旧位置；⑤ 保留 v1.79 全部能力（位置 13.5dp / 数字缓动插值 / 胶囊上轻扫切宠物 / 胶囊只朝眼睛方向单向生长 / 委屈圆点泪 / 转晕蚊香眼 / 空胶囊修复 / 表情不被裁）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.80.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.80.apk"
 }
