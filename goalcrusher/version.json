@@ -1,6 +1,6 @@
 {
-  "version": "1.83",
-  "notes": "灵动岛 v1.83（修「此服务出现故障」：无障碍配置最小化 + 不覆盖 + 兜底接回）：① v1.82 因配置声明过度且自相矛盾（canRetrieveWindowContent=true 却没监听窗口状态变化、叠加 retrieve/not-important 标志）被小米 HyperOS 判为「此服务出现故障/无法运行」并杀掉进程，导致眼睛完全不动；② v1.83 把 XML 与代码配置都【最小化】：去掉 canRetrieveWindowContent 与 retrieve 相关标志，只监听 点击 + 触摸交互 事件，反馈设 NONE，onServiceConnected 不再覆盖系统给的 info（只在合法时补反馈类型），服务事件处理全程 try/catch，任何异常都不让服务被系统判故障；③ 眼神【三级兜底接回】：无障碍实时坐标 → 悬浮窗 outside 坐标（v1.81 老兜底接回）→ 提醒类张望/下方中心，即使无障碍服务没起来，点屏幕/切 App 时眼睛也能朝手指方向转；④ 装 1.83 后需到系统里把「目标打卡器 · 灵动岛追踪」关掉再重新开一次让新配置生效；⑤ 保留 v1.82 全部意图与 v1.81 全部能力（数字退桌面也涨 / 双胶囊已修 / 位置13.5dp / 数字缓动 / 轻扫切宠物 / 胶囊单向生长 / 委屈转晕 / 空胶囊修复）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.83.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.83.apk"
+  "version": "1.84",
+  "notes": "灵动岛 v1.84（眼神追踪再修 + 下班标语优化 + 标语自定义）：① 眼神追踪：新增追踪状态指示（设置面板「关于」区显示 无障碍实时坐标/仅悬浮窗兜底/未启用，每 3s 刷新），并强化坐标源优先级（TYPE_TOUCH_INTERACTION_START 优先、CLICKED 兜底）——一眼看出是服务没起来还是拿不到坐标；② 下班标语：去掉「摸鱼」措辞（上班才是摸鱼时段），全换正向「辛苦了/休息/快乐」；且下班标语只在下班后前 30 分钟出现，之后回纯数字静默递增不再打扰；轮换周期每 5 分钟；③ 标语自定义：设置面板新增「标语自定义」三类（上班摸鱼口号 / 下班放松标语 / 打卡提醒标语），多条用「·」分隔，留空用默认；保存经 islandSync 传 sl 字段 → 原生读取，填了用你的、没填回退默认；④ 保留 v1.83 全部能力（修此服务故障 / 数字退桌面也涨 / 双胶囊已修 / 位置13.5dp / 轻扫切宠物 / 胶囊单向生长 / 委屈转晕 / 空胶囊修复 / 表情不被裁）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.84.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.84.apk"
 }
