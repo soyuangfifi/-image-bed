@@ -1,6 +1,6 @@
 {
-  "version": "1.77",
-  "notes": "灵动岛 v1.77（修「胶囊全空」+ 表情不再被裁 + 委屈/转晕改版）：① 修复宠物态胶囊整个是空的：退场给眼睛容器挂的淡出结束监听器不会自动清除，下次宠物进场播完出场动画时被旧监听器触发、把刚进场的眼睛设成 GONE（文字又被互斥压着）→ 胶囊全空；现改为进场前清掉旧监听器 + 退场回调加「宠物不在场才允许藏眼睛」门控（双保险），9 项表情全部恢复可见；② 表情不再被窗口裁掉：窗口左右各加 20dp 透明缓冲带（胶囊尺寸不变），撒花横向 ±28dp 完整迸开，并关闭内部裁切（转晕旋转角、惊讶弹跳不再被胶囊边切）；③ 表情定位校正到胶囊中心（爱心/泪不再偏上）；④ 委屈：眼泪改成圆点，从两眼外侧往下+往外流（原来是从中间掉的细长条）；⑤ 转晕：圆点眼变成蚊香状（同心圆环）并各自自转两圈，胶囊不再跟着转；⑥ 保留 v1.76 全部能力（胶囊位置固定 · 只朝眼睛方向单向拉长/拉高 · 眼睛追踪手指 · 宽度自适应 · 文字双眼互斥 · 长按逗表情 · 双击眨眼 · 横扫轻推 · 长按下拖拉大进 App）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.77.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.77.apk"
+  "version": "1.78",
+  "notes": "灵动岛 v1.78（数字与 App 完全同步 + 小宠物一出场就追踪手指）：① 修复胶囊工资数字小数点后 3 位一直为 0、且与 App 内不同步的问题——原 JS 端只把「已赚」精确到分（Math.round(earned*100)/100）传给原生，原生再补 6 个 0；现改为原生用 App 下发的作息/午休/打卡时间按**完全相同的计薪规则逐秒自算**，JS 端每 80ms 同步一次时钟数据（和 App 内 tick 一致），小数 8 位逐秒真涨、与 App 内完全同步；② 小宠物只要在场就追踪手指位置（不再要求『10 秒内有交互』）：在桌面/其他 App 上点屏幕 → 眼睛盯着手指；没拿到坐标时默认盯屏幕下方中心（≈拿手机玩手机的位置），不再左右巡视；『记得打卡/迟到』等提醒类仍保留急促张望；③ 保留 v1.77 全部能力（空胶囊修复 / 表情不被裁 / 委屈圆点泪 / 转晕蚊香眼 / 胶囊位置固定·只朝眼睛方向单向拉长拉高 / 长按逗表情 / 双击眨眼 / 横扫轻推 / 长按下拖拉大进 App）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.78.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.78.apk"
 }
