@@ -1,6 +1,6 @@
 {
-  "version": "1.78",
-  "notes": "灵动岛 v1.78（数字与 App 完全同步 + 小宠物一出场就追踪手指）：① 修复胶囊工资数字小数点后 3 位一直为 0、且与 App 内不同步的问题——原 JS 端只把「已赚」精确到分（Math.round(earned*100)/100）传给原生，原生再补 6 个 0；现改为原生用 App 下发的作息/午休/打卡时间按**完全相同的计薪规则逐秒自算**，JS 端每 80ms 同步一次时钟数据（和 App 内 tick 一致），小数 8 位逐秒真涨、与 App 内完全同步；② 小宠物只要在场就追踪手指位置（不再要求『10 秒内有交互』）：在桌面/其他 App 上点屏幕 → 眼睛盯着手指；没拿到坐标时默认盯屏幕下方中心（≈拿手机玩手机的位置），不再左右巡视；『记得打卡/迟到』等提醒类仍保留急促张望；③ 保留 v1.77 全部能力（空胶囊修复 / 表情不被裁 / 委屈圆点泪 / 转晕蚊香眼 / 胶囊位置固定·只朝眼睛方向单向拉长拉高 / 长按逗表情 / 双击眨眼 / 横扫轻推 / 长按下拖拉大进 App）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.78.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.78.apk"
+  "version": "1.79",
+  "notes": "灵动岛 v1.79（数字递增更流畅 + 轻扫切宠物 + 真追踪手指 + 位置维持13.5dp）：① 位置维持 13.5dp 不变；② 工资数字递增改「方案 D」——ValueAnimator 连续插值（400ms Decelerate 补间到目标值， 不再 80ms 直接 setText 造成顿挫），末位小数像秒针一样平滑滚动，整体更流畅；③ 新增「胶囊上水平轻扫一下 → 切换小宠物出场/收起」：轻扫=出场（手动常驻），再轻扫=收起恢复自动；   原「横扫轻推躲闪」保留给中等速度场景；④ 追踪手指：桌面/任意 App 上手指在哪眼睛就朝哪（含下方/对角），一有手指位置小宠物就出来盯，   去掉 12 秒不出场门槛，灵敏度提高；⑤ 保留 v1.78 全部能力（数字与 App 完全同步 / 空胶囊修复 / 表情不被裁 / 委屈圆点泪 / 转晕蚊香眼 /   胶囊位置固定·只朝眼睛方向单向生长 / 双击眨眼 / 呼吸 / 长按逗宠物）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.79.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.79.apk"
 }
