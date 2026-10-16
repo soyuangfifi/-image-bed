@@ -1,6 +1,6 @@
 {
-  "version": "1.80",
-  "notes": "灵动岛 v1.80（小宠物眼睛「一直跟着手指」·方案 B）：① 去掉追踪的 15 秒衰减门槛：一旦拿到过手指位置（你在桌面/任意 App 上点/按到屏幕任意位置），小宠物眼睛就【持续盯住最后一个位置】——手指停在屏幕任意角落，眼睛都朝那，不随时间回落；② 桌面 / 任意 App 上你点/按到哪个位置都算数（真·追踪手机任何位置）；③ 只有「从没拿到过坐标」时，才用下方中心 / 提醒类急促张望兜底；④ 每次重新拉起灵动岛 / 关闭时清掉残留坐标，避免一出来就盯旧位置；⑤ 保留 v1.79 全部能力（位置 13.5dp / 数字缓动插值 / 胶囊上轻扫切宠物 / 胶囊只朝眼睛方向单向生长 / 委屈圆点泪 / 转晕蚊香眼 / 空胶囊修复 / 表情不被裁）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.80.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.80.apk"
+  "version": "1.81",
+  "notes": "灵动岛 v1.81（修数字冻结 + 双胶囊 + 追踪手指）：① 修「数字递增过一会就停、要点进 App 才继续」：JS 推送数据若 >2s 未更新（退 App/后台）视为过期，原生强制改用 safeEarned() 按 System.currentTimeMillis() 自算，数字不依赖 App 内 WebView、退到桌面也一直涨；② 修「状态栏出现两个胶囊」：show() 防重入（重建前先 removeView 旧 root 并停 ticker/巡检），startIslandWindow 复用同一对象、不再叠加新窗口，前后台反复切换不会再叠出第二枚胶囊；③ 追踪手指：维持「拿到过手指坐标就持续盯住最后位置」，无坐标时用提醒类张望/下方中心兜底（说明：Android 对第三方悬浮窗只会在点/按瞬间转发 ACTION_OUTSIDE 坐标，无法持续读取滑动轨迹，属系统限制）；④ 保留 v1.80 全部能力（位置 13.5dp / 数字缓动 / 轻扫切宠物 / 胶囊单向生长 / 委屈转晕改版 / 空胶囊修复 / 表情不被裁）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.81.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.81.apk"
 }
