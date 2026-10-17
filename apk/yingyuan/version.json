@@ -1,1 +1,1 @@
-{"code": 10, "name": "1.9", "note": "修复播放失败：解析播放页地址自动补全为真实 m3u8 流（/index.m3u8）；防盗链 Referer 注入；修复本地代抓被死源 502 拖累降级；hls.js 四路 CDN 回退；urllib/curl 并行竞速", "apk": "yingyuan-v1.9.apk", "size": 232767, "sha256": "b3f1eedc9fd93e260ab010a235879df11eafc0bf97647e1a5033c10faaa3dfc8"}
+{"code": 11, "name": "1.10", "note": "修复致命串台：本地服务端口硬编码 8080，与打卡器等 APP 冲突时 bind 失败仍去加载 8080，导致打开影视天地显示成打卡器内容。现改为端口顺延(8080→8081→8082→8087→随机)+实际端口加载+页面标题自检兜底", "apk": "yingyuan-v1.10.apk", "size": 233183, "sha256": "9dceb2df0fe5fbe001b37fa8e15c75a6f2c878938d12f892fadcfe0535ac799b"}
