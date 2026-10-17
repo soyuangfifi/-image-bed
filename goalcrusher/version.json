@@ -1,6 +1,6 @@
 {
-  "version": "1.90",
-  "notes": "灵动岛 v1.90（休息日小宠物为主 · 标语降频）：① 休息日标语不再「持续 18–26s 轮换」，改为「每约 30min 露脸一次、显示约 20s 后自动隐藏」——休息日主要让小宠物登场；② 其余时间宠物照常用现成的 scheduleAutoExpr 每 15–30s 自动演【自己本体表情】（撒花庆祝 / 爱心飘 ♥ / 委屈垂眼 / 转晕蚊香 / 张望 / 呼吸 / 轻推 / 眨眼，playRandomExpression 原有动作，不新增图标）；③ 标语出现时宠物也在演表情、二者不抢戏；④ 睡眠/打盹时段标语不冒、顺延下一段；⑤ 保留 v1.89 全部能力（胶囊「眼睛被挤压」修复 / 液态玻璃导航真·半透档 / Logo 回弹 / 全屏点数字退出 / 休息日标语入胶囊等）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.90.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.90.apk"
+  "version": "1.92",
+  "notes": "灵动岛 v1.92（胶囊拉宽对齐 v1.76L · 眼睛跟着移到新边缘）：① 修复「胶囊拉长了、眼睛没跟过去」——恢复「朝眼睛方向单向生长」几何（撤销 v1.91 的完全钉死）：看右→胶囊右边拉 +24dp（左边停静息虚线）、看左→左边拉 +24dp，看上/下→拉 +15dp；② 眼睛位移 = 生长量一半（gazeBox 补 tx/2、ty/2），眼睛真正落进新长出来的那段、留白恒定，对齐 island_v176l_preview 的观感；③ 眼神幅度升到档 3（横 ±12dp / 纵 ±7.5dp），与胶囊生长幅度匹配；④ 无坐标时仍不巡视、眼睛停中心（保留 v1.91 的稳定），拿到手指坐标才朝该侧生长；⑤ 保留 v1.91/v1.90 全部能力（休息日小宠物为主·标语 30min 降频 / 液态玻璃真·半透导航 / Logo 回弹 / 全屏点数字退出 / 休息标语入胶囊·实测自适应等）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.92.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.92.apk"
 }
