@@ -1,6 +1,6 @@
 {
-  "version": "1.87",
-  "notes": "灵动岛 v1.87（修闪退 + 胶囊自适应 + 9 表情引擎 + 深夜/休息日/开屏）：①【修 NPE 闪退】小米镜像补发无配对 MOVE/UP 导致 init==null 解引用崩溃——onTouch 全程判空 + 手势结束复位 + try/catch 兜底；②【胶囊两种自适应 + 9 表情引擎】表情动作变大时胶囊对称撑开（中心固定、内容居中），眼神移动时单向拉宽（对侧停默认位），ZZZ/✨/气泡同样自适应，8dp 恒边距，9 表情池（惊讶/思考/爱心/委屈/转晕/撒花/呼吸/轻推/双击眨眼）；③【深夜动作 + 犯困过渡 + 唤醒】呼噜/梦话/翻身三动作，入睡走「哈欠→眼皮半垂→点头→闭眼」过渡，单击醒 4 秒 / 双击彻底唤醒 / 长按逗；④【表情自动轮播 + 出场更勤】待机每 15–30s 自动随机表情，交互门槛放宽（recentTouch→20s、探头间隔→30s、停留→8s、轻推窗口→200–450ms）；⑤【眼神追踪根因修复】恢复 canRetrieveWindowContent + 三级坐标取值（事件自带→source 边界中心→ACTION_OUTSIDE 兜底）+ 行为感知（滑动顺追/换窗张望）+ 巡视降级 + JS 自检面板；⑥【休息日制度】单休/大小周/双休，休息日无上班/打卡/赚钱字样，小宠物全天主场 + 周末标语轮播，大小周三层保险（看得见/校准/手动兜底）；⑦【开屏动画】全屏暗金底 + 闭眼→睁眼→随机 9 表情演 2s + 进度条贴底 + 可点击跳过。保留 v1.85 全部能力（下班后小宠物主场三阶段 / 数字封顶 / 双击看追踪 / 单向生长胶囊等）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.87.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.87.apk"
+  "version": "1.88",
+  "notes": "灵动岛 v1.88（Logo 回弹 + 全屏点数字退出 + 休息日标语入胶囊）：① 左上角 Logo 悬停/点击放大、离开带过冲回弹（cubic-bezier 过冲缓动）；② 全屏看数字时修复「点数字退不出」——根因是触摸微抖把 _fsMoved 置真吃掉父层轻点判定、WebView 又不合成 click，改为给数字容器 #fsCw 直接挂轻点退出（轻点<12px 退出、滑动仍走货币切换）；③ 休息日标语不再套独立气泡，改为与双眼【同处一个胶囊】（文字在双眼上方、胶囊竖向长高包住文字，全程常显、每 18–26s 轮换一句「周末好好休息」类标语，无上班/打卡/赚钱字样）。保留 v1.87 全部能力（修闪退 / 胶囊两种自适应 / 9 表情 / 深夜 / 休息日 / 开屏等）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.88.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.88.apk"
 }
