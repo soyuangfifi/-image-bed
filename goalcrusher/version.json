@@ -1,6 +1,6 @@
 {
-  "version": "1.89",
-  "notes": "灵动岛 v1.89（修复休息日胶囊「眼睛被挤压」）：① 标语强制单行（setSingleLine），不再在窄胶囊里折成 3 行；② 胶囊宽随标语实测字数自适应加宽（Paint.measureText 量字 + 左右各 8dp 呼吸），中心固定不动、左右对称加宽；③ 胶囊加高量改用 FontMetrics 单行真实行高 + 与眼睛 6dp 间距（替换写死的 26dp），双眼恢复正常圆点、上下留白匀称，不再被顶到胶囊底边；④ 量出的宽/高缓存只在换标语时重算一次，不每帧量字。保留 v1.88 全部能力（Logo 回弹 / 全屏点数字退出 / 休息日标语入胶囊等）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.89.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.89.apk"
+  "version": "1.90",
+  "notes": "灵动岛 v1.90（休息日小宠物为主 · 标语降频）：① 休息日标语不再「持续 18–26s 轮换」，改为「每约 30min 露脸一次、显示约 20s 后自动隐藏」——休息日主要让小宠物登场；② 其余时间宠物照常用现成的 scheduleAutoExpr 每 15–30s 自动演【自己本体表情】（撒花庆祝 / 爱心飘 ♥ / 委屈垂眼 / 转晕蚊香 / 张望 / 呼吸 / 轻推 / 眨眼，playRandomExpression 原有动作，不新增图标）；③ 标语出现时宠物也在演表情、二者不抢戏；④ 睡眠/打盹时段标语不冒、顺延下一段；⑤ 保留 v1.89 全部能力（胶囊「眼睛被挤压」修复 / 液态玻璃导航真·半透档 / Logo 回弹 / 全屏点数字退出 / 休息日标语入胶囊等）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.90.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.90.apk"
 }
