@@ -1,6 +1,6 @@
 {
-  "version": "1.92",
-  "notes": "灵动岛 v1.92（胶囊拉宽对齐 v1.76L · 眼睛跟着移到新边缘）：① 修复「胶囊拉长了、眼睛没跟过去」——恢复「朝眼睛方向单向生长」几何（撤销 v1.91 的完全钉死）：看右→胶囊右边拉 +24dp（左边停静息虚线）、看左→左边拉 +24dp，看上/下→拉 +15dp；② 眼睛位移 = 生长量一半（gazeBox 补 tx/2、ty/2），眼睛真正落进新长出来的那段、留白恒定，对齐 island_v176l_preview 的观感；③ 眼神幅度升到档 3（横 ±12dp / 纵 ±7.5dp），与胶囊生长幅度匹配；④ 无坐标时仍不巡视、眼睛停中心（保留 v1.91 的稳定），拿到手指坐标才朝该侧生长；⑤ 保留 v1.91/v1.90 全部能力（休息日小宠物为主·标语 30min 降频 / 液态玻璃真·半透导航 / Logo 回弹 / 全屏点数字退出 / 休息标语入胶囊·实测自适应等）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.92.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.92.apk"
+  "version": "1.93",
+  "notes": "灵动岛 v1.93（静息胶囊对齐 v1.76B 的 110dp + 眼睛偏向侧边「往侧边看」视感）：① 小宠物静默时胶囊宽度不再是窄的 46dp，改为对齐 island_v176b_preview 的静息宽 110dp（静默时眼睛居中，两侧留白更舒展）；② 撤销 v1.92 的「朝眼睛方向单向生长」——看左/看右/上看/下看时胶囊不再拉长、位置不动，只让眼睛本体在胶囊内偏移到该侧（横 ±14dp / 纵 ±9dp，离侧边 ≈8dp），形成「往侧边看」的视感；③ 休息标语出现时仍按实测宽高叠加加宽/加高（不变）；④ 无坐标时眼睛停中心不巡视（保留 v1.91 稳定）、拿到手指坐标才偏转；⑤ 保留 v1.92/v1.91/v1.90 全部能力（休息日小宠物为主·标语 30min 降频 / 液态玻璃真·半透导航 / Logo 回弹 / 全屏点数字退出 / 休息标语入胶囊·实测自适应等）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.93.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.93.apk"
 }
