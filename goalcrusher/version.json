@@ -1,6 +1,6 @@
 {
-  "version": "1.93",
-  "notes": "灵动岛 v1.93（静息胶囊对齐 v1.76B 的 110dp + 眼睛偏向侧边「往侧边看」视感）：① 小宠物静默时胶囊宽度不再是窄的 46dp，改为对齐 island_v176b_preview 的静息宽 110dp（静默时眼睛居中，两侧留白更舒展）；② 撤销 v1.92 的「朝眼睛方向单向生长」——看左/看右/上看/下看时胶囊不再拉长、位置不动，只让眼睛本体在胶囊内偏移到该侧（横 ±14dp / 纵 ±9dp，离侧边 ≈8dp），形成「往侧边看」的视感；③ 休息标语出现时仍按实测宽高叠加加宽/加高（不变）；④ 无坐标时眼睛停中心不巡视（保留 v1.91 稳定）、拿到手指坐标才偏转；⑤ 保留 v1.92/v1.91/v1.90 全部能力（休息日小宠物为主·标语 30min 降频 / 液态玻璃真·半透导航 / Logo 回弹 / 全屏点数字退出 / 休息标语入胶囊·实测自适应等）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.93.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.93.apk"
+  "version": "1.94",
+  "notes": "灵动岛 v1.94（文字无独立框 + 眼睛恒上下居中 + 表情自适应撑胶囊）：① 修「睡眠呼噜 Zzz… 又套了独立白框」——删掉挂在胶囊外的 dreamBub 半透明米白气泡，呼噜/梦话文字改用胶囊内唯一文字槽（纯文字、无背景圆角），与休息标语共用一套样式与实测量测；② 修「文字出现时眼睛不居中」——内容列 [文字]→[双眼] 整体上移半个文字高，眼睛始终钉在胶囊垂直中心；③ 胶囊尺寸规则：默认 110×31dp，拉宽/拉高只由【宠物表情动作 + 文字】驱动（眼神偏移不影响尺寸，沿用 v1.93），表情播放时对称撑开到刚好装下、演完自动收回；④ 保留 v1.93/v1.92/v1.91/v1.90 全部能力（静息宽 110dp 对齐 v1.76B · 休息日小宠物为主·标语 30min 降频 / 液态玻璃真·半透导航 / Logo 回弹 / 全屏点数字退出等）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.94.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.94.apk"
 }
