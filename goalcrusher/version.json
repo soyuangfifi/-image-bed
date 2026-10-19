@@ -1,6 +1,6 @@
 {
-  "version": "1.95",
-  "notes": "灵动岛 v1.95（横向单侧生长 + 纵向对称拉高）：① 修「看左/看右方向画反」——横向改为【单侧生长】几何：看左只左缘左伸、右缘不动（胶囊整体左探、眼睛偏左），看右只右缘右伸、左缘不动（胶囊整体右探、眼睛偏右）；② 纵向改为【对称拉高】：看上/下胶囊上下缘各长 12dp（高 31→55）、中心不动、眼睛居中留白不贴边，根治 v1.93「看下贴边」；③ 幅度：横向 ±16dp、纵向 ±12dp，与预览严格一致；④ 东张西望 lookAround 幅度同步升到 ±16dp；⑤ 保留 v1.94/v1.93/v1.92/v1.91/v1.90 全部能力。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.95.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.95.apk"
+  "version": "1.96",
+  "notes": "开屏动画 v1.96（宠物本体表情，零 emoji）：① 开屏不再显示 emoji 表情，改为小宠物自己的本体表情动画——爱心 / 委屈 / 撒花 / 转晕 / 惊讶 / WINK / 眨眼 / 呼吸 / 思考 / 轻推 共 10 种随机循环展示（暗金底 + 圆点眼，矢量/字符绘制、零 emoji）；② 爱心用 ♥、思考用「?」气泡、转晕用同心圆蚊香眼自转、撒花用彩色碎片圆周迸开，全部在开屏层独立绘制，与灵动岛表情体系解耦；③ 保留 v1.95 全部能力（横向单侧生长 + 纵向对称拉高 · 静息宽 110dp · 文字无独立框 · 眼睛恒居中 · 表情自适应撑胶囊等）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.96.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.96.apk"
 }
