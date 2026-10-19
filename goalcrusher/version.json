@@ -1,6 +1,6 @@
 {
-  "version": "1.96",
-  "notes": "开屏动画 v1.96（宠物本体表情，零 emoji）：① 开屏不再显示 emoji 表情，改为小宠物自己的本体表情动画——爱心 / 委屈 / 撒花 / 转晕 / 惊讶 / WINK / 眨眼 / 呼吸 / 思考 / 轻推 共 10 种随机循环展示（暗金底 + 圆点眼，矢量/字符绘制、零 emoji）；② 爱心用 ♥、思考用「?」气泡、转晕用同心圆蚊香眼自转、撒花用彩色碎片圆周迸开，全部在开屏层独立绘制，与灵动岛表情体系解耦；③ 保留 v1.95 全部能力（横向单侧生长 + 纵向对称拉高 · 静息宽 110dp · 文字无独立框 · 眼睛恒居中 · 表情自适应撑胶囊等）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.96.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.96.apk"
+  "version": "1.97",
+  "notes": "灵动岛眼神几何 v1.97（留白不贴边）：① 修「眼睛向下看时圆点贴着胶囊下边缘」——胶囊在「眼神偏移的那一侧」额外 +8dp 固定留白（横向单侧：看左/看右只在对应侧多长 8dp；纵向对称：上下各多长 8dp），眼睛（含自身半径）到边缘恒有距离、不再贴边；② 横向仍【单侧生长】（看左只左缘左伸、右缘不动，眼睛跟过去；看右反之），纵向仍【对称拉高】（上下缘各长、中心不动），幅度横 ±16dp / 纵 ±12dp 不变；③ 胶囊中心位置固定不变；④ 保留 v1.96 全部能力（开屏宠物本体表情·零 emoji 等）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.97.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.97.apk"
 }
