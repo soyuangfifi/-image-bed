@@ -1,6 +1,6 @@
 {
-  "version": "1.97",
-  "notes": "灵动岛眼神几何 v1.97（留白不贴边）：① 修「眼睛向下看时圆点贴着胶囊下边缘」——胶囊在「眼神偏移的那一侧」额外 +8dp 固定留白（横向单侧：看左/看右只在对应侧多长 8dp；纵向对称：上下各多长 8dp），眼睛（含自身半径）到边缘恒有距离、不再贴边；② 横向仍【单侧生长】（看左只左缘左伸、右缘不动，眼睛跟过去；看右反之），纵向仍【对称拉高】（上下缘各长、中心不动），幅度横 ±16dp / 纵 ±12dp 不变；③ 胶囊中心位置固定不变；④ 保留 v1.96 全部能力（开屏宠物本体表情·零 emoji 等）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.97.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.97.apk"
+  "version": "1.98",
+  "notes": "数据存储修复 v1.98（收支数据不再「不显示」）：① 根因——数据存于 localStorage，其按「主机+端口」隔离；APP 本地服务端口会顺延（8080 被占→8081/8082/8087/随机），端口一漂 WebView 就当成新源、localStorage 全空，导致收支/工资/考勤全空、时有时无；② 新增原生文件兜底存储 AndroidApp.nvPut/nvGet，数据同步写入 APP 私有目录（原子写）；③ load() 时 localStorage 为空自动从原生文件恢复（一次性自愈，恢复后双写保持同步），从此与端口/origin 彻底解耦、永不再丢；④ 云同步 Token（gc_cloud）一并纳入原生兜底，doReset() 同步清原生数据；⑤ 界面与操作零变化，保留 v1.97 全部能力。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.98.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.98.apk"
 }
