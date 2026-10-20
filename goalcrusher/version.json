@@ -1,6 +1,6 @@
 {
-  "version": "1.98",
-  "notes": "数据存储修复 v1.98（收支数据不再「不显示」）：① 根因——数据存于 localStorage，其按「主机+端口」隔离；APP 本地服务端口会顺延（8080 被占→8081/8082/8087/随机），端口一漂 WebView 就当成新源、localStorage 全空，导致收支/工资/考勤全空、时有时无；② 新增原生文件兜底存储 AndroidApp.nvPut/nvGet，数据同步写入 APP 私有目录（原子写）；③ load() 时 localStorage 为空自动从原生文件恢复（一次性自愈，恢复后双写保持同步），从此与端口/origin 彻底解耦、永不再丢；④ 云同步 Token（gc_cloud）一并纳入原生兜底，doReset() 同步清原生数据；⑤ 界面与操作零变化，保留 v1.97 全部能力。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.98.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.98.apk"
+  "version": "1.99",
+  "notes": "双 Bug 修复 v1.99：① 灵动岛待机数字冻结——根因是退后台「待机长了」被 Android 12+ 缓存进程冻结（Cached App Freezer）整进程冻住，悬浮窗停在最后一帧、ticker 不再执行；新增 IslandService 前台服务（foregroundServiceType=specialUse）随灵动岛启动/停止，进程免冻结、数字持续自算推进（小米 HyperOS 建议再把打卡器设「省电无限制+允许自启动」双保险，代价是通知栏多一条常驻「灵动岛运行中」通知）；② 收支统计（分类统计/日趋势）不渲染——旧版只在「列表为空」时才调统计渲染、有记录反而不渲染，改为汇总算完立即无条件 renderFinStats()，并把统计口径与汇总卡对齐（非 income 都算支出）+ 空记录防御，杜绝脏 type/脏数据漏统计或整段被吞；③ 界面零变化，保留 v1.98 全部能力。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.99.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-1.99.apk"
 }
