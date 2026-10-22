@@ -1,6 +1,6 @@
 {
-  "version": "2.00",
-  "notes": "灵动岛长待机保活加固 v2.00：① 最关键——代码无法替代厂商白名单，请到 系统设置→应用设置→授权管理→自启动 开启本应用，并把省电策略设为「无限制」；② 代码补三洞：前台服务启停改为无条件幂等补拉、IslandService 持 PARTIAL_WAKE_LOCK 防灭屏 CPU 休眠、ticker 新增冻结自愈（间隔>5s 自动重放数据+重绘+补拉服务）；③ 开灵动岛时引导电池优化白名单并一次性提示自启动设置；④ 保留 v1.99 全部能力。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.00.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.00.apk"
+  "version": "2.01",
+  "notes": "灵动岛小宠物动作 living-eyes 化 v2.01：① 眨眼改四段关键帧（闭→保持→超开 1.08→回归），告别匀速「卷帘门」；② 14% 概率自动连眨第二下；③ 新增静息微动（无手指时眼睛慢速正弦微漂，只动眼睛不动胶囊）；④ wink 改 320ms 三角波平滑闭合，保留 ‹ › 造型；⑤ 表情调度改 4 张表驱动（POSE_POOL/HOLD_MS/BLINK_MS/WINK_MOODS），加表情只需加一行；⑥ 眨眼间隔按时段取值，睡眠打盹不眨；⑦ 保留 v2.00 全部能力（含灵动岛防冻保活）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.01.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.01.apk"
 }
