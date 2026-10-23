@@ -1,6 +1,6 @@
 {
-  "version": "2.01",
-  "notes": "灵动岛小宠物动作 living-eyes 化 v2.01：① 眨眼改四段关键帧（闭→保持→超开 1.08→回归），告别匀速「卷帘门」；② 14% 概率自动连眨第二下；③ 新增静息微动（无手指时眼睛慢速正弦微漂，只动眼睛不动胶囊）；④ wink 改 320ms 三角波平滑闭合，保留 ‹ › 造型；⑤ 表情调度改 4 张表驱动（POSE_POOL/HOLD_MS/BLINK_MS/WINK_MOODS），加表情只需加一行；⑥ 眨眼间隔按时段取值，睡眠打盹不眨；⑦ 保留 v2.00 全部能力（含灵动岛防冻保活）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.01.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.01.apk"
+  "version": "2.02",
+  "notes": "收支页功能补全 v2.02：① 月份切换（‹ › 翻历史月，汇总/图表/列表/笔数全部跟随）；② 三张汇总卡新增「环比上月」对比（金额 + 百分比，支出涨=红、收入涨=绿）；③ 新增月预算卡——可设置当月预算，环形进度显示剩余/已支出/剩余日均，超支变红；④ 分类统计图例每项带金额；⑤ 日趋势图加 Y 轴刻度 + X 轴日期标注 + 峰值高亮；⑥ 新增账户统计（本月各账户支出占比条形图）；⑦ 交易记录改为按日期分组（今天/昨天/每日小计），超 60 条折叠提示；⑧ 保留收入/支出按钮、类型筛选、语音记账与删除。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.02.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.02.apk"
 }
