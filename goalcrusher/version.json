@@ -1,6 +1,6 @@
 {
-  "version": "2.02",
-  "notes": "收支页功能补全 v2.02：① 月份切换（‹ › 翻历史月，汇总/图表/列表/笔数全部跟随）；② 三张汇总卡新增「环比上月」对比（金额 + 百分比，支出涨=红、收入涨=绿）；③ 新增月预算卡——可设置当月预算，环形进度显示剩余/已支出/剩余日均，超支变红；④ 分类统计图例每项带金额；⑤ 日趋势图加 Y 轴刻度 + X 轴日期标注 + 峰值高亮；⑥ 新增账户统计（本月各账户支出占比条形图）；⑦ 交易记录改为按日期分组（今天/昨天/每日小计），超 60 条折叠提示；⑧ 保留收入/支出按钮、类型筛选、语音记账与删除。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.02.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.02.apk"
+  "version": "2.03",
+  "notes": "每日小计增强 v2.03：① 分组头小计改为收入/支出分开显示（收入绿 +¥、支出红 −¥，各自带底色胶囊），不再只给一个支出数字；② 为 0 的项自动隐藏，纯收入日不再显示刺眼的 −¥0.00；③ 分组头升级为浅底卡片（surface-2 + 边框 + 圆角），从背景浮出、一眼可见；④ 日期标签简化为「10月23日」+ 金色今天/昨天小标签，省下的空间给小计；⑤ 字号 .72→.74rem 加粗、颜色由暗灰改亮色；⑥ 其余保留 v2.02 全部能力（月份切换 / 环比 / 月预算环 / 分类金额 / 日趋势坐标轴 / 账户统计）。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.03.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.03.apk"
 }
