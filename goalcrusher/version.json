@@ -1,6 +1,6 @@
 {
   "version": "2.04",
-  "notes": "收支三连击 v2.04：① 账户自定义（可管理列表+账户管理弹窗，名称/类型/角色/类别/余额）；② 净资产大卡（资产−负债，按类别分组，👁隐藏金额）；③ 流水列表重做（按日白卡+当日合计+账户胶囊+工具栏排序/更多/清空）。余额手动维护，不引入转账流水。",
+  "notes": "收支三连击 v2.04（含 10-26 二次迭代）：账户自定义 · 净资产大卡（👁→ri-eye-line）· 流水按日折叠；本轮追加：今日平铺+三卡小计+历史折叠+点击查看独立明细页；图标体系收敛为 4 档 token (--ic-xl/lg/md/sm)，散落 .ri 字号统一；净资产眼睛、目标默认图标、状态 emoji 全部线性化。原始启动图标回归。",
   "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.04.apk",
   "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.04.apk"
 }
