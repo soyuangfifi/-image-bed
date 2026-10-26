@@ -1,6 +1,6 @@
 {
-  "version": "2.05",
-  "notes": "修复与体验优化：① 修复「某日明细」全屏页打不开/错位；② 修复滑动切页偶发卡在两页之间（新增强制归位兜底）；③ 切页签自动收起明细页；④ 收支首页重构：今日平铺三卡 + 历史按日折叠 + 独立某日明细页；⑤ 图标体系统一 4 档，净资产/目标图标线性化；⑥ 恢复原始启动图标。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.05.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.05.apk"
+  "version": "2.06",
+  "notes": "① 修复长期挂机跨过午夜后无法打卡上班（新增跨日检测，越零点自动补记昨日工资并重算考勤/日历/财务/目标）；② 全屏数字页改为沉浸模式：只显示递增数字，轻点数字外区域唤出控件，轻点数字退出全屏。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.06.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.06.apk"
 }
