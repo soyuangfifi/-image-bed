@@ -1,6 +1,6 @@
 {
-  "version": "2.04",
-  "notes": "收支三连击 v2.04（含 10-26 二次迭代）：账户自定义 · 净资产大卡（👁→ri-eye-line）· 流水按日折叠；本轮追加：今日平铺+三卡小计+历史折叠+点击查看独立明细页；图标体系收敛为 4 档 token (--ic-xl/lg/md/sm)，散落 .ri 字号统一；净资产眼睛、目标默认图标、状态 emoji 全部线性化。原始启动图标回归。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.04.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.04.apk"
+  "version": "2.05",
+  "notes": "修复与体验优化：① 修复「某日明细」全屏页打不开/错位；② 修复滑动切页偶发卡在两页之间（新增强制归位兜底）；③ 切页签自动收起明细页；④ 收支首页重构：今日平铺三卡 + 历史按日折叠 + 独立某日明细页；⑤ 图标体系统一 4 档，净资产/目标图标线性化；⑥ 恢复原始启动图标。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.05.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.05.apk"
 }
