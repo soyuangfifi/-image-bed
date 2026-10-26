@@ -1,6 +1,6 @@
 {
-  "version": "2.03",
-  "notes": "每日小计增强 v2.03：① 分组头小计改为收入/支出分开显示（收入绿 +¥、支出红 −¥，各自带底色胶囊），不再只给一个支出数字；② 为 0 的项自动隐藏，纯收入日不再显示刺眼的 −¥0.00；③ 分组头升级为浅底卡片（surface-2 + 边框 + 圆角），从背景浮出、一眼可见；④ 日期标签简化为「10月23日」+ 金色今天/昨天小标签，省下的空间给小计；⑤ 字号 .72→.74rem 加粗、颜色由暗灰改亮色；⑥ 其余保留 v2.02 全部能力（月份切换 / 环比 / 月预算环 / 分类金额 / 日趋势坐标轴 / 账户统计）。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.03.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.03.apk"
+  "version": "2.04",
+  "notes": "收支三连击 v2.04：① 账户自定义（可管理列表+账户管理弹窗，名称/类型/角色/类别/余额）；② 净资产大卡（资产−负债，按类别分组，👁隐藏金额）；③ 流水列表重做（按日白卡+当日合计+账户胶囊+工具栏排序/更多/清空）。余额手动维护，不引入转账流水。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.04.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.04.apk"
 }
