@@ -40,13 +40,11 @@ nav button:hover{color:var(--primary);background:rgba(196,26,26,.04)}
 nav button.active{color:var(--primary);border-bottom-color:var(--primary);font-weight:600}
 
 main{max-width:1060px;margin:0 auto;padding:32px 24px 60px}
-.tab{display:none;animation:fi .5s ease}
+.tab{display:none}
 .tab.active{display:block}
-.tab-slide-next{animation:tabInNext .45s cubic-bezier(.18,1.25,.4,1)}
-.tab-slide-prev{animation:tabInPrev .45s cubic-bezier(.18,1.25,.4,1)}
-@keyframes fi{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-@keyframes tabInNext{0%{opacity:0;transform:translateX(60px)}60%{opacity:1}100%{opacity:1;transform:translateX(0)}}
-@keyframes tabInPrev{0%{opacity:0;transform:translateX(-60px)}60%{opacity:1}100%{opacity:1;transform:translateX(0)}}
+.tab-slide-next,.tab-slide-prev{animation:tabIn .15s ease-out}
+@keyframes fi{from{opacity:0}to{opacity:1}}
+@keyframes tabIn{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
 @media(min-width:769px){.tab-slide-next,.tab-slide-prev{animation:none}}
 
 .card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow);padding:28px;margin-bottom:24px;border:1px solid rgba(0,0,0,.04)}
@@ -181,7 +179,7 @@ main{max-width:1060px;margin:0 auto;padding:32px 24px 60px}
 .poem-left::after{content:'詩';position:absolute;right:-10px;bottom:-20px;font-size:160px;opacity:.06;font-family:"Songti SC","SimSun",serif;line-height:1}
 .poem-left .pl-title{font-family:"Songti SC","SimSun",serif;font-size:30px;font-weight:700;letter-spacing:4px;margin-bottom:6px;position:relative;z-index:1}
 .poem-left .pl-author{font-size:15px;opacity:.7;margin-bottom:16px;position:relative;z-index:1}
-.poem-left .pl-body{font-family:"Songti SC","SimSun",serif;font-size:17px;line-height:2.4;letter-spacing:2px;position:relative;z-index:1}
+.poem-left .pl-body{font-family:"Songti SC","SimSun",serif;font-size:17px;line-height:2.4;letter-spacing:2px;position:relative;z-index:1;white-space:pre-line}
 .poem-left .pl-body .cword{color:#FFD166;font-weight:700;border-bottom:2px solid rgba(255,209,102,.4);padding-bottom:1px}
 .poem-left .pl-src{position:relative;z-index:1;margin-top:16px;display:inline-block;padding:3px 12px;background:rgba(255,255,255,.12);border-radius:16px;font-size:11px;opacity:.7}
 .poem-right{flex:1;padding:28px;background:var(--card);display:flex;flex-direction:column;justify-content:center}
@@ -251,11 +249,10 @@ main{max-width:1060px;margin:0 auto;padding:32px 24px 60px}
 .about-qrcode .qr-title{font-weight:700;font-size:15px;margin-bottom:6px}
 .about-qrcode .qr-sub{font-size:13px;color:var(--text2);line-height:1.7}
 .about-sign{display:flex;align-items:center;gap:16px;padding:24px 0;border-top:1px solid var(--border)}
-.about-sign .sign-img{width:150px;flex-shrink:0;opacity:.92}
+.about-sign .sign-img{width:120px;flex-shrink:0;opacity:.92}
 .about-sign .powered{display:flex;flex-direction:column;align-items:flex-start;gap:3px}
 .about-sign .powered-label{font-size:10px;letter-spacing:3px;color:var(--text2);opacity:.7}
 .about-sign .powered-name{font-size:18px;font-weight:800;letter-spacing:1px;color:var(--text);font-family:monospace,Consolas}
-.about-sign .sign-name{font-size:13px;color:var(--text2)}
 .about-update{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:20px 0 4px;padding:14px 16px;background:var(--bg);border:1px solid var(--border);border-radius:var(--r)}
 .about-update .au-info{display:flex;flex-direction:column;gap:3px}
 .about-update .au-label{font-size:11px;letter-spacing:1px;color:var(--text2)}
@@ -308,40 +305,22 @@ footer .sep{width:40px;height:2px;background:var(--primary);margin:0 auto 12px;b
   nav button svg{width:14px;height:14px}
   main{padding:20px 14px 40px}
   .about-qrcode{flex-direction:column;text-align:center}
+  .about-sign{flex-direction:column;align-items:flex-start;gap:14px}
+  .about-sign .sign-slogan{text-align:left;width:100%}
 }
+
+/* APK 原生壳模式：壳注入 html[data-apk="1"] 后隐藏网页自带 header
+   （原生 tab 栏已承担导航，双导航会互相打架） */
+html[data-apk="1"] header{display:none!important}
+html[data-apk="1"] main{padding-top:14px}
+html[data-apk="1"] footer{padding:16px 20px}
 </style>
 <style>
-/* ===== 开屏动画：扇形色卡展开 ===== */
-#splash{position:fixed;inset:0;z-index:20000;background:#F4F0E8;display:flex;align-items:center;justify-content:center;overflow:hidden;transition:opacity .6s ease,transform .6s ease}
-#splash.splash-out{opacity:0;transform:scale(1.08);pointer-events:none}
-#splash .fan{position:relative;width:240px;height:240px}
-#splash .fan .card{position:absolute;left:50%;top:50%;width:64px;height:160px;border-radius:12px;margin-left:-32px;margin-top:-80px;transform-origin:center center;transform:rotate(var(--r)) translate(0,-30px) scale(.6);opacity:0;box-shadow:0 6px 20px rgba(0,0,0,.12);animation:fanIn .7s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:var(--d)}
-@keyframes fanIn{
-  0%{transform:rotate(var(--r)) translate(0,80px) scale(.3);opacity:0}
-  60%{opacity:1}
-  100%{transform:rotate(var(--r)) translate(0,-26px) scale(1);opacity:1}
-}
-#splash .fan .badge{position:absolute;left:50%;top:50%;width:54px;height:54px;margin:-27px 0 0 -27px;border-radius:50%;background:#C41A1A;color:#fff;display:flex;align-items:center;justify-content:center;font-family:"Songti SC","SimSun",serif;font-size:26px;box-shadow:0 4px 14px rgba(196,26,26,.4);z-index:5;opacity:0;animation:badgeIn .5s .55s ease forwards}
-@keyframes badgeIn{0%{opacity:0;transform:scale(.5)}100%{opacity:1;transform:scale(1)}}
-#splash .splash-cap{position:absolute;bottom:46px;left:0;right:0;text-align:center;font-size:13px;letter-spacing:4px;color:#888;opacity:0;animation:capIn .5s 1s ease forwards}
-@keyframes capIn{0%{opacity:0;transform:translateY(8px)}100%{opacity:1;transform:translateY(0)}}
-@media (prefers-reduced-motion:reduce){#splash .fan .card{animation-duration:.01s}#splash .fan .badge{animation-duration:.01s}}
 </style>
 </head>
 <body>
 
-<!-- 开屏动画：扇形色卡展开 -->
-<div id="splash" aria-hidden="true">
-  <div class="fan">
-    <div class="card" style="--r:-48deg;--d:.05s;background:#8B2500"></div>
-    <div class="card" style="--r:-24deg;--d:.12s;background:#C41A1A"></div>
-    <div class="card" style="--r:0deg;--d:.19s;background:#9CAF88"></div>
-    <div class="card" style="--r:24deg;--d:.26s;background:#1C1A17"></div>
-    <div class="card" style="--r:48deg;--d:.33s;background:#F4F0E8;border:1px solid #ddd"></div>
-    <div class="badge">拾</div>
-  </div>
-  <div class="splash-cap">拾 色 · 收 集 世 间 每 一 种 颜 色</div>
-</div>
+
 
 <header>
   <div class="hdr-inner">
@@ -473,6 +452,14 @@ footer .sep{width:40px;height:2px;background:var(--primary);margin:0 auto 12px;b
       <div class="dz-sub">支持 JPG、PNG、WebP 等常见格式</div>
       <input type="file" id="fileInput" accept="image/*" hidden>
     </div>
+    <div style="margin-top:16px">
+      <div class="sec-label" style="margin-top:0">或从网络图片获取</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap">
+        <input type="text" id="extractUrl" placeholder="粘贴图片链接 https://…" style="flex:1;min-width:200px;padding:10px 12px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-family:inherit;background:var(--card)"/>
+        <button class="btn btn-p btn-s" onclick="extractFromUrl()"><svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg> 获取</button>
+      </div>
+      <div style="font-size:11px;color:var(--text2);margin-top:6px">支持公开可访问的图片直链（.jpg/.png/.webp）；跨域受限的图可能取色失败</div>
+    </div>
     <div id="extractResult" style="margin-top:24px;display:none">
       <div class="extract-result">
         <img id="previewImg" class="extract-preview" alt="预览">
@@ -542,8 +529,11 @@ footer .sep{width:40px;height:2px;background:var(--primary);margin:0 auto 12px;b
     <div id="imageLayoutBar" style="display:none;gap:8px;flex-wrap:wrap;margin-bottom:16px;align-items:center">
       <span style="font-size:13px;font-weight:600;color:var(--text2)">图片排版</span>
       <button class="filter-btn active" data-imagelayout="h" onclick="setImageLayout('h')">横排</button>
+      <button class="filter-btn" data-imagelayout="left" onclick="setImageLayout('left')">图左色块右</button>
       <button class="filter-btn" data-imagelayout="v" onclick="setImageLayout('v')">竖排</button>
       <button class="filter-btn" data-imagelayout="grid" onclick="setImageLayout('grid')">网格</button>
+      <button class="filter-btn" data-imagelayout="ring" onclick="setImageLayout('ring')">扇形环嵌图</button>
+      <button class="filter-btn" data-imagelayout="center" onclick="setImageLayout('center')">图居中+圆点</button>
     </div>
     <div class="share-actions">
       <button class="btn btn-p" onclick="downloadShare()"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg> 下载图片</button>
@@ -586,10 +576,6 @@ footer .sep{width:40px;height:2px;background:var(--primary);margin:0 auto 12px;b
       <div class="powered">
         <span class="powered-label">POWERED&nbsp;BY</span>
         <span class="powered-name">SUPER STICKY NOTE × TUGO</span>
-      </div>
-      <div style="flex:1;font-size:13px;color:var(--text2);text-align:left">
-        <div>拾色 · 收集世间每一种颜色</div>
-        <div style="font-size:11px;margin-top:4px;opacity:.8">灵感来源于东方美学与古典诗词</div>
       </div>
     </div>
   </div>
@@ -984,7 +970,7 @@ function findClosest(hex,list){let best=list[0],bd=Infinity;list.forEach(c=>{con
 function findPantone(hex){let best=PANTONE[0],bd=Infinity;PANTONE.forEach(p=>{const d=colorDist(hex,p.hex);if(d<bd){bd=d;best=p}});return{code:best.code,hex:best.hex,sim:Math.max(0,Math.round(100-bd/4.41))}}
 function $(id){return document.getElementById(id)}
 function showToast(m){const t=$('toast');t.textContent=m;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),2000)}
-function copyText(text,btn){navigator.clipboard.writeText(text).then(()=>{showToast('已复制: '+text);if(btn){const o=btn.textContent;btn.textContent='✓';btn.classList.add('copied');setTimeout(()=>{btn.textContent=o;btn.classList.remove('copied')},1200)}}).catch(()=>{const ta=document.createElement('textarea');ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);showToast('已复制: '+text)})}
+function copyText(text,btn){const done=()=>{if(btn){if(btn.tagName==='BUTTON'||btn.classList.contains('copy-btn')||btn.classList.contains('cp-copy')){const o=btn.innerHTML;btn.innerHTML='✓';setTimeout(()=>{btn.innerHTML=o},1100)}else{const s=btn.querySelector('.swatch-color');if(s){s.classList.add('copied');setTimeout(()=>s.classList.remove('copied'),1100)}}}};navigator.clipboard.writeText(text).then(()=>{showToast('已复制: '+text);done()}).catch(()=>{const ta=document.createElement('textarea');ta.value=text;ta.style.cssText='position:fixed;left:-9999px;top:0';document.body.appendChild(ta);ta.select();try{document.execCommand('copy')}catch(e){}document.body.removeChild(ta);showToast('已复制: '+text);done()})}
 // 关于页「检查更新」按钮：APK 环境走壳桥接 Shise.checkUpdate()；网页环境走 fetch 检查 latest.json
 function shiseCheckUpdate(){
 if(window.Shise&&window.Shise.checkUpdate){window.Shise.checkUpdate();return}
@@ -993,7 +979,9 @@ const LATEST='https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/late
 const btn=$('checkUpdateBtn');if(btn){btn.disabled=true;btn.style.opacity='.6'}
 fetchWithTimeout(LATEST,8000).then(r=>r.json()).then(o=>{
 const v=o.version||'?';
-const cur=($('aboutVersion')?$('aboutVersion').textContent:'').replace('v','')||'1.0';
+// 优先用壳注入的 window.shiseVersion（APK 环境 400ms 前 aboutVersion 可能还是占位）
+const rawCur=window.shiseVersion||($('aboutVersion')?$('aboutVersion').textContent.replace('v','').replace(/ ·.*/,''):'1.0');
+const cur=rawCur||'1.0';
 if(v&&v!==cur){showToast('发现新版本 v'+v+'，请打开应用更新');if(o.apkUrl){window.open(o.apkUrl,'_blank')}}
 else{showToast('已是最新版本')}
 }).catch(()=>showToast('检查更新失败，请检查网络'))
@@ -1015,7 +1003,9 @@ catch(e){clearTimeout(timer);throw e}
 
 // Tab
 const TAB_IDS=['daily','colors','poetry','harmony','mood','apk','extract','convert','share','about'];
-function switchTab(id,animDir){
+// applyTab：本页内切换 section（网页版直接用；APK 内由各 page 加载后自行调用切到自己的 tab）
+function applyTab(id,animDir){
+if(typeof activeId!=='undefined')activeId=id;
 document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id));
 document.querySelectorAll('.tab').forEach(s=>s.classList.toggle('active',s.id==='tab-'+id));
 if(animDir){
@@ -1024,6 +1014,14 @@ if(animDir){
 }
 if(id==='poetry')loadPoem();
 if(id==='share')updateShareCanvas();
+}
+// switchTab：对外统一入口。APK 里 10 个 tab 是 10 个独立 WebView，
+// 跳别的 tab 必须转交原生切页，否则只会在当前 WebView 里"偷偷"换 section，与原生 tab 栏脱节
+function switchTab(id,animDir){
+if(window.__shiseApk&&window.Shise&&window.Shise.goTab){
+  try{window.Shise.goTab(id);return}catch(e){}
+}
+applyTab(id,animDir);
 }
 document.querySelectorAll('nav button').forEach(btn=>btn.addEventListener('click',()=>switchTab(btn.dataset.tab)));
 
@@ -1083,105 +1081,8 @@ wrap.addEventListener('mousedown',e=>{wrap._lastDragBtn=e.target.closest('nav bu
 wrap.style.cursor='grab';
 })();
 
-// 移动端左右滑动切换页面（带回弹动效）
-(function initTabSwipe(){
-let activeId='daily';
-const setTab=()=>{TAB_IDS.forEach(id=>{if(id===activeId)switchTab(id)})};
-// 更新 activeId（nav 点击时同步）
-document.querySelectorAll('nav button').forEach(btn=>btn.addEventListener('click',()=>{activeId=btn.dataset.tab}));
-document.addEventListener('click',e=>{
-  const btn=e.target.closest('nav button');
-  if(btn)activeId=btn.dataset.tab;
-});
-let startX=0,startY=0,delX=0,delY=0,tracking=false,locked=false,swiping=false;
-const stage=document.querySelector('main');
-if(!stage)return;
-function isMobile(){if(window.__shiseApk)return true;return matchMedia('(max-width:768px)').matches&&!matchMedia('(pointer:fine)').matches}
-function isVertical(){return Math.abs(delY)>Math.abs(delX)*1.2&&Math.abs(delY)>10}
-function isHorizontal(){return Math.abs(delX)>Math.abs(delY)*1.2&&Math.abs(delX)>10}
-function findTabs(){
-  return TAB_IDS.map(id=>document.getElementById('tab-'+id)).filter(Boolean);
-}
-function currentTabEl(){return document.getElementById('tab-'+activeId)}
-stage.addEventListener('touchstart',e=>{
-if(!isMobile())return;
-// 全屏展示模式下不触发页面切换
-if(fsEl)return;
-const t=e.target;
-// 在横向滚动元素上（nav、palette-strip 等）不拦截
-let p=t;
-while(p&&p!==stage){
-  if(p===stage){break}
-  const st=getComputedStyle(p);
-  if((st.overflowX==='auto'||st.overflowX==='scroll')&&p.scrollWidth>p.clientWidth+4){locked=true;return}
-  p=p.parentElement;
-}
-locked=false;
-if(e.touches.length!==1)return;
-tracking=true;swiping=false;
-startX=e.touches[0].clientX;startY=e.touches[0].clientY;delX=0;delY=0;
-},{passive:true});
-stage.addEventListener('touchmove',e=>{
-if(!tracking||locked)return;
-delX=e.touches[0].clientX-startX;
-delY=e.touches[0].clientY-startY;
-// 先垂直后水平：判定滑动方向
-if(!swiping){
-  if(isVertical()){locked=true;return}
-  if(isHorizontal())swiping=true;
-  else return;
-}
-if(!swiping)return;
-// 跟手平移当前 tab
-const el=currentTabEl();
-if(!el)return;
-if(e.cancelable)e.preventDefault();
-// 到达边界时做阻尼
-const idx=TAB_IDS.indexOf(activeId);
-const atEdge=(delX>0&&idx===0)||(delX<0&&idx===TAB_IDS.length-1);
-const resistance=atEdge?0.3:1;
-el.style.transition='none';
-el.style.transform='translateX('+(delX*resistance)+'px)';
-},{passive:false});
-stage.addEventListener('touchend',e=>{
-if(!tracking)return;
-tracking=false;
-if(locked||!swiping)return;
-swiping=false;
-const el=currentTabEl();
-if(!el)return;
-const TH=70,VMIN=0.5;
-// 计算滑动速度
-let vx=0;
-const te=e.changedTouches[0];
-const now=Date.now();
-if(te.timestamp&&_ltT)vx=(delX-_lxD)/(now-_ltT);
-_lxD=delX;_ltT=now;
-const idx=TAB_IDS.indexOf(activeId);
-let target=activeId;
-if(delX<-TH||(delX<-20&&vx<-VMIN)&&idx<TAB_IDS.length-1)target=TAB_IDS[idx+1];
-else if(delX>TH||(delX>20&&vx>VMIN)&&idx>0)target=TAB_IDS[idx-1];
-if(target!==activeId){
-  activeId=target;
-  // 先滑出，再滑入
-  el.style.transition='transform .22s cubic-bezier(.4,0,.2,1)';
-  el.style.transform='translateX('+(delX<0?-el.clientWidth:el.clientWidth)+'px)';
-  el.style.opacity='0';
-  setTimeout(()=>{
-    el.style.transform='';el.style.opacity='';el.style.transition='';
-    switchTab(target,delX<0?'next':'prev');
-  },200);
-}else{
-  // 回弹动效（带轻微过冲）
-  el.style.transition='transform .5s cubic-bezier(.18,1.4,.4,1)';
-  el.style.transform='translateX(0px)';
-  setTimeout(()=>{el.style.transition='';el.style.transform=''},500);
-}
-delX=0;delY=0;
-locked=false;
-},{passive:true});
-let _lxD=0,_ltT=0;
-})();
+// 移动端横滑切 tab 已搬到原生 NativeTabPager（Android 壳），这里不再绑定
+// 注：全屏展示模式下的 fs-hint「← 滑动 / 空格 · 切换 →」是全屏专用手势，保留不动
 
 // ============================================================
 //  每日推荐
@@ -1232,7 +1133,7 @@ let html=text;const used=new Set();
 POEM_COLOR_MAP.forEach(entry=>{
 if(!colors.find(c=>c.hex===entry.hex))return;
 entry.words.forEach(word=>{
-if(text.includes(word)&&!used.has(word)){used.add(word);const esc=word.replace(/[.*+?^${}()|[\]\\]/g,'\\__APK_PALETTES_DATA__');html=html.replace(new RegExp(esc,'g'),'<span class="cword">'+word+'</span>')}
+if(text.includes(word)&&!used.has(word)){used.add(word);const esc=word.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');html=html.replace(new RegExp(esc,'g'),'<span class="cword">'+word+'</span>')}
 })});
 return html;
 }
@@ -1423,7 +1324,7 @@ function renderClassicPalettes(){$('classicPalettes').innerHTML=CLASSIC_PALETTES
 // ============================================================
 //  心情调色
 // ============================================================
-let currentMood='default';
+let currentMood='happy';
 function moodTint(id){const c=(MOOD_COLORS[id]||[])[0];return c?rgbaWithAlpha(c,0.12):'var(--bg)'}
 function rgbaWithAlpha(hex,a){const{r,g,b}=hexToRgb(hex);return'rgba('+r+','+g+','+b+','+a+')'}
 function renderMoodGrid(){$('moodGrid').innerHTML=MOODS.map(m=>{const tint=moodTint(m.id);const icon=m.icon.replace(/width:36px;height:36px/g,'width:22px;height:22px');return'<div class="mood-btn'+(currentMood===m.id?' active':'')+'" data-id="'+m.id+'" style="--mood-tint:'+tint+'" onclick="selectMood(\''+m.id+'\')"><span class="mood-icon">'+icon+'</span><span class="mood-name">'+m.name+'</span></div>'}).join('')}
@@ -1462,12 +1363,48 @@ const desc=p.desc||'';
 return'<div class="apk-palette-card"><div class="pal-name">'+name+'</div><div class="pal-sub">'+(p.e||'')+'</div><div class="pal-strip">'+strip+'</div>'+(desc?'<div class="pal-desc">'+desc+'</div>':'')+'<div style="margin-top:8px;display:flex;gap:6px"><button class="btn btn-g btn-s" onclick="copyText(\''+p.c.join(' ')+'\')"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg> 复制全部</button><button class="btn btn-p btn-s" onclick="shareApkPalette('+pi+')"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/></svg> 分享</button></div></div>'
 }).join('');
 }
+// ---- 分享跨页桥接 ----
+// 网页版：本页 set sharePalette 后 switchTab('share') 即可。
+// APK：分享页是另一个独立 WebView，JS 状态不互通，需经原生中转：
+//   gotoShare → Shise.goShare(json) → 原生切到分享页 → 注入 __applyShare(json)
+function gotoShare(pal,style,layout){
+if(!pal||!pal.colors||!pal.colors.length){showToast('暂无配色');return}
+if(window.__shiseApk&&window.Shise&&window.Shise.goShare){
+  const payload={label:pal.label,colors:pal.colors};
+  if(style)payload.style=style;
+  if(layout)payload.layout=layout;
+  if(style==='image'){
+    try{const pi=$('previewImg');if(pi&&pi.src&&pi.src.length<2000000)payload.imgSrc=pi.src}catch(e){}
+  }
+  try{window.Shise.goShare(JSON.stringify(payload));return}catch(e){}
+}
+sharePalette=pal;
+if(style){setShareStyle(style);if(layout)setImageLayout(layout)}
+else updateShareCanvas();
+switchTab('share');
+}
+// 原生壳调用：把其它页面带来的配色应用到分享页
+window.__applyShare=function(json){
+try{
+const o=typeof json==='string'?JSON.parse(json):json;
+sharePalette={label:o.label||'拾色',colors:o.colors||[]};
+if(o.imgSrc){
+  const im=new Image();
+  if(/^https?:/i.test(o.imgSrc))im.crossOrigin='anonymous';
+  im.onload=function(){shareSourceImage=im;updateShareCanvas()};
+  im.onerror=function(){shareSourceImage=null;updateShareCanvas()};
+  im.src=o.imgSrc;
+}else{shareSourceImage=null}
+if(o.style)setShareStyle(o.style);
+if(o.layout)setImageLayout(o.layout);
+if(!o.style&&!o.layout)updateShareCanvas();
+$('shareCardTitle').textContent=sharePalette.label;
+}catch(e){}
+};
 function shareApkPalette(idx){
 const d=APK_PALETTES[activeApkCat];
 if(!d||!d.items[idx])return;
-sharePalette={label:(d.zh||activeApkCat)+' · '+(d.items[idx].z||d.items[idx].en||'色卡'),colors:d.items[idx].c};
-switchTab('share');
-updateShareCanvas();
+gotoShare({label:(d.zh||activeApkCat)+' · '+(d.items[idx].z||d.items[idx].en||'色卡'),colors:d.items[idx].c});
 }
 
 // ============================================================
@@ -1481,15 +1418,33 @@ dropZone.addEventListener('drop',e=>{e.preventDefault();dropZone.classList.remov
 fileInput.addEventListener('change',e=>{if(e.target.files[0])processImage(e.target.files[0])});
 function processImage(file){const r=new FileReader();r.onload=function(e){const img=new Image();img.onload=function(){extractAndDisplay(img)};img.src=e.target.result;$('previewImg').src=e.target.result;shareSourceImage=img;$('dropZone').style.display='none';$('extractResult').style.display='block'};r.readAsDataURL(file)}
 function extractAndDisplay(img){const canvas=document.createElement('canvas');const sc=Math.min(80/img.width,80/img.height,1);canvas.width=Math.max(1,Math.floor(img.width*sc));canvas.height=Math.max(1,Math.floor(img.height*sc));const ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,canvas.width,canvas.height);const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;const map={};for(let i=0;i<data.length;i+=4){let r=Math.min(255,Math.round(data[i]/32)*32),g=Math.min(255,Math.round(data[i+1]/32)*32),b=Math.min(255,Math.round(data[i+2]/32)*32);const k=r+','+g+','+b;map[k]=(map[k]||0)+1}const sorted=Object.entries(map).sort((a,b)=>b[1]-a[1]).map(([k,c])=>{const p=k.split(',').map(Number);return{hex:rgbToHex(p[0],p[1],p[2])}});const result=[];for(const s of sorted){if(result.length>=6)break;if(result.every(r=>colorDist(r.hex,s.hex)>35))result.push(s)}window._extractedColors=result;$('extractedColors').innerHTML=result.map(c=>{const cf=findClosest(c.hex,COLORS);return'<div class="swatch" onclick="copyText(\''+c.hex+'\')"><div class="swatch-color" style="background:'+c.hex+'"><div class="copy-hint">点击复制</div></div><div class="swatch-info"><div class="swatch-name">'+cf.color.name+'</div><div class="swatch-hex">'+c.hex+' · '+cf.sim+'%</div></div></div>'}).join('')}
+function shareMoodNow(){const m=MOODS.find(x=>x.id===currentMood),pal=MOOD_PALETTES[currentMood];if(!m||!pal)return;gotoShare({label:'心情 · '+m.name,colors:pal.colors})}
+function shareDailyNow(){const c=COLORS[getDailyIdx()];gotoShare({label:'每日 · '+c.name,colors:genPal(c.hex)})}
+function sharePoemNow(){if(!currentPoem){showToast('请先在古诗页选一首诗');return}const ex=extractColorsFromPoem(currentPoem.content);gotoShare({label:'古诗 · '+(currentPoem.origin||'诗句'),colors:ex.length>0?expandPalette(ex.map(c=>c.hex)):["#8B2500","#C41A1A","#D4A574","#E0E0D0","#2B2B2B"]})}
+function shareHarmonyNow(){const base=$('harmonyBase').value;const sets=genHarmonies(base);if(!sets.length||!sets[0].colors){showToast('暂无配色');return}gotoShare({label:'配色 · 以 '+base.toUpperCase()+' 生成',colors:sets[0].colors})}
 function resetExtract(){$('dropZone').style.display='';$('extractResult').style.display='none';fileInput.value=''}
+function extractFromUrl(){
+const url=$('extractUrl').value.trim();
+if(!url){showToast('请输入图片链接');return}
+showToast('正在获取图片…');
+const img=new Image();
+img.crossOrigin='anonymous';
+img.onload=function(){
+try{
+  extractAndDisplay(img);
+  $('previewImg').src=img.src;
+  shareSourceImage=img;
+  $('dropZone').style.display='none';
+  $('extractResult').style.display='block';
+}catch(e){showToast('取色失败，可能跨域受限');}
+};
+img.onerror=function(){showToast('图片加载失败，请检查链接');};
+img.src=url;
+}
 function shareExtracted(){
 const colors=window._extractedColors||[];
 if(colors.length===0){showToast('请先上传图片取色');return}
-sharePalette={label:'图片取色 · '+colors.map(c=>c.hex).join(' '),colors:colors.map(c=>c.hex)};
-shareStyle='image';
-document.querySelectorAll('[data-sharestyle]').forEach(b=>b.classList.toggle('active',b.dataset.sharestyle==='image'));
-const bar=$('imageLayoutBar');if(bar)bar.style.display='flex';
-switchTab('share');updateShareCanvas();
+gotoShare({label:'图片取色 · '+colors.map(c=>c.hex).join(' '),colors:colors.map(c=>c.hex)},'image');
 }
 
 // ============================================================
@@ -1558,8 +1513,6 @@ function drawSwatchStyle(ctx,W,H,colors,label){
 }
 function drawCircleStyle(ctx,W,H,colors,label){
   ctx.fillStyle='#F8F7F4';ctx.fillRect(0,0,W,H);
-  // 顶部"色采" logo
-  drawCaiLogo(ctx,W,46);
   const n=colors.length;
   const cx=W/2, cy=(H-110)/2+30;
   const R=Math.min(W,H)*0.3;          // 外圆半径
@@ -1583,7 +1536,8 @@ function drawCircleStyle(ctx,W,H,colors,label){
   if(shareSourceImage&&shareSourceImage.naturalWidth){
     const iw=shareSourceImage.naturalWidth,ih=shareSourceImage.naturalHeight;
     const s=Math.max(holeR*2/iw,holeR*2/ih);
-    ctx.drawImage(shareSourceImage,cx-holeR,cy-holeR,holeR*2,holeR*2);
+    const dw=iw*s,dh=ih*s;
+    ctx.drawImage(shareSourceImage,cx-holeR+(holeR*2-dw)/2,cy-holeR+(holeR*2-dh)/2,dw,dh);
   }else{ctx.fillStyle='#E8E0D8';ctx.beginPath();ctx.arc(cx,cy,holeR,0,Math.PI*2);ctx.fill();}
   ctx.restore();
   ctx.strokeStyle='#fff';ctx.lineWidth=4;ctx.beginPath();ctx.arc(cx,cy,holeR,0,Math.PI*2);ctx.stroke();
@@ -1781,6 +1735,30 @@ function drawImageStyle(ctx,W,H,colors,label){
     }else{ctx.fillStyle='#E8E0D8';ctx.fillRect(imgX,topY,imgW,availH);}
     ctx.restore();
     ctx.strokeStyle='#E8E0D8';ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(imgX,topY,imgW,availH,14);ctx.stroke();
+  }else if(imageLayout==='left'){
+    // 镜像横排：左侧竖图 + 右侧 5 色块竖排（块内写 HEX）
+    const gap=24;
+    const imgW=Math.round((W-pad*2-gap)*0.52);
+    const cardW=W-pad*2-gap-imgW;
+    const imgX=pad, cardX=pad+imgW+gap;
+    const rowH=(availH-gap*(n-1))/n;
+    // 左侧原图（竖向）
+    ctx.save();ctx.beginPath();ctx.roundRect(imgX,topY,imgW,availH,14);ctx.clip();
+    if(shareSourceImage&&shareSourceImage.naturalWidth){
+      const iw=shareSourceImage.naturalWidth,ih=shareSourceImage.naturalHeight;
+      const s=Math.max(imgW/iw,availH/ih);
+      ctx.drawImage(shareSourceImage,imgX+(imgW-iw*s)/2,topY+(availH-ih*s)/2,iw*s,ih*s);
+    }else{ctx.fillStyle='#E8E0D8';ctx.fillRect(imgX,topY,imgW,availH);}
+    ctx.restore();
+    ctx.strokeStyle='#E8E0D8';ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(imgX,topY,imgW,availH,14);ctx.stroke();
+    // 右侧色块
+    colors.forEach((hex,i)=>{
+      const y=topY+i*(rowH+gap);
+      ctx.fillStyle=hex;ctx.beginPath();ctx.roundRect(cardX,y,cardW,rowH,6);ctx.fill();
+      const tc=isLight(hex)?'#333':'#fff';
+      ctx.fillStyle=tc;ctx.font='bold 22px monospace';ctx.textAlign='center';
+      ctx.fillText(hex.toUpperCase(),cardX+cardW/2,y+rowH/2+8);
+    });
   }else if(imageLayout==='v'){
     // 竖排：上图下卡（色块横排）
     const gap=20;
@@ -1798,7 +1776,7 @@ function drawImageStyle(ctx,W,H,colors,label){
       ctx.fillStyle=tc;ctx.font='bold 13px monospace';ctx.textAlign='right';
       ctx.fillText(hex.toUpperCase(),0,4);ctx.restore();
     });
-  }else{
+  }else if(imageLayout==='grid'){
     // 网格：图片在左上格，色块填满其余格
     const cols=3,rows=3;
     const gap=14;
@@ -1822,28 +1800,63 @@ function drawImageStyle(ctx,W,H,colors,label){
         ci++;
       }
     }
+  }else if(imageLayout==='ring'){
+    // 圆环嵌图：外圈彩色扇形环，中心圆孔放图片
+    ctx.fillStyle='#F8F7F4';ctx.fillRect(0,0,W,H);
+    const cx=W/2,cy=H/2-10,outerR=Math.min(W,H)*0.42,innerR=outerR*0.6;
+    const startA=-Math.PI/2,span=(Math.PI*2)/n;
+    for(let i=0;i<n;i++){
+      ctx.beginPath();
+      ctx.arc(cx,cy,outerR,startA+i*span,startA+(i+1)*span);
+      ctx.arc(cx,cy,innerR,startA+(i+1)*span,startA+i*span,true);
+      ctx.closePath();ctx.fillStyle=colors[i];ctx.fill();
+      ctx.strokeStyle='#F8F7F4';ctx.lineWidth=2;ctx.stroke();
+    }
+    // 中心圆孔放图片
+    ctx.save();ctx.beginPath();ctx.arc(cx,cy,innerR,0,Math.PI*2);ctx.clip();
+    if(shareSourceImage&&shareSourceImage.naturalWidth){
+      const iw=shareSourceImage.naturalWidth,ih=shareSourceImage.naturalHeight;
+      const s=Math.max((innerR*2)/iw,(innerR*2)/ih);
+      ctx.drawImage(shareSourceImage,cx-(innerR),cy-(innerR),innerR*2,innerR*2);
+    }else{ctx.fillStyle='#E8E0D8';ctx.fillRect(cx-innerR,cy-innerR,innerR*2,innerR*2);}
+    ctx.restore();
+    // 下方圆点色卡 + hex
+    const dotY=H-40,dotR=14,dotGap=Math.min(90,(W-80)/n);
+    const dStart=W/2-dotGap*(n-1)/2;
+    colors.forEach((hex,i)=>{
+      const dx=dStart+i*dotGap;
+      ctx.fillStyle=hex;ctx.beginPath();ctx.arc(dx,dotY,dotR,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle='#fff';ctx.lineWidth=2;ctx.stroke();
+      ctx.fillStyle='#666';ctx.font='bold 13px monospace';ctx.textAlign='center';
+      ctx.fillText(hex.toUpperCase(),dx,dotY+34);
+    });
+  }else if(imageLayout==='center'){
+    // 居中图 + 下排圆点：一张竖图居中，下方横排圆点色卡
+    ctx.fillStyle='#F8F7F4';ctx.fillRect(0,0,W,H);
+    const imgW2=Math.round(W*0.24),imgH2=Math.round(H*0.52);
+    const ix=W/2-imgW2/2,iy=H*0.09;
+    ctx.save();ctx.beginPath();ctx.roundRect(ix,iy,imgW2,imgH2,12);ctx.clip();
+    if(shareSourceImage&&shareSourceImage.naturalWidth){
+      const iw=shareSourceImage.naturalWidth,ih=shareSourceImage.naturalHeight;
+      const s=Math.max(imgW2/iw,imgH2/ih);
+      ctx.drawImage(shareSourceImage,ix+(imgW2-iw*s)/2,iy+(imgH2-ih*s)/2,iw*s,ih*s);
+    }else{ctx.fillStyle='#E8E0D8';ctx.fillRect(ix,iy,imgW2,imgH2);}
+    ctx.restore();
+    ctx.strokeStyle='#E8E0D8';ctx.lineWidth=1;ctx.beginPath();ctx.roundRect(ix,iy,imgW2,imgH2,12);ctx.stroke();
+    // 下排圆点
+    const dotY2=iy+imgH2+70,dotR2=40,dotGap2=Math.min(120,(W-120)/n);
+    const dStartW=W/2-dotGap2*(n-1)/2;
+    colors.forEach((hex,i)=>{
+      const dx=dStartW+i*dotGap2;
+      ctx.fillStyle=hex;ctx.beginPath();ctx.arc(dx,dotY2,dotR2,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle='rgba(0,0,0,.06)';ctx.lineWidth=1;ctx.stroke();
+      ctx.fillStyle='#333';ctx.font='bold 16px monospace';ctx.textAlign='center';
+      ctx.fillText(hex.toUpperCase(),dx,dotY2+dotR2+30);
+    });
   }
-  // 底部"色采" logo（扇形圆 + 文字）
-  drawCaiLogo(ctx,W,H);
 }
-// 底部"色采"小 logo：左侧一个扇形色轮圆 + "色采"二字
-function drawCaiLogo(ctx,W,H){
-  const cx=W/2-26,cy=H-34;
-  ctx.save();
-  ctx.translate(cx,cy);
-  ctx.beginPath();ctx.arc(0,0,11,0,Math.PI*2);ctx.fillStyle='#F4F0E8';ctx.fill();
-  const segs=6,sw=0.06;
-  const pal=['#C59B2F','#F1E1C0','#F2E7CB','#F8E17B','#6A8D6D'];
-  for(let s=0;s<segs;s++){
-    const a0=s/segs*Math.PI*2-0.5+sw, a1=(s+1)/segs*Math.PI*2-0.5-sw;
-    ctx.beginPath();ctx.arc(0,0,11,a0,a1);ctx.lineTo(0,0);ctx.closePath();
-    ctx.fillStyle=pal[s%pal.length];ctx.fill();
-  }
-  ctx.strokeStyle='#333';ctx.lineWidth=1.2;ctx.beginPath();ctx.arc(0,0,11,0,Math.PI*2);ctx.stroke();
-  ctx.fillStyle='#333';ctx.font='14px "Songti SC","SimSun",serif';ctx.textAlign='left';ctx.textBaseline='middle';
-  ctx.fillText('色采',26,0);
-  ctx.restore();
-}
+// drawCaiLogo 已停用（用户要求移除分享图上的"色采"小 logo）
+function drawCaiLogo(ctx,W,H){/* removed */}
 function updateShareCanvas(){
   const canvas=$('shareCanvas');
   const ctx=canvas.getContext('2d');
@@ -1873,6 +1886,13 @@ function updateShareCanvas(){
 function buildShareOptions(){
 const sel=$('shareSelect');
 const opts=[];
+const dc=COLORS[getDailyIdx()];
+opts.push({label:'每日 · '+dc.name+' ('+dc.hex+')',value:'daily:now',colors:genPal(dc.hex)});
+OFFLINE_POEMS.slice(0,15).forEach((p,i)=>{
+  const ex=extractColorsFromPoem(p.content);
+  const pal=ex.length>0?expandPalette(ex.map(c=>c.hex)):["#8B2500","#C41A1A","#D4A574","#E0E0D0","#2B2B2B"];
+  opts.push({label:'古诗 · '+(p.origin||'诗句'),value:'poem:'+i,colors:pal});
+});
 COLORS.slice(0,30).forEach(c=>{opts.push({label:'传统色 · '+c.name+' ('+c.hex+')',value:'trade:'+c.hex,colors:genPal(c.hex)})});
 for(const[k,v]of Object.entries(APK_PALETTES||{})){
 v.items.forEach((p,i)=>{opts.push({label:(v.zh||k)+' · '+(p.z||p.en||'色卡 '+i),value:'apk:'+k+':'+i,colors:p.c})});
@@ -1881,7 +1901,9 @@ MOODS.forEach(m=>{opts.push({label:'心情 · '+m.name,value:'mood:'+m.id,colors
 sel.innerHTML=opts.map(o=>'<option value="'+o.value+'">'+o.label+'</option>').join('');
 sel.addEventListener('change',()=>{
 const val=sel.value;
-if(val.startsWith('trade:')){const hex=val.split(':')[1];sharePalette={label:'传统色 · '+findClosest(hex,COLORS).color.name,colors:genPal(hex)}}
+if(val.startsWith('daily:')){const c=COLORS[getDailyIdx()];sharePalette={label:'每日 · '+c.name,colors:genPal(c.hex)}}
+else if(val.startsWith('poem:')){const i=+val.split(':')[1];const p=OFFLINE_POEMS[i];const ex=extractColorsFromPoem(p.content);sharePalette={label:'古诗 · '+(p.origin||'诗句'),colors:ex.length>0?expandPalette(ex.map(c=>c.hex)):["#8B2500","#C41A1A","#D4A574","#E0E0D0","#2B2B2B"]}}
+else if(val.startsWith('trade:')){const hex=val.split(':')[1];sharePalette={label:'传统色 · '+findClosest(hex,COLORS).color.name,colors:genPal(hex)}}
 else if(val.startsWith('apk:')){const parts=val.split(':');const cat=parts[1];const idx=+parts[2];sharePalette={label:(APK_PALETTES[cat]?.zh||cat)+' · '+(APK_PALETTES[cat]?.items[idx]?.z||idx),colors:APK_PALETTES[cat]?.items[idx]?.c||[]}}
 else if(val.startsWith('mood:')){const m=MOODS.find(x=>x.id===val.split(':')[1]);sharePalette={label:'心情 · '+m.name,colors:MOOD_COLORS[m.id].slice(0,5)}}
 updateShareCanvas()
@@ -1957,9 +1979,14 @@ document.body.appendChild(overlay);
 document.body.style.overflow='hidden';
 overlay._hint=document.getElementById('fsHint');
 bindFsSwipe(overlay);
+notifyFsState(true);
 requestAnimationFrame(()=>overlay.classList.add('fs-open'));
 fsEl=overlay;
 if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen().catch(()=>{});
+}
+// 通知原生壳：全屏查看中（壳据此停用横滑切页、返回键先退全屏）
+function notifyFsState(open){
+if(window.__shiseApk&&window.Shise&&window.Shise.setBlockSwipe){try{window.Shise.setBlockSwipe(!!open)}catch(e){}}
 }
 // 在全屏内原地换色（平滑交叉淡入，不关闭重开）
 function updateFullscreenColor(hex,name,desc,palette,catLabel,poem){
@@ -2007,12 +2034,12 @@ if(l2){
 palEl.innerHTML=palette.map(h=>{const l=isLight(h);return'<div class="fs-palcell" style="background:'+h+';color:'+(l?'#333':'#fff')+'">'+h+'</div>'}).join('');
 }
 }
-$('shareCardTitle')&&$('shareCardTitle');
 }
 function closeFullscreen(){
 if(!fsEl)return;
 const el=fsEl;fsEl=null;fsSwitchFn=null;
 document.body.style.overflow='';
+notifyFsState(false);
 el.classList.remove('fs-open');
 setTimeout(()=>el.remove(),320);
 if(document.fullscreenElement)document.exitFullscreen().catch(()=>{});
@@ -2055,8 +2082,10 @@ updateFullscreenColor(COLORS[getDailyIdx()].hex,COLORS[getDailyIdx()].name,COLOR
 openFullscreen(c.hex,c.name,c.desc,genPal(c.hex),catLabel);
 }
 function openMoodFullscreen(){
+if(fsEl)closeFullscreen();
 const id=currentMood||'happy';
 const m=MOODS.find(x=>x.id===id),pal=MOOD_PALETTES[id];
+if(!m||!pal){showToast('该心情暂无配色');return}
 fsSwitchFn=function(prev){
 const ids=MOODS.map(x=>x.id);
 let i=ids.indexOf(id);
@@ -2087,13 +2116,8 @@ updateFullscreenColor(nPal[0],'',' ',nPal,'古诗配色',npoem);
 openFullscreen(pal[0],'',' ',pal,'古诗配色',poem);
 }
 
-// 开屏动画：扇形色卡展开后淡出
-(function playSplash(){
-  const sp=$('splash');if(!sp)return;
-  const hide=()=>{if(sp.classList.contains('splash-out'))return;sp.classList.add('splash-out');setTimeout(()=>{if(sp&&sp.parentElement)sp.parentElement.removeChild(sp)},650)};
-  setTimeout(hide,1600);
-  document.addEventListener('click',()=>{if(sp)hide()},true);
-})();
+// 开屏动画已搬到原生 SplashView（Android 壳），不再在此渲染
+// 注：__shiseApk / shiseVersion / __shiseSeen 注入仍保留（isMobile 判断需要）
 
 // ============================================================
 //  初始化
