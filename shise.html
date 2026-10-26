@@ -1390,7 +1390,7 @@ const o=typeof json==='string'?JSON.parse(json):json;
 sharePalette={label:o.label||'拾色',colors:o.colors||[]};
 if(o.imgSrc){
   const im=new Image();
-  if(/^https?:/i.test(o.imgSrc))im.crossOrigin='anonymous';
+  im.crossOrigin='anonymous';
   im.onload=function(){shareSourceImage=im;updateShareCanvas()};
   im.onerror=function(){shareSourceImage=null;updateShareCanvas()};
   im.src=o.imgSrc;
@@ -1978,6 +1978,10 @@ overlay.innerHTML=
 document.body.appendChild(overlay);
 document.body.style.overflow='hidden';
 overlay._hint=document.getElementById('fsHint');
+// 点击 stage 中间区域退出全屏（避开 topbar/复制按钮等交互元素）
+overlay.querySelector('.fs-stage').addEventListener('click',function(e){
+  if(e.target===this||e.target.classList.contains('fs-main')){closeFullscreen();}
+});
 bindFsSwipe(overlay);
 notifyFsState(true);
 requestAnimationFrame(()=>overlay.classList.add('fs-open'));
