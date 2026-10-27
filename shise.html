@@ -305,8 +305,9 @@ footer .sep{width:40px;height:2px;background:var(--primary);margin:0 auto 12px;b
   nav button svg{width:14px;height:14px}
   main{padding:20px 14px 40px}
   .about-qrcode{flex-direction:column;text-align:center}
-  .about-sign{flex-direction:column;align-items:flex-start;gap:14px}
-  .about-sign .sign-slogan{text-align:left;width:100%}
+  .about-sign{flex-direction:row;align-items:center;gap:16px}
+  .about-sign .sign-img{width:72px;flex-shrink:0}
+  .about-sign .powered-name{font-size:15px;letter-spacing:.5px}
 }
 
 /* APK 原生壳模式：壳注入 html[data-apk="1"] 后隐藏网页自带 header
@@ -1988,9 +1989,10 @@ requestAnimationFrame(()=>overlay.classList.add('fs-open'));
 fsEl=overlay;
 if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen().catch(()=>{});
 }
-// 通知原生壳：全屏查看中（壳据此停用横滑切页、返回键先退全屏）
+// 通知原生壳：全屏查看中（壳据此停用横滑切页、全屏铺满状态栏/导航区）
 function notifyFsState(open){
 if(window.__shiseApk&&window.Shise&&window.Shise.setBlockSwipe){try{window.Shise.setBlockSwipe(!!open)}catch(e){}}
+if(window.__shiseApk&&window.Shise&&window.Shise.setFullscreenMode){try{window.Shise.setFullscreenMode(!!open)}catch(e){}}
 }
 // 在全屏内原地换色（平滑交叉淡入，不关闭重开）
 function updateFullscreenColor(hex,name,desc,palette,catLabel,poem){
