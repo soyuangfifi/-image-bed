@@ -1,6 +1,6 @@
 {
-  "version": "2.06",
-  "notes": "① 修复长期挂机跨过午夜后无法打卡上班（新增跨日检测，越零点自动补记昨日工资并重算考勤/日历/财务/目标）；② 全屏数字页改为沉浸模式：只显示递增数字，轻点数字外区域唤出控件，轻点数字退出全屏。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.06.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.06.apk"
+  "version": "2.07",
+  "notes": "① 收支首页精简——「收支」页只保留「今日交易」卡片（当日合计 + 右上角圆形展开符号）与紧凑「净资产」卡，移除原本占位的本月汇总 / 预算环 / 支出环形图 / 日趋势 / 账户分布；② 新增独立「全部明细」页——点首页右上角展开符号进入，进度独立；该页集合全部统计：月份切换 + 本月汇总（笔数 · 支出 · 收入 · 结余 + 环比）+ 预算环 + 分类环形图与图例 + 日趋势 + 账户分布 + 按日分组的完整历史流水（今天 / 昨天标签、可排序 新↔旧、可筛选、可清空），与首页彻底解耦、互不干扰。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.07.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.07.apk"
 }
