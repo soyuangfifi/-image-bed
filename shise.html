@@ -218,6 +218,7 @@ main{max-width:1060px;margin:0 auto;padding:32px 24px 60px}
 .sr-author{font-size:13px;color:var(--text2);margin-bottom:8px}
 .sr-content{font-family:"Songti SC",serif;font-size:15px;line-height:2;color:var(--text)}
 .sr-source{display:inline-block;padding:2px 8px;background:rgba(196,26,26,.08);color:var(--primary);border-radius:4px;font-size:11px;margin-left:8px;font-weight:500}
+.kw-hit{color:var(--primary);font-weight:700;background:rgba(196,26,26,.09);border-radius:3px;padding:0 1px}
 
 /* 分享导出 - APK 风格 */
 .share-wrap{max-width:520px;margin:0 auto}
@@ -424,8 +425,9 @@ html[data-apk="1"] footer{padding:16px 20px}
   <div class="card">
     <div class="card-title">今天的心情是怎样的？</div>
     <div class="mood-grid" id="moodGrid"></div>
-    <div style="margin-top:16px;text-align:center">
+    <div style="margin-top:16px;text-align:center;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
       <button class="btn btn-g" onclick="randomMood()"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><circle cx="15.5" cy="15.5" r="1.5"/></svg> 随机一个心情</button>
+      <button class="btn btn-o" onclick="shuffleMoodPalette()"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4a2 2 0 001-1.73z"/></svg> 换一套配色</button>
     </div>
   </div>
   <div id="moodContent"></div>
@@ -1090,7 +1092,7 @@ wrap.style.cursor='grab';
 // ============================================================
 let dailyOffset=0;
 function getDailyIdx(){const now=new Date();const d=Math.floor((now-new Date(now.getFullYear(),0,0))/86400000);return(d+dailyOffset)%COLORS.length}
-function genPal(hex){const{h,s,l}=rgbToHsl(hexToRgb(hex));return[hex,hslToHex((h+30)%360,Math.min(s+10,100),Math.max(l-5,15)),hslToHex((h+150)%360,s,Math.min(l+15,92)),hslToHex((h+210)%360,Math.max(s-20,15),l+10),hslToHex((h+60)%360,Math.max(s-35,10),Math.min(l+35,95))]}
+function genPal(hex){const{h,s,l}=rgbToHsl(hexToRgb(hex));const cl=(v)=>Math.max(0,Math.min(100,v));return[hex,hslToHex((h+30)%360,cl(Math.min(s+10,100)),cl(l-5)),hslToHex((h+150)%360,cl(s),cl(l+15)),hslToHex((h+210)%360,cl(Math.max(s-20,15)),cl(l+10)),hslToHex((h+60)%360,cl(Math.max(s-35,10)),cl(l+35))]}
 function renderDaily(){
 const c=COLORS[getDailyIdx()];const{r,g,b}=hexToRgb(c.hex);const cm=rgbToCmyk(r,g,b);
 const catMap={red:"红色",orange:"橙色",yellow:"黄色",green:"绿色",blue:"蓝色",purple:"紫色",pink:"粉色",brown:"棕色",white:"白色",gray:"灰色",black:"黑色",special:"特色"};
@@ -1121,6 +1123,13 @@ $('colorSearch').addEventListener('input',renderAllColors);
 let currentPoem=null;
 let currentPoemColors=[];
 let poemSource='random';
+// 搜索关键词：结果卡 / 诗正文 / 全屏里都高亮当前搜索词
+let currentSearchQuery='';
+function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')}
+function highlightKeyword(html,q){
+if(!q||q.length>50||/[<>"\\]/.test(q))return html;
+try{const re=new RegExp(escRe(q),'g');return html.replace(re,function(){return'<span class="kw-hit">'+q+'</span>'})}catch(e){return html}
+}
 function extractColorsFromPoem(text){
 const found=[];const seen=new Set();
 POEM_COLOR_MAP.forEach(entry=>{
@@ -1226,6 +1235,7 @@ await loadPoem();
 async function searchPoem(){
 const q=$('poemSearchInput').value.trim();
 if(!q){showToast('请输入搜索内容');return}
+currentSearchQuery=q;
 $('searchResults').style.display='block';
 $('searchResults').innerHTML='<div class="loading"><div class="spin"></div>搜索「'+q+'」中...</div>';
 const results=await searchPoemAPI(q);
@@ -1235,16 +1245,17 @@ return;
 }
 const html=results.slice(0,10).map((p,i)=>{
 const short=p.content.length>120?p.content.substring(0,120)+'...':p.content;
-return'<div class="search-result-card" onclick="selectSearchResult('+i+')"><div class="sr-title">《'+p.origin+'》<span class="sr-source">'+p.source+'</span></div><div class="sr-author">📝 '+p.author+(p.category?' · '+p.category:'')+'</div><div class="sr-content">'+short.replace(/\n/g,'<br>')+'</div></div>'
+const hl=s=>highlightKeyword(String(s||''),q);
+return'<div class="search-result-card" onclick="selectSearchResult('+i+')"><div class="sr-title">《'+hl(p.origin)+'》<span class="sr-source">'+p.source+'</span></div><div class="sr-author">📝 '+hl(p.author)+(p.category?' · '+p.category:'')+'</div><div class="sr-content">'+hl(short).replace(/\n/g,'<br>')+'</div></div>'
 }).join('');
 $('searchResults').innerHTML='<div class="sec-label">找到 '+results.length+' 条结果 · 点击查看配色</div><div class="search-results">'+html+'</div>';
 window._searchResults=results;
 }
 function selectSearchResult(idx){
 const results=window._searchResults||[];
-if(results[idx]){renderPoem(results[idx]);$('searchResults').style.display='none';}
+if(results[idx]){renderPoem(results[idx],currentSearchQuery);$('searchResults').style.display='none';}
 }
-function renderPoem(poem){
+function renderPoem(poem,hlQuery){
 if(!poem||!poem.content){$('poemResult').innerHTML='<div class="err-msg">获取失败，请重试</div>';return}
 currentPoem=poem;
 const extracted=extractColorsFromPoem(poem.content);
@@ -1259,7 +1270,7 @@ else if(text.match(/红|赤|丹|霞|日|火|阳/))palette=["#ED5126","#FF7431","
 else if(text.match(/蓝|天|海|水|碧|青|空/))palette=["#1677B3","#57C3C2","#D6ECF0","#E0FFF1","#748990"];
 else palette=["#8B2500","#C41A1A","#D4A574","#E0E0D0","#2B2B2B"];
 }
-const highlighted=highlightColorWords(poem.content,extracted);
+const highlighted=highlightKeyword(highlightColorWords(poem.content,extracted),hlQuery);
 const swatches=palette.map(hex=>{const cf=findClosest(hex,COLORS);return'<div class="mini-sw" style="background:'+hex+'" onclick="copyText(\''+hex+'\')" title="'+cf.color.name+' '+hex+'"><span class="tip">'+cf.color.name+'</span></div>'}).join('');
 const palHTML=palette.map(hex=>{const l=isLight(hex);const tc=l?'#333':'#fff';const cf=findClosest(hex,COLORS);return'<div style="background:'+hex+';cursor:pointer" onclick="event.stopPropagation();copyText(\''+hex+'\')"><span class="pinfo" style="color:'+tc+'">'+hex+'<span class="pname">'+cf.color.name+'</span></span></div>'}).join('');
 const colorInfo=extracted.length>0?'从诗中识别到 '+extracted.length+' 个颜色词：'+extracted.map(c=>'<b style="color:var(--primary)">'+c.matchedWord+'</b>').join('、'):'未发现直接颜色词，根据诗意氛围自动生成配色';
@@ -1311,12 +1322,16 @@ loadPoem();
 // ============================================================
 //  配色方案
 // ============================================================
-function genHarmonies(base){const{h,s,l}=rgbToHsl(hexToRgb(base));return[
-{name:"互补色",colors:[base,hslToHex((h+180)%360,s,l)]},
-{name:"邻近色",colors:[hslToHex((h-30+360)%360,s,l),base,hslToHex((h+30)%360,s,l),hslToHex((h+60)%360,s,l)]},
-{name:"三角配色",colors:[base,hslToHex((h+120)%360,s,l),hslToHex((h+240)%360,s,l)]},
-{name:"分裂互补",colors:[base,hslToHex((h+150)%360,s,l),hslToHex((h+210)%360,s,l)]},
-{name:"单色系",colors:[hslToHex(h,s,Math.max(l-30,8)),hslToHex(h,s,Math.max(l-15,15)),base,hslToHex(h,Math.max(s-15,10),Math.min(l+20,90)),hslToHex(h,Math.max(s-30,5),Math.min(l+35,95))]}];}
+function genHarmonies(base){const{h,s,l}=rgbToHsl(hexToRgb(base));const cl=(v)=>Math.max(0,Math.min(100,v));
+// 低饱和/无彩色基准（灰、白、黑、灰蓝等）色相旋转后仍是同一种灰，看不出配色——
+// 把参与"旋转"的颜色饱和度托底到 35%，基准色本身保持原样
+const ss=(v)=>Math.max(v,35);
+return[
+{name:"互补色",colors:[base,hslToHex((h+180)%360,ss(s),cl(l))]},
+{name:"邻近色",colors:[hslToHex((h-30+360)%360,ss(s),cl(l)),base,hslToHex((h+30)%360,ss(s),cl(l)),hslToHex((h+60)%360,ss(s),cl(l))]},
+{name:"三角配色",colors:[base,hslToHex((h+120)%360,ss(s),cl(l)),hslToHex((h+240)%360,ss(s),cl(l))]},
+{name:"分裂互补",colors:[base,hslToHex((h+150)%360,ss(s),cl(l)),hslToHex((h+210)%360,ss(s),cl(l))]},
+{name:"单色系",colors:[hslToHex(h,ss(s),cl(Math.max(l-30,8))),hslToHex(h,ss(s),cl(Math.max(l-15,15))),base,hslToHex(h,ss(s),cl(Math.min(l+20,90))),hslToHex(h,ss(s),cl(Math.min(l+35,95)))]}];}
 function renderPalStrip(p){const strip=p.colors.map(hex=>{const l=isLight(hex);return'<div style="flex:1;background:'+hex+';height:56px;position:relative;cursor:pointer" onclick="copyText(\''+hex+'\')"><span class="hex-label" style="color:'+(l?'#333':'#fff')+'">'+hex+'</span></div>'}).join('');return'<div style="margin-bottom:16px"><div style="font-size:14px;font-weight:600;margin-bottom:6px;font-family:\'Songti SC\',serif">'+p.name+'</div><div class="palette-strip">'+strip+'</div></div>'}
 function generateAllHarmonies(){$('harmonyResults').innerHTML=genHarmonies($('harmonyBase').value).map(renderPalStrip).join('')}
 function randomHarmonyBase(){const c=COLORS[Math.floor(Math.random()*COLORS.length)];$('harmonyBase').value=c.hex;$('harmonyHex').textContent=c.hex+' · '+c.name;generateAllHarmonies()}
@@ -1329,9 +1344,19 @@ let currentMood='happy';
 function moodTint(id){const c=(MOOD_COLORS[id]||[])[0];return c?rgbaWithAlpha(c,0.12):'var(--bg)'}
 function rgbaWithAlpha(hex,a){const{r,g,b}=hexToRgb(hex);return'rgba('+r+','+g+','+b+','+a+')'}
 function renderMoodGrid(){$('moodGrid').innerHTML=MOODS.map(m=>{const tint=moodTint(m.id);const icon=m.icon.replace(/width:36px;height:36px/g,'width:22px;height:22px');return'<div class="mood-btn'+(currentMood===m.id?' active':'')+'" data-id="'+m.id+'" style="--mood-tint:'+tint+'" onclick="selectMood(\''+m.id+'\')"><span class="mood-icon">'+icon+'</span><span class="mood-name">'+m.name+'</span></div>'}).join('')}
-function selectMood(id){currentMood=id;document.body.dataset.mood=id;$('moodGrid').querySelectorAll('.mood-btn').forEach(b=>b.classList.toggle('active',b.dataset.id===id));renderMoodContent(id);showToast('已切换心情：'+MOODS.find(m=>m.id===id).name)}
+function selectMood(id){currentMood=id;document.body.dataset.mood=id;$('moodGrid').querySelectorAll('.mood-btn').forEach(b=>b.classList.toggle('active',b.dataset.id===id));moodShuffleCount=0;renderMoodContent(id);showToast('已切换心情：'+MOODS.find(m=>m.id===id).name)}
 function randomMood(){const ids=MOODS.map(m=>m.id);const id=ids[Math.floor(Math.random()*ids.length)];selectMood(id)}
-function renderMoodContent(id){const mood=MOODS.find(m=>m.id===id),colors=MOOD_COLORS[id],pal=MOOD_PALETTES[id];if(!colors||!mood){$('moodContent').innerHTML='';return}
+// 心情配色随机化：对当前心情的固定推荐配色做色相旋转（保持色调基调，变换明度/饱和度细节），
+// 每次点"换一套"前进一档，8 档回到原样
+let moodShuffleCount=0;
+function shuffleMoodPalette(){moodShuffleCount=(moodShuffleCount+1)%9;renderMoodContent(currentMood);showToast('已换一套推荐配色')}
+function moodShuffledPalette(id){
+const pal=MOOD_PALETTES[id];if(!pal||moodShuffleCount===0)return pal;
+const rot=moodShuffleCount*40;   // 每档旋转 40°，8 档转 320°（不重复）
+const colors=pal.colors.map(hex=>{const{h,s,l}=rgbToHsl(hexToRgb(hex));const cl=v=>Math.max(0,Math.min(100,v));return hslToHex((h+rot)%360,cl(s),cl(l))});
+return{name:pal.name,colors};
+}
+function renderMoodContent(id){const mood=MOODS.find(m=>m.id===id),colors=MOOD_COLORS[id],pal=moodShuffledPalette(id);if(!colors||!mood){$('moodContent').innerHTML='';return}
 const sw=colors.map(hex=>{const cf=findClosest(hex,COLORS);const l=isLight(hex);const tc=l?'#2C2C2C':'#fff';return'<div class="swatch" onclick="copyText(\''+hex+'\',this)"><div class="swatch-color" style="background:'+hex+'"><div class="copy-hint">点击复制</div><div class="swatch-label" style="color:'+tc+'"><div class="sw-name">'+cf.color.name+'</div><div class="sw-hex" style="text-shadow:0 1px 3px rgba(0,0,0,.18)">'+hex+'</div></div></div></div>'}).join('');
 const ps=pal.colors.map(hex=>{const l=isLight(hex);return'<div style="flex:1;background:'+hex+';position:relative;cursor:pointer"><span class="hex-label" style="color:'+(l?'#333':'#fff')+'">'+hex+'</span></div>'}).join('');
 $('moodContent').innerHTML='<div class="card"><div class="card-title" style="font-size:20px;display:flex;align-items:center;justify-content:space-between;gap:12px"><span style="display:flex;align-items:center;gap:10px"><span style="display:inline-flex;width:32px;height:32px;color:var(--primary)">'+mood.icon.replace(/width:36px;height:36px/g,'width:32px;height:32px')+'</span> '+mood.name+' · '+mood.desc+'</span><button class="btn btn-o btn-s" onclick="openMoodFullscreen()"><svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><path d="M8 3H5a2 2 0 00-2 2v3M16 3h3a2 2 0 012 2v3M8 21H5a2 2 0 01-2-2v-3M16 21h3a2 2 0 002-2v-3"/></svg> 全屏沉浸</button></div><div class="swatch-grid cols-5">'+sw+'</div><div class="sec-label">推荐配色："'+pal.name+'"</div><div class="palette-strip" onclick="copyText(\''+pal.colors.join(' ')+'\')">'+ps+'</div></div>'}
@@ -1949,7 +1974,7 @@ const tc=isLight(hex)?'#2C2C2C':'#fff';
 const tcA=isLight(hex)?'rgba(44,44,44,.65)':'rgba(255,255,255,.65)';
 let mainHTML='';
 if(poem){
-  const hi=highlightColorWords(poem.content,extractColorsFromPoem(poem.content));
+  const hi=highlightKeyword(highlightColorWords(poem.content,extractColorsFromPoem(poem.content)),currentSearchQuery);
   mainHTML=
   '<div class="fs-badge" style="color:'+tcA+'">古诗配色 · '+(poem.category||'诗句')+'</div>'
   +'<h1 class="fs-name fs-poem-title" style="color:'+tc+'">《'+(poem.origin||'名句')+'》</h1>'
@@ -2007,7 +2032,7 @@ stage.style.color=tc;
 // 重建主区（带淡入）
 let mainHTML='';
 if(poem){
-  const hi=highlightColorWords(poem.content,extractColorsFromPoem(poem.content));
+  const hi=highlightKeyword(highlightColorWords(poem.content,extractColorsFromPoem(poem.content)),currentSearchQuery);
   mainHTML=
   '<div class="fs-badge" style="color:'+tcA+'">古诗配色 · '+(poem.category||'诗句')+'</div>'
   +'<h1 class="fs-name fs-poem-title" style="color:'+tc+'">《'+(poem.origin||'名句')+'》</h1>'
@@ -2131,6 +2156,7 @@ openFullscreen(pal[0],'',' ',pal,'古诗配色',poem);
 function init(){
 renderDaily();renderFilters();renderAllColors();generateAllHarmonies();renderClassicPalettes();renderMoodGrid();renderMoodContent('happy');updateConvert();renderFavPoems();
 $('harmonyBase').addEventListener('input',function(){const cf=findClosest(this.value,COLORS);$('harmonyHex').textContent=this.value.toUpperCase()+' · '+cf.color.name;generateAllHarmonies()});
+$('poemSearchInput').addEventListener('keydown',function(e){if(e.key==='Enter')searchPoem()});
 renderApkCatBar();buildShareOptions();updateShareCanvas();
 }
 init();
