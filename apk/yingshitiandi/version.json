@@ -1,8 +1,8 @@
 {
-  "code": 7,
-  "name": "1.6",
-  "note": "修复点击搜索结果闪退（播放器组件初始化时机）；界面同步网页版：全局logo页头、搜索页猜你喜欢改为海报网格（豆瓣封面+金色评分）、直播视频圆角卡片化",
-  "apk": "yingshitiandi-v1.6.apk",
-  "size": 7730808,
-  "sha256": "44cdc4b024b771ceed9c9d917ec2000c3391b735fb8bbf092d992448a94131a0"
+  "code": 8,
+  "name": "1.7",
+  "note": "排版继续对齐网页版：热榜/搜索结果卡片加圆角描边容器（网页版 vcard 同款）",
+  "apk": "yingshitiandi-v1.7.apk",
+  "size": 7730676,
+  "sha256": "1db9bcdc7d33312e547ef49bf8221df01aab20f137ca96bf3086925475afb655"
 }
