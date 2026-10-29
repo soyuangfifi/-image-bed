@@ -1,7 +1,7 @@
 {
-  "version": "2.0.2",
-  "apkUrl": "https://github.com/soyuangfifi/-image-bed/releases/download/shise-2.0.2/shise.apk",
+  "version": "2.0.4",
+  "apkUrl": "https://github.com/soyuangfifi/-image-bed/releases/download/shise-2.0.4/shise.apk",
   "apkUrlRaw": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/shise.apk",
-  "sha256": "655df18aa13f9c0a7936ae5e4d7d56a09e0cc012b8a4b6cd2d30d04ee7ce15f3",
-  "publishedAt": "2026-10-29T02:46:52.451Z"
+  "sha256": "4a660aebe4377a2beb8f6e6e04029236438ebc7479e70b71ef9113997993f951",
+  "publishedAt": "2026-10-29T05:06:21.027Z"
 }
