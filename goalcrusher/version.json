@@ -1,6 +1,6 @@
 {
-  "version": "2.07",
-  "notes": "① 收支首页精简——「收支」页只保留「今日交易」卡片（当日合计 + 右上角圆形展开符号）与紧凑「净资产」卡，移除原本占位的本月汇总 / 预算环 / 支出环形图 / 日趋势 / 账户分布；② 新增独立「全部明细」页——点首页右上角展开符号进入，进度独立；该页集合全部统计：月份切换 + 本月汇总（笔数 · 支出 · 收入 · 结余 + 环比）+ 预算环 + 分类环形图与图例 + 日趋势 + 账户分布 + 按日分组的完整历史流水（今天 / 昨天标签、可排序 新↔旧、可筛选、可清空），与首页彻底解耦、互不干扰。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.07.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.07.apk"
+  "version": "2.08",
+  "notes": "① 全屏手势逻辑收敛：全屏数字页原本叠了 click / pointerup / touchend×2 共 4 套轻点判定，一次轻点会既唤出控件又退出全屏；现合并为单一手势处理（轻点数字退出、轻点空白仅唤出 / 隐藏控件、控件区不参与），补去重闸门与 touchcancel 复位。② 修复竖滑 / 斜滑被误判成轻点而退出全屏（任意方向位移都算移动）。③ 左右 32px 边缘让给系统全面屏返回手势；横滑切币种需横向主轴占优且位移 >60px，不再吞掉边缘返回。④ 五页左右滑动加边缘让位（避免指针捕获抢走系统返回）与方向滞回。⑤ 界面样式与数据逻辑零变化。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.08.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.08.apk"
 }
