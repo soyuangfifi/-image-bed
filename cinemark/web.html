@@ -2996,6 +2996,15 @@ function _cmReportFull() {
     var full = !!(p && p.classList.contains('full'));
     var v = !!document.querySelector('#playerArea video');
     if (window.AndroidCM && typeof AndroidCM.reportFull === 'function') AndroidCM.reportFull(full, v);
+    /* v1.31：同步上报全屏头部(.ph)/底部自绘控制条(.cmc)高度（物理 px）。
+       原生据此划定三区手势禁区（头部保按钮交互、底部保进度条拖动，不被原生手势劫持）。
+       这里实时测 DOM：iframe 源没有 .cmc → 上报 0，原生收到后清除底部禁区。 */
+    if (window.AndroidCM && typeof AndroidCM.reportSafe === 'function') {
+      var dpr = window.devicePixelRatio || 1;
+      var ph = document.querySelector('#player .ph');
+      var cmc = document.querySelector('#playerArea .cmcwrap .cmc');
+      AndroidCM.reportSafe(ph ? ph.offsetHeight * dpr : 0, cmc ? cmc.offsetHeight * dpr : 0);
+    }
   } catch (e) {}
 }
 try { _cmReportFull(); } catch (e) {}
@@ -3054,6 +3063,10 @@ window.__cmBack = function() {
   }
   area.addEventListener('touchstart', function(e) {
     if (!inFull()) { armed = false; return; }
+    /* v1.31：底部自绘控制条(.cmc)/中央播放键(.cmcenter)上的触摸不做三区手势——
+       .cmcwrap 铺满整个播放区（inset:0），进度条/按钮的触摸也会冒泡到这里；
+       旧版拖进度条会被当成快进快退手势 preventDefault，滑块拖不动还抢着改 currentTime。 */
+    if (e.target.closest && e.target.closest('.cmc,.cmcenter')) { armed = false; return; }
     var t = e.touches[0];
     // 屏幕左右边缘 32px 内的触摸让给系统返回手势：三区手势在这块 preventDefault
     // 会吞掉 MIUI/HyperOS 的边缘内滑返回，表现为「播放页/选集列表手势返回失效」
@@ -3067,6 +3080,7 @@ window.__cmBack = function() {
   }, { passive: true });
   area.addEventListener('touchmove', function(e) {
     if (!inFull() || !armed) return;
+    if (e.target.closest && e.target.closest('.cmc,.cmcenter')) return; /* v1.31 同 touchstart：控制条触摸不做手势 */
     var v = curPlayerVideo();
     var t = e.touches[0];
     var dx = t.clientX - sx, dy = t.clientY - sy;
@@ -3092,9 +3106,12 @@ mode = Math.abs(dx) > Math.abs(dy) ? "seek" : (sx < (area.clientWidth / 2) ? "vo
       e.preventDefault();
       var dsec = Math.round(dx / w * 120);
       var dur = v.duration || 0;
-      var tgt = Math.min(dur > 2 ? dur - 1 : dur, Math.max(0, seekFrom + dsec));
+      /* v1.31：时长未就绪时只提示不 seek——旧版 dur=0 时 tgt=Math.min(0,...) 恒为 0，
+         松手会把 currentTime 砸成 0（视频回到开头） */
+      if (!(dur > 2)) { showTip('视频时长加载中…'); return; }
+      var tgt = Math.min(dur - 1, Math.max(0, seekFrom + dsec));
       seekTo = tgt;
-      showTip((dsec >= 0 ? '快进 ' : '快退 ') + Math.abs(dsec) + ' 秒');
+      showTip((dsec >= 0 ? '快进 ' : '快退 ') + Math.abs(dsec) + ' 秒  →  ' + fmtCmTime(tgt));
     }
   }, { passive: false });
   area.addEventListener('touchend', function() {
@@ -3236,6 +3253,8 @@ function cmPinStage() {
   var st = document.getElementById('playerArea');
   if (!p || !st) return;
   if (!p.classList.contains('full')) { st.style.width = ''; st.style.height = ''; return; }
+  /* v1.31：旋转落位后重测并上报手势禁区（头部/底部控制条高度），原生划区按横屏实际值算 */
+  try { if (typeof _cmReportFull === 'function') _cmReportFull(); } catch (e) {}
   var vv = window.visualViewport;
   var w = (vv && vv.width) || document.documentElement.clientWidth || window.innerWidth || 0;
   var h = (vv && vv.height) || document.documentElement.clientHeight || window.innerHeight || 0;
@@ -3326,6 +3345,9 @@ window.__cmWebFs = function(on) { if (on) cmEnterFull(); else cmExitFull(); };
     // 表现为「全屏时这些按钮点不动，退出全屏才能用」。
     if (e.target.closest && e.target.closest('.ph,.cmc')) return;
     if (!player.classList.contains('full') || e.touches.length !== 1) return;
+    /* v1.31：纯浏览器里 #playerArea 手势（上方 IIFE）已实现音量/亮度/快进退，
+       这里再跑一遍会双重处理、双重提示。本 IIFE 只保留作 APP 内兜底（AndroidCM 存在）。 */
+    if (!hasBr()) return;
     var t = e.touches[0];
     gx = t.clientX; gy = t.clientY; gMoved = false; gMode = '';
     if (hasBr()) {
@@ -3414,7 +3436,9 @@ window.__cmWebFs = function(on) { if (on) cmEnterFull(); else cmExitFull(); };
   };
   player.addEventListener('touchend', function(e) {
     if (!player.classList.contains('full')) return;
-    if (e.target.closest && e.target.closest('.ph,.cmc')) return; /* 点头部/控制条本身不切换 */
+    /* v1.31：.cmcenter（中央大播放键）一并排除——点它时 click 已切播放/暂停，
+       旧版还会同时触发显隐切换（控制条点一下就消失，像是没反应） */
+    if (e.target.closest && e.target.closest('.ph,.cmc,.cmcenter')) return; /* 点头部/控制条/中央键本身不切换 */
     if (gMoved) return; /* 手势滑动结束不切换 */
     ctlToggle();
   });

@@ -1,7 +1,7 @@
 {
-  "versionCode": 31,
-  "versionName": "1.30",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.30.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.30.apk",
-  "notes": "1. 修复 APP 播放 m3u8 报「视频加载超时」(v1.30)：根因是所有 m3u8 都被改写到电脑本地代理 127.0.0.1:8788，手机上没有这个服务 → 永远拿不到播放清单。现在 APP 内直连播放（WebView 已放行跨域），网页版仍走本地代理。\n2. HLS 网络错误不再无限重试：连续 3 次失败直接提示「视频加载失败」，更快给出换源指引。\n3. 看门狗补 DOM 检查：已被 iframe 兜底替换时不再把兜底界面误砸成「加载超时」。"
+  "versionCode": 32,
+  "versionName": "1.31",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.31.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.31.apk",
+  "notes": "1. 修复全屏拖进度条被手势劫持(v1.31)：全屏时拖自绘控制条的进度条/点按钮不再被当成快进快退手势，滑块拖得动了。\n2. 修复快速滑动快进快退偶尔不生效：松手时按相对秒数在页面内原子执行，不再依赖按下时的异步回读；快进/快退现在会按视频总时长封顶，不会冲过头卡在片尾。\n3. 竖屏播放页手势修复：拖进度条不再误触音量/进度手势；视频时长未加载完时滑动快进不再把画面砸回开头。\n4. 全屏轻点修复：点中央大播放键不再顺手把控制条藏起来；浏览器版全屏手势去重，不再双重提示。\n5. 手势禁区上报更准：进全屏/旋转落位后页面实时上报头部与底部控制条高度，音量/亮度/快进退手势与按钮互不干扰。"
 }
