@@ -1,7 +1,7 @@
 {
-  "versionCode": 32,
-  "versionName": "1.31",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.31.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.31.apk",
-  "notes": "1. 修复全屏拖进度条被手势劫持(v1.31)：全屏时拖自绘控制条的进度条/点按钮不再被当成快进快退手势，滑块拖得动了。\n2. 修复快速滑动快进快退偶尔不生效：松手时按相对秒数在页面内原子执行，不再依赖按下时的异步回读；快进/快退现在会按视频总时长封顶，不会冲过头卡在片尾。\n3. 竖屏播放页手势修复：拖进度条不再误触音量/进度手势；视频时长未加载完时滑动快进不再把画面砸回开头。\n4. 全屏轻点修复：点中央大播放键不再顺手把控制条藏起来；浏览器版全屏手势去重，不再双重提示。\n5. 手势禁区上报更准：进全屏/旋转落位后页面实时上报头部与底部控制条高度，音量/亮度/快进退手势与按钮互不干扰。"
+  "versionCode": 34,
+  "versionName": "1.33",
+  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.33.apk",
+  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.33.apk",
+  "notes": "1. 新增 首页左右滑切页：热榜⇄搜索 横滑直接切，入场带回弹动效，滑到边上有橡皮筋回弹。\n2. 封面/剧照/海报加载提速(v1.33)：豆瓣封面改为原生直取（原来要白等约12秒候选超时才轮到能用的下载通道）；TMDB 剧照在代理超时后自动换原生通道拉取。\n3. 关于页修复：二维码和署名 logo 改用打包内置图片（原图 CDN 301 到被墙地址导致显示不出来）；版本号改为动态读取真实版本（原来写死 V1.30.0）。\n4. 全屏播放 iframe 网页源时：点底部片源自带控制条不再误关顶部工具条，两套面板显隐更同步。\n5. 源选择条切回热榜后不再残留显示。"
 }

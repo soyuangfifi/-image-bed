@@ -432,6 +432,14 @@ header{padding:max(32px,var(--head-top,32px)) 0 0}
 .mbg{height:140px}
 .bm{letter-spacing:.32em}
 }
+/* ===== v1.32 热榜⇋搜索左右滑切页（带回弹动效） ===== */
+@keyframes pgInL{0%{transform:translateX(46%);opacity:.3}55%{transform:translateX(-5.5%);opacity:1}78%{transform:translateX(2.2%)}100%{transform:translateX(0);opacity:1}}
+@keyframes pgInR{0%{transform:translateX(-46%);opacity:.3}55%{transform:translateX(5.5%);opacity:1}78%{transform:translateX(-2.2%)}100%{transform:translateX(0);opacity:1}}
+.pg-in-l{animation:pgInL .46s cubic-bezier(.3,.75,.35,1.05) both}
+.pg-in-r{animation:pgInR .46s cubic-bezier(.3,.75,.35,1.05) both}
+.pg-out-l{transform:translateX(-32%) !important;opacity:.2;transition:transform .17s ease-in,opacity .17s ease-in !important}
+.pg-out-r{transform:translateX(32%) !important;opacity:.2;transition:transform .17s ease-in,opacity .17s ease-in !important}
+#pgRoot{will-change:transform}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--t3);border-radius:2px}
 
 /* ===== 开屏动画 ===== */
@@ -553,7 +561,7 @@ header{padding:max(32px,var(--head-top,32px)) 0 0}
       </div>
       <div class="ab-divider" data-page-node-id="8M5cI5asDniYpNFKDcD9K0"></div>
       <div class="ab-title" data-page-node-id="kgTy5Fty0cgy8SwTFW76Jp">影视热榜</div>
-      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.30.0</div>
+      <div class="ab-version" data-page-node-id="1bUDd868258ZOASFeqiTk0">V1.33.0</div>
       <div class="ab-tagline" data-page-node-id="GAd20pcE0BPrierIJh0v25">多源聚合 · 豆瓣高分 · 搜索即看</div>
       <a class="abtn ab-dl" id="abDownload" href="https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-release.apk" target="_blank" rel="noopener" download style="text-decoration:none;margin-top:16px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/></svg>下载安卓 APP</a>
     </div>
@@ -927,6 +935,8 @@ function switchMode(m) {
   document.getElementById('tabSearch').className = 'mbtn' + (m === 'search' ? ' mbon' : '');
   document.getElementById('hotArea').style.display = m === 'hot' ? 'block' : 'none';
   document.getElementById('searchArea').style.display = m === 'search' ? 'block' : 'none';
+  /* v1.32：源选择条只在搜索页显示（旧版切回热榜后它一直挂着不收走） */
+  document.getElementById('srcBar').style.display = m === 'search' ? 'flex' : 'none';
   buildSrc();
   if (m === 'hot') {
     buildCat();
@@ -939,6 +949,92 @@ function switchMode(m) {
   }
   console.log('[CM] Mode:', m);
 }
+
+/* ===== v1.32 热榜⇋搜索左右滑切页（带回弹动效） =====
+   横向主导滑动（|dx|>26px 且 |dx|>|dy|*1.4）：
+   - 有目标页（热榜→左滑→搜索 / 搜索→右滑→热榜）：跟手轻微拖拽（1/8 阻尼），松手过 72px 播推入动画（入场带过冲回弹）；
+   - 已在页边界仍朝外滑：橡皮筋跟手（1/6 阻尼），松手回弹。
+   排除：标签条/分类条/源条/热词条（横向滚动条）、输入控件、播放器/弹窗打开时、屏幕左右边缘 32px（留给系统返回手势）。 */
+(function(){
+  var SEL = ['srcBar', 'hotArea', 'searchArea', 'content'];
+  function els() { return SEL.map(function(id) { return document.getElementById(id); }).filter(Boolean); }
+  function pageOpen() {
+    var ids = ['player', 'modal', 'aboutModal', 'qrLightbox', 'shareCardLb', 'cmLb'];
+    for (var i = 0; i < ids.length; i++) {
+      var el = document.getElementById(ids[i]);
+      if (el && (el.classList.contains('open') || el.classList.contains('on'))) return true;
+    }
+    return false;
+  }
+  function excluded(t) {
+    if (!t || !t.closest) return false;
+    return !!t.closest('.mt,.cb,.sb,.kw,.sbox,button,input,select,textarea,a,iframe,.cmcwrap,.pmsg,.pvload,.cm-dlfab');
+  }
+  var sx = 0, sy = 0, mode = 0 /*0 无 1 待判定 2 可切页 3 边界橡皮筋*/, swiping = false, busy = false;
+  function reset() { swiping = false; mode = 0; }
+  function follow(dx) {
+    var tx = dx / (mode === 3 ? 6 : 8);
+    els().forEach(function(el) { el.style.transition = 'none'; el.style.transform = 'translateX(' + tx + 'px)'; });
+  }
+  function rubberBack() {
+    els().forEach(function(el) {
+      el.style.transition = 'transform .4s cubic-bezier(.22,1.55,.36,1)';
+      el.style.transform = 'translateX(0px)';
+    });
+    setTimeout(function() { els().forEach(function(el) { el.style.transition = ''; el.style.transform = ''; }); }, 430);
+  }
+  function switchAnimated(target) {
+    busy = true;
+    var toLeft = target === 'search';            // 热榜→搜索：旧页向左推出、新页从右进入
+    els().forEach(function(el) { el.style.transition = ''; el.style.transform = ''; el.classList.add(toLeft ? 'pg-out-l' : 'pg-out-r'); });
+    setTimeout(function() {
+      switchMode(target);
+      els().forEach(function(el) {
+        el.classList.remove('pg-out-l', 'pg-out-r');
+        el.classList.add(toLeft ? 'pg-in-l' : 'pg-in-r');
+      });
+      setTimeout(function() {
+        els().forEach(function(el) { el.classList.remove('pg-in-l', 'pg-in-r'); });
+        busy = false;
+      }, 500);
+    }, 180);
+  }
+  document.addEventListener('touchstart', function(e) {
+    if (busy || e.touches.length !== 1 || pageOpen() || excluded(e.target)) { reset(); return; }
+    var t = e.touches[0];
+    var W = window.innerWidth || document.documentElement.clientWidth || 0;
+    if (W && (t.clientX < 32 || t.clientX > W - 32)) { reset(); return; }
+    sx = t.clientX; sy = t.clientY; mode = 1; swiping = true;
+  }, { passive: true });
+  document.addEventListener('touchmove', function(e) {
+    if (!swiping || mode === 0) return;
+    var t = e.touches[0];
+    var dx = t.clientX - sx, dy = t.clientY - sy;
+    if (mode === 1) {
+      if (Math.abs(dx) > 26 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+        var canSwitch = (G.mode === 'hot' && dx < 0) || (G.mode === 'search' && dx > 0);
+        mode = canSwitch ? 2 : 3;
+      } else return;
+    }
+    follow(dx);
+    try { e.preventDefault(); } catch (err) {}
+  }, { passive: false });
+  document.addEventListener('touchend', function(e) {
+    if (!swiping) { reset(); return; }
+    var t = e.changedTouches && e.changedTouches[0];
+    var dx = t ? t.clientX - sx : 0;
+    if (mode === 2) {
+      try { e.preventDefault(); } catch (err) {}   // 吃掉随后的合成 click，防止滑完顺手点开卡片
+      if (Math.abs(dx) > 72) { switchAnimated(G.mode === 'hot' ? 'search' : 'hot'); reset(); return; }
+      rubberBack();
+    } else if (mode === 3) {
+      try { e.preventDefault(); } catch (err) {}
+      rubberBack();
+    }
+    reset();
+  }, { passive: false });
+  document.addEventListener('touchcancel', reset);
+})();
 
 /* ===== 渲染 CMS 卡片（瀑布流 + 无限滚动） ===== */
 function cmsCardHTML(d, absIdx) {
@@ -1130,6 +1226,24 @@ function tryLoadImg(img) {
   var idx = 0;
   var timers = [];
   var done = false;
+  var inApp = !!window.AndroidCM;
+
+  /* v1.33 APP 内豆瓣封面原生直取：豆瓣图床对无 Referer 一律 418，公共代理全拿不下，
+     旧链要白耗 ~12 秒候选才轮到原生桥（唯一带 Referer 的通路）→ 封面看起来"永远加载不出"。
+     原生 HttpURLConnection 国内直连豆瓣稳定，直接第一优先，秒开。 */
+  if (inApp && /img\d?\.doubanio\.com/i.test(orig)) {
+    if (cmNativeImg(img, orig, function () { replaceWithPlaceholder(img); })) return;
+  }
+
+  function finalFallback() {
+    /* v1.33 TMDB（剧照/海报）直连被墙：代理候选全部超时后，用原生桥去拉公共代理——
+       <img> 3 秒超时可能错杀慢代理，原生 12 秒读超时更宽容；原生直连 TMDB 本身也到不了，放最后。 */
+    if (inApp && /image\.tmdb\.org/i.test(orig)) {
+      var viaProxy = 'https://images.weserv.nl/?url=' + encodeURIComponent(orig.replace(/^https?:\/\//, ''));
+      if (cmNativeImg(img, viaProxy, function () { replaceWithPlaceholder(img); })) return;
+    }
+    if (!cmNativeImg(img, orig, function () { replaceWithPlaceholder(img); })) replaceWithPlaceholder(img);
+  }
 
   function loadNext() {
     if (done || idx >= urls.length) return;
@@ -1142,7 +1256,7 @@ function tryLoadImg(img) {
       timedOut = true;
       if (done) return;
       if (idx < urls.length) loadNext();
-      else { done = true; if (!cmNativeImg(img, orig, function () { replaceWithPlaceholder(img); })) replaceWithPlaceholder(img); }
+      else { done = true; finalFallback(); }
     }, 3000);
     timers.push(t1);
 
@@ -1158,7 +1272,7 @@ function tryLoadImg(img) {
       if (timedOut) return;
       clearTimeout(t1);
       if (idx < urls.length) loadNext();
-      else { done = true; if (!cmNativeImg(img, orig, function () { replaceWithPlaceholder(img); })) replaceWithPlaceholder(img); }
+      else { done = true; finalFallback(); }
     };
   }
 
@@ -1177,7 +1291,8 @@ function tryLoadImg(img) {
   }
 
   // 0) 本地 8788 代理（最高优先级，带 Referer 能绕过豆瓣防盗链 418；jsDelivr 直连优先故跳过）
-  if (/^https?:\/\//i.test(orig) && !/jsdelivr\.net/i.test(orig)) urls.push(LOCAL_PROXY + encodeURIComponent(orig));
+  //    v1.33：仅网页版尝试——APP 里 127.0.0.1 是手机自己，没有 8788 服务，必超时白等 3 秒
+  if (!inApp && /^https?:\/\//i.test(orig) && !/jsdelivr\.net/i.test(orig)) urls.push(LOCAL_PROXY + encodeURIComponent(orig));
 
   // 0.5) jsDelivr 直连插到候选链最前：公共图片代理(wsrv/weserv/corsproxy)对 jsDelivr 图返回 403，
   //       jsDelivr 本身是 CDN 不需要绕 Referer，直接 unshift 原 URL 让它第一个被尝试
@@ -3439,6 +3554,10 @@ window.__cmWebFs = function(on) { if (on) cmEnterFull(); else cmExitFull(); };
     /* v1.31：.cmcenter（中央大播放键）一并排除——点它时 click 已切播放/暂停，
        旧版还会同时触发显隐切换（控制条点一下就消失，像是没反应） */
     if (e.target.closest && e.target.closest('.ph,.cmc,.cmcenter')) return; /* 点头部/控制条/中央键本身不切换 */
+    /* v1.32：iframe 源底部 22% 是片源播放器自己的控制条——点它时片源条保持常显，
+       这里若再切 CINEMARK 头部就是「下面还在、上面没了」的不同步 */
+    if (!vid() && e.changedTouches && e.changedTouches[0] && window.innerHeight &&
+        e.changedTouches[0].clientY > window.innerHeight * 0.78) return;
     if (gMoved) return; /* 手势滑动结束不切换 */
     ctlToggle();
   });
@@ -3504,6 +3623,17 @@ var CM_WEB_URL = 'https://cinemark.app.workbuddy.host/'; // jsDelivr 对 .html 3
 if (window.AndroidCM) {
   var _f = document.getElementById('cmDlFab'); if (_f) _f.classList.add('cm-hide');
   var _q = document.getElementById('cmDlQrCard'); if (_q) _q.classList.add('cm-hide');
+  /* v1.32：关于页二维码/署名 logo 改用打包进 APK 的本地图——
+     原图走 jsDelivr 会 301 到 raw.githubusercontent.com（国内被墙），APP 里永远加载失败只剩占位框。
+     同时修版本号：V1.30.0 是写死的，改从原生桥读真实版本。 */
+  var _abq = document.getElementById('abQrImg');
+  if (_abq) { _abq.onerror = null; _abq.removeAttribute('crossorigin'); _abq.src = 'aboutqrcode.jpg'; delete _abq.__tli; _abq.classList.add('loaded'); }
+  var _apl = document.getElementById('abPowerLogo');
+  if (_apl) { _apl.onerror = null; _apl.removeAttribute('crossorigin'); _apl.src = 'powerlogo.png'; delete _apl.__tli; _apl.classList.add('loaded'); }
+  var _abv = document.querySelector('.ab-version');
+  if (_abv && typeof AndroidCM.appVersionName === 'function') {
+    try { _abv.textContent = 'V' + AndroidCM.appVersionName() + '.0'; } catch (e) {}
+  }
   var _da = document.getElementById('abDownload');
   if (_da) {
     _da.removeAttribute('download');
@@ -3526,7 +3656,8 @@ console.log('[CM] Init complete');
 }
 
 /* ===== 了解更多 · 公众号二维码 ===== */
-var __CM_QR_URL = 'https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/img/qrcode_for_gh_98b382163428_344.jpg';
+/* v1.32：APP 内用打包进 APK 的本地图（jsDelivr 此图 301 到 raw.githubusercontent.com，国内被墙加载失败） */
+var __CM_QR_URL = (window.AndroidCM ? 'aboutqrcode.jpg' : 'https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/img/qrcode_for_gh_98b382163428_344.jpg');
 function ensureQrLightbox(){
   if (document.getElementById('qrLightbox')) return document.getElementById('qrLightbox');
   var box = document.createElement('div');
