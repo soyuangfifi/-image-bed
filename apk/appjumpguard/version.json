@@ -1,7 +1,7 @@
 {
-  "versionCode": 2,
-  "versionName": "1.1",
+  "versionCode": 3,
+  "versionName": "1.2",
   "downloadUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/apk/appjumpguard/superblock.apk",
   "downloadUrlMirror": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/apk/appjumpguard/superblock.apk",
-  "releases": "1.1 修复检查更新无网络权限导致失败的 bug；更新检查改多镜像容错，失败时提示具体原因"
+  "releases": "1.2 全面屏手势适配：系统栏与内容同色、内容延伸到手势条后面、键盘弹出自动避让；修复白名单页可能闪退；修复正常安装 APK 被误拦自动取消；拦截服务扫描节流更流畅省电；删除安装包后列表不再残留已删文件"
 }
