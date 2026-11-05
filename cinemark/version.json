@@ -1,7 +1,7 @@
 {
   "versionCode": 34,
   "versionName": "1.33",
-  "apkUrl": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.33.apk",
-  "apkUrlAlt": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.33.apk",
+  "apkUrl": "https://raw.githubusercontent.com/soyuangfifi/-image-bed/main/cinemark/CineMark-1.33.apk",
+  "apkUrlAlt": "https://cdn.jsdelivr.net/gh/soyuangfifi/-image-bed@main/cinemark/CineMark-1.33.apk",
   "notes": "1. 新增 首页左右滑切页：热榜⇄搜索 横滑直接切，入场带回弹动效，滑到边上有橡皮筋回弹。\n2. 封面/剧照/海报加载提速(v1.33)：豆瓣封面改为原生直取（原来要白等约12秒候选超时才轮到能用的下载通道）；TMDB 剧照在代理超时后自动换原生通道拉取。\n3. 关于页修复：二维码和署名 logo 改用打包内置图片（原图 CDN 301 到被墙地址导致显示不出来）；版本号改为动态读取真实版本（原来写死 V1.30.0）。\n4. 全屏播放 iframe 网页源时：点底部片源自带控制条不再误关顶部工具条，两套面板显隐更同步。\n5. 源选择条切回热榜后不再残留显示。"
 }
