@@ -1,8 +1,8 @@
 {
-  "code": 362,
-  "name": "3.4.22",
-  "note": "测延迟提速大修:修复 TCP 连接无超时(死节点单次可挂 20-120 秒,全量测延迟拖 5-8 分钟)→ 强制 2 秒超时;测延迟并发 64→128;测延迟期间列表不再白屏(显示全部节点、数字清空);进度更新更频繁。全量测延迟从 5-8 分钟缩到约 1 分钟。",
-  "apk": "SuperVPN_3.4.22.apk",
-  "size": 20643068,
-  "sha256": "18f2bc6d10e9c046727b2dd4ca61ed84f968a15b248f3459685d62b5f6842fcb"
+  "code": 363,
+  "name": "3.4.23",
+  "note": "修两个关键 bug:①妙速(VLESS-REALITY)节点连不上——根因是配置层缺 REALITY 支持(DTO 无 realitySettings 字段、导入解析不认 security=reality 导致 pbk/sid 丢失),内核本身支持,已补全 REALITY 字段与解析;②刷新完 App 闪退——根因是 speedFailed 普通集合被 128 线程并发读写触发 ConcurrentModificationException,已改并发安全集合。",
+  "apk": "SuperVPN_3.4.23.apk",
+  "size": 20647164,
+  "sha256": "0a5f7583bce9d0e82a4ba9972b92b2d77df30881d827853d85d16b6a518a0d45"
 }
