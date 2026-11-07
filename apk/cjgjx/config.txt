@@ -1,1 +1,0 @@
-{"最新版本序号": 103, "更新内容": "超级工具箱 无广告重装版：开屏/设置页署名区、移除会员横幅、OTA 更新通道", "更新地址": "https://cdn.jsdelivr.net/gh/soyuangfifi/image-bed@main/apk/cjgjx/cjgjx-full11.apk", "在线更新地址": "https://cdn.jsdelivr.net/gh/soyuangfifi/image-bed@main/apk/cjgjx/cjgjx-full11.apk", "更新应用_间隔提示": ""}
