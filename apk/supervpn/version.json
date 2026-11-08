@@ -1,8 +1,8 @@
 {
-  "code": 366,
-  "name": "3.4.26",
-  "note": "更换 Xray 内核(升级到 1.8.x):彻底修复「启动服务失败」——旧内核(1.7.x 早期版)不支持 REALITY 和 xtls-rprx-vision flow,妙速 VIP 节点/所有 REALITY 节点都无法启动。配合前两版的 REALITY 配置层支持,刷新节点后 REALITY 节点现在可正常连接。",
-  "apk": "SuperVPN_3.4.26.apk",
-  "size": 18611452,
-  "sha256": "a243299a2ac6c9199460538569fd9468e2aefc4346dccf94ec17e89d5cfa4221"
+  "code": 367,
+  "name": "3.4.27",
+  "note": "修 3.4.26 的点击闪退:换内核须成对替换(老 Java 桥接桩+新内核不匹配导致 SIGABRT),已改用 AndroidLibXrayLite 1.8.24 官方整包 aar(桥接桩+内核配套,全 ABI),并适配新内核 API(initV2Env 两参/runLoop 带参/protect 返回 Boolean/移除已废弃属性)。REALITY/妙速 VIP 节点支持不变。",
+  "apk": "SuperVPN_3.4.27.apk",
+  "size": 20913404,
+  "sha256": "2e6350472b3e52b8f15a783c40f803620b8c04cb95cf837fc4a4012121eacd9d"
 }
