@@ -1,8 +1,8 @@
 {
-  "code": 365,
-  "name": "3.4.25",
-  "note": "修「启动服务失败」:①NoMoreWalls 等源的 REALITY 节点传输层全是新版 type=raw,老内核(Xray 1.8)不识别导致一键测速/手动连接全部启动失败,已映射回 tcp;②配合 3.4.24 的 REALITY 支持,建议刷新一次节点让所有 REALITY 配置按新解析器重建后即可连接。",
-  "apk": "SuperVPN_3.4.25.apk",
-  "size": 20647164,
-  "sha256": "1a8f11e772f7ba7acab74ea93ffe2c5b37caa58e501000696623a62537c69267"
+  "code": 366,
+  "name": "3.4.26",
+  "note": "更换 Xray 内核(升级到 1.8.x):彻底修复「启动服务失败」——旧内核(1.7.x 早期版)不支持 REALITY 和 xtls-rprx-vision flow,妙速 VIP 节点/所有 REALITY 节点都无法启动。配合前两版的 REALITY 配置层支持,刷新节点后 REALITY 节点现在可正常连接。",
+  "apk": "SuperVPN_3.4.26.apk",
+  "size": 18611452,
+  "sha256": "a243299a2ac6c9199460538569fd9468e2aefc4346dccf94ec17e89d5cfa4221"
 }
