@@ -1,8 +1,8 @@
 {
-  "code": 369,
-  "name": "3.4.29",
-  "note": "REALITY 节点真正打通(真机验证 tun0 建立+流量走代理):①内核升级到 Xray 1.8.24 整套官方 aar;②新增 geoip/geosite 资产与 initV2Env 内核环境初始化;③隧道架构对齐 1.8.24:Kotlin 自建 tun 路由+独立 tun2socks 进程+fd 经 filesDir/sock_path 传递(旧路径导致内核 SIGABRT);④保留 FGS 5 秒修复。妙速 VIP/所有 REALITY 节点现可正常连接。",
-  "apk": "SuperVPN_3.4.29.apk",
+  "code": 370,
+  "name": "3.4.30",
+  "note": "修「一键测速排序并删除不可用」点就崩:深度清理从后台线程启动测延迟时 LiveData 在非主线程写入直接闪退(日志实线两次),已改线程安全写入。深度清理现在可完整跑完:真下载测速筛出当前真正活着的节点并自动连接。",
+  "apk": "SuperVPN_3.4.30.apk",
   "size": 19184892,
-  "sha256": "73240f37b1454471fd767178668b4c18f06e1e0959423a63eab5526f4f8dbd8c"
+  "sha256": "90d6f74d6a1c616af877549a0c7924f530b05020b95b6cd61685fab004359afd"
 }
