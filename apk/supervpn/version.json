@@ -1,8 +1,8 @@
 {
-  "code": 363,
-  "name": "3.4.23",
-  "note": "修两个关键 bug:①妙速(VLESS-REALITY)节点连不上——根因是配置层缺 REALITY 支持(DTO 无 realitySettings 字段、导入解析不认 security=reality 导致 pbk/sid 丢失),内核本身支持,已补全 REALITY 字段与解析;②刷新完 App 闪退——根因是 speedFailed 普通集合被 128 线程并发读写触发 ConcurrentModificationException,已改并发安全集合。",
-  "apk": "SuperVPN_3.4.23.apk",
+  "code": 364,
+  "name": "3.4.24",
+  "note": "刷新体验根治(真机复现+抓崩溃日志定位):①刷新完 App 闪退真凶=stopVService 里的 toast 在测速池后台线程调用(无 Looper)抛 NPE,一键测速 24 个候选全被它拖成假失败、最后一步崩溃退出——toast 扩展改为线程安全(后台线程自动投递主线程),全 App 调用点一次免疫;②测延迟期间列表白屏根因=缓存预载完成回调按 delay>0 重过滤(延迟刚清零全零→筛空),已加测试态守卫,测延迟全程列表可见;③新增确定性进度条(拉取节点源=流动条,测延迟=x/2724 百分比)+阶段状态文本;④2724 次 MMKV 延迟写入从主线程搬到 IO,动画更流畅。",
+  "apk": "SuperVPN_3.4.24.apk",
   "size": 20647164,
-  "sha256": "0a5f7583bce9d0e82a4ba9972b92b2d77df30881d827853d85d16b6a518a0d45"
+  "sha256": "25552e45af4d642b9f7add4ee370135b8672e6c0c779b7a5de6d9516d874ec80"
 }
