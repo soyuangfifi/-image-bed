@@ -1,6 +1,6 @@
 {
-  "version": "2.09",
-  "notes": "① 灵动岛双胶囊根治（进程级窗口登记表 + CLEAR_TOP）；② 新增 IslandActor 动效编排器：Choreographer 单一渲染帧 + 弹簧 + 三拍曲线 + 三层骨骼延迟；③ 39 组动效（8 拟人化 / 14 事件驱动 / 8 睡眠 / 9 方向注视）带优先级与冷却调度；④ 打卡、下班、金额破整数、连点、滚动、切窗事件驱动；⑤ 数字滚动低通节流修顿挫；⑥ 眼睛仍是两个纯白圆点，v1.95 胶囊几何不变；⑦ 恢复无障碍事件订阅与启动图标资源。",
-  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.09.apk",
-  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.09.apk"
+  "version": "2.10",
+  "notes": "① 修复灵动岛宠物眼睛被父容器裁成平顶 / 缺角（整条层级关闭 clipChildren）；② 动效编排器只写位移，形状交还原有眨眼 / 眯眼 / 睡眠细缝逻辑，两眼不再不同步；③ 胶囊不旋转，v1.95 几何不变，眼睛保持两个纯白圆点；④ 保留 v2.09 全部能力。",
+  "apkUrl": "https://gcore.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.10.apk",
+  "apkUrlAlt": "https://testingcf.jsdelivr.net/gh/soyuangfifi/-image-bed@main/goalcrusher/GoalCrusher-2.10.apk"
 }
